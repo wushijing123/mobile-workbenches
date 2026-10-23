@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>移动端工作台合集 · 快捷导航</title>
+  <style>
+    :root {
+      --bg: #0F172A;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #F8FAFC;
+      --text-sub: #94A3B8;
+      --accent: #6366F1;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: max(20px, env(safe-area-inset-top)) 16px max(30px, env(safe-area-inset-bottom)) 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      width: 100%;
+      max-width: 440px;
+      margin-top: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #818CF8;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #FFF 0%, #CBD5E1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .desc {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+    .grid {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      text-decoration: none;
+      color: inherit;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      touch-action: manipulation;
+    }
+    .card:active {
+      transform: scale(0.97);
+      background: rgba(51, 65, 85, 0.6);
+    }
+    .icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .info {
+      flex: 1;
+      min-width: 0;
+    }
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFF;
+    }
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+    .subtitle {
+      font-size: 12px;
+      color: var(--text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .arrow {
+      color: #64748B;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    /* 各卡片主题色 */
+    .card-pet .icon-box { background: linear-gradient(135deg, #10B981 0%, #047857 100%); }
+    .card-pet .tag { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+
+    .card-fit .icon-box { background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); }
+    .card-fit .tag { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+
+    .card-beauty .icon-box { background: linear-gradient(135deg, #EC4899 0%, #BE185D 100%); }
+    .card-beauty .tag { background: rgba(236, 72, 153, 0.15); color: #F472B6; }
+
+    .card-media .icon-box { background: linear-gradient(135deg, #6366F1 0%, #4338CA 100%); }
+    .card-media .tag { background: rgba(99, 102, 241, 0.15); color: #818CF8; }
+
+    .tip-box {
+      width: 100%;
+      max-width: 440px;
+      margin-top: 24px;
+      padding: 14px 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      font-size: 12px;
+      color: #94A3B8;
+      line-height: 1.6;
+    }
+    .tip-box strong {
+      color: #E2E8F0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">📱 手机专用离线极速版</div>
+    <h1>数字化运营工作台合集</h1>
+    <p class="desc">点击任意卡片即可直接进入对应工作台</p>
+  </div>
+
+  <div class="grid">
+    <!-- 宠物店 -->
+    <a href="pet.html" class="card card-pet">
+      <div class="icon-box">🐾</div>
+      <div class="info">
+        <div class="title-row">
+          <div class="title">萌宠管家</div>
+          <span class="tag">生活馆</span>
+        </div>
+        <div class="subtitle">洗美工单 · 寄养房态 · 会员CRM · 收银</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
+    <!-- 健身教练 -->
+    <a href="fitness.html" class="card card-fit">
+      <div class="icon-box">💪🏻</div>
+      <div class="info">
+        <div class="title-row">
+          <div class="title">私教战车</div>
+          <span class="tag">健身教练</span>
+        </div>
+        <div class="subtitle">学员档案 · 课程签到 · 体测雷达 · AI课表</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
+    <!-- 杭州美业 -->
+    <a href="beauty.html" class="card card-beauty">
+      <div class="icon-box">💅🏻</div>
+      <div class="info">
+        <div class="title-row">
+          <div class="title">悦己美学沙龙</div>
+          <span class="tag">美业品质店</span>
+        </div>
+        <div class="subtitle">预约排期 · 美学工单 · 卡项核销 · 耗材安全</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
+    <!-- 自媒体商单 -->
+    <a href="media.html" class="card card-media">
+      <div class="icon-box">🎬</div>
+      <div class="info">
+        <div class="title-row">
+          <div class="title">创作者商业大盘</div>
+          <span class="tag">自媒体商单</span>
+        </div>
+        <div class="subtitle">45天排期 · 品牌CRM · 脚本工坊 · 履约回款</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+
+  <div class="tip-box">
+    💡 <strong>体验建议：</strong><br>
+    在微信中打开时，建议点击右上角「···」选择 <strong>在默认浏览器打开</strong>；并可在 Safari 底部分享中选择 <strong>「添加到主屏幕」</strong>，随时秒开像 App 一样使用！
+  </div>
+
+</body>
+</html>

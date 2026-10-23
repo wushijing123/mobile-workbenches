@@ -1,0 +1,4593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>萌宠管家 · 宠物生活馆运营工作台</title>
+  <style>
+/* ==========================================================================
+   萌宠管家 · 宠物生活馆运营工作台 视觉设计系统
+   Palette: Warm Sand (#FAF8F5) + Pine Sage (#2D6A4F) + Terracotta (#E07A5F)
+   ========================================================================== */
+
+:root {
+  --bg-main: #FAF8F5;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F4EFEB;
+  --bg-hover: #ECE4DC;
+  
+  --primary: #2D6A4F;
+  --primary-hover: #1B4332;
+  --primary-light: #E8F5E9;
+  --primary-text: #1B4332;
+
+  --accent: #E07A5F;
+  --accent-hover: #C86146;
+  --accent-light: #FBECE8;
+  
+  --gold: #D4A373;
+  --gold-light: #FAEDCD;
+
+  --info: #2B7A78;
+  --info-light: #E0F2F1;
+  --warning: #E76F51;
+  --warning-light: #FEECE7;
+  --danger: #D90429;
+  --danger-light: #FFE3E3;
+  --success: #2D6A4F;
+  --success-light: #D8F3DC;
+
+  --text-main: #24201D;
+  --text-secondary: #5C554F;
+  --text-muted: #8C847D;
+  --text-light: #FFFFFF;
+
+  --border: #E8E1D9;
+  --border-focus: #2D6A4F;
+  
+  --shadow-sm: 0 2px 6px rgba(45, 36, 30, 0.04);
+  --shadow-md: 0 4px 16px rgba(45, 36, 30, 0.07);
+  --shadow-lg: 0 10px 30px rgba(45, 36, 30, 0.1);
+  --shadow-drawer: -6px 0 24px rgba(45, 36, 30, 0.12);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --sidebar-w: 240px;
+  --topbar-h: 68px;
+  
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ================= 布局骨架 ================= */
+.app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 左侧导航栏 */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 100;
+  transition: var(--transition);
+}
+
+.brand {
+  height: var(--topbar-h);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--primary), #40916C);
+  color: #fff;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 10px rgba(45, 106, 79, 0.25);
+}
+
+.brand-info h1 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.2px;
+}
+
+.brand-info p {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.nav-menu {
+  flex: 1;
+  padding: 16px 12px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+  position: relative;
+}
+
+.nav-item:hover {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+}
+
+.nav-item.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 0 4px 4px 0;
+}
+
+.nav-item .icon {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+}
+
+.nav-badge {
+  margin-left: auto;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  padding: 16px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-subtle);
+  margin: 12px;
+  border-radius: var(--radius-md);
+}
+
+.store-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.clock-display {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 主内容工作区 */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 顶部操作区 */
+.topbar {
+  height: var(--topbar-h);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 通用按钮 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-accent:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 4px 12px rgba(224, 122, 95, 0.25);
+}
+
+.btn-outline {
+  background: var(--bg-surface);
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+.btn-outline:hover {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+  border-color: #D6CFC7;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+.btn-ghost:hover {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+
+/* 主内容滚动容器 */
+.content-body {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: var(--bg-main);
+}
+
+.view-section {
+  display: none;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.view-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= 仪表盘指标卡 ================= */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: #D8D0C5;
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metric-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.metric-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.metric-value-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-main);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.metric-unit {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.metric-sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metric-badge-ok {
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.metric-badge-warn {
+  color: var(--warning);
+  background: var(--warning-light);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* 预警高能条 (Alert Banner) */
+.alert-banner {
+  background: #FFF5F2;
+  border: 1px solid #FED7CB;
+  border-left: 4px solid var(--accent);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.alert-banner.hide {
+  display: none;
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #782D1D;
+}
+
+.alert-tag {
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* 看板与分栏网格 */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--bg-subtle);
+}
+
+.panel-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ================= 今日服务流水线看板 ================= */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.kanban-col {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 280px;
+}
+
+.kanban-col-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.kanban-count {
+  background: #fff;
+  color: var(--text-main);
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.kanban-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 380px;
+}
+
+.ticket-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.ticket-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.ticket-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pet-name-badge {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pet-breed-tag {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: normal;
+}
+
+.service-badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+}
+
+.ticket-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  border-top: 1px dashed var(--bg-subtle);
+  padding-top: 6px;
+}
+
+/* 健康标签与警示徽章 */
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.badge-tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.badge-tag-danger {
+  background: var(--danger-light);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.badge-tag-warning {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+.badge-tag-info {
+  background: var(--info-light);
+  color: var(--info);
+}
+
+.badge-tag-gray {
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+}
+
+/* ================= 寄养房态卡片网格 ================= */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.room-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: var(--transition);
+  position: relative;
+}
+
+.room-card.occupied {
+  border-left: 5px solid var(--primary);
+}
+
+.room-card.empty {
+  border-left: 5px solid #CBD5E1;
+  background: #FCFCFB;
+}
+
+.room-card.cleaning {
+  border-left: 5px solid var(--warning);
+}
+
+.room-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.room-no {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.room-category {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.room-status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.status-occupied {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.status-empty {
+  background: #F1F5F9;
+  color: #64748B;
+}
+
+.status-cleaning {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+.guest-info {
+  background: var(--bg-subtle);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.care-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.care-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+.care-item.done {
+  background: #F0FDF4;
+  border-color: #DCFCE7;
+  color: var(--primary);
+}
+
+/* ================= 表格组件 ================= */
+.table-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.table-toolbar {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.search-input-wrap {
+  position: relative;
+  min-width: 260px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  background: var(--bg-subtle);
+  outline: none;
+  transition: var(--transition);
+}
+
+.search-input:focus {
+  background: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill {
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.pill:hover {
+  background: var(--bg-subtle);
+}
+
+.pill.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.data-table th {
+  background: var(--bg-subtle);
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.data-table tr:hover td {
+  background-color: #FAF6F0;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ================= 模态弹窗 (Modal) ================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(36, 32, 29, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 580px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(12px) scale(0.98);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.modal-overlay.active .modal-box {
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+.modal-close:hover {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  background: var(--bg-subtle);
+}
+
+/* 表单元素 */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-label .required {
+  color: var(--danger);
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-family: inherit;
+  background: #fff;
+  outline: none;
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: #fff;
+}
+
+.checkbox-label:hover {
+  background: var(--bg-subtle);
+}
+
+/* ================= 提示小通知 (Toast) ================= */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.toast {
+  background: #24201D;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-lg);
+  animation: toastIn 0.3s ease-out;
+}
+
+.toast.toast-success {
+  background: var(--primary);
+}
+
+.toast.toast-error {
+  background: var(--danger);
+}
+
+@keyframes toastIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ================= 响应式调整 (Mobile & Tablet) ================= */
+@media (max-width: 1024px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-menu {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 8px 12px;
+  }
+  .sidebar-footer {
+    display: none;
+  }
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .kanban-board {
+    grid-template-columns: 1fr;
+  }
+  .topbar {
+    padding: 0 16px;
+  }
+  .content-body {
+    padding: 16px;
+  }
+}
+
+
+/* ================= 移动端专项极致优化补丁 ================= */
+@media (max-width: 768px) {
+  html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .app-container {
+    display: block !important;
+    width: 100vw !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+  }
+  /* 侧边栏重构为现代底部 TabBar */
+  .sidebar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    height: auto !important;
+    z-index: 9999 !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    padding: 6px 4px max(8px, env(safe-area-inset-bottom)) !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06) !important;
+    display: flex !important;
+    flex-direction: row !important;
+  }
+  .sidebar .brand, .sidebar .sidebar-footer {
+    display: none !important;
+  }
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow-x: auto !important;
+    gap: 2px !important;
+  }
+  .nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    padding: 6px 4px !important;
+    min-width: 52px !important;
+    border-radius: 8px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    flex: 1 !important;
+    max-width: 68px !important;
+  }
+  .nav-item * {
+    pointer-events: none !important;
+  }
+  .nav-item .icon {
+    font-size: 18px !important;
+    line-height: 1 !important;
+  }
+  .nav-item span:not(.icon):not(.nav-badge) {
+    font-size: 10px !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+    font-weight: 600 !important;
+  }
+  .nav-badge {
+    top: 2px !important;
+    right: 8px !important;
+    font-size: 9px !important;
+    padding: 1px 4px !important;
+  }
+  .main-wrapper {
+    display: block !important;
+    width: 100vw !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+    padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
+  }
+  .topbar {
+    height: auto !important;
+    min-height: 52px !important;
+    padding: 8px 12px !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    position: sticky !important;
+    top: 0 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+  }
+  .topbar-left {
+    gap: 8px !important;
+  }
+  .topbar-right {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+  .topbar-right .btn {
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+  }
+  .content-body {
+    padding: 12px !important;
+    overflow: visible !important;
+  }
+  .modal-content {
+    width: 94vw !important;
+    max-width: 94vw !important;
+    max-height: 85vh !important;
+    margin: 12px auto !important;
+    overflow-y: auto !important;
+    border-radius: 16px !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- 左侧全局导航 -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🐾</div>
+      <div class="brand-info">
+        <h1>萌宠管家</h1>
+        <p>PetJoy Studio Workbench</p>
+      </div>
+    </div>
+
+    <ul class="nav-menu">
+      <li class="nav-item active" data-view="dashboard">
+        <span class="icon">📊</span>
+        <span>经营驾驶舱</span>
+      </li>
+      <li class="nav-item" data-view="tickets">
+        <span class="icon">✂️</span>
+        <span>洗美工单流</span>
+        <span class="nav-badge" id="navTicketBadge">0</span>
+      </li>
+      <li class="nav-item" data-view="boarding">
+        <span class="icon">🏡</span>
+        <span>寄养房态管家</span>
+        <span class="nav-badge" id="navBoardingBadge" style="background:#2D6A4F;">0</span>
+      </li>
+      <li class="nav-item" data-view="customers">
+        <span class="icon">👥</span>
+        <span>宠主与会员CRM</span>
+      </li>
+      <li class="nav-item" data-view="finance">
+        <span class="icon">💳</span>
+        <span>收银与财务记账</span>
+      </li>
+      <li class="nav-item" data-view="ai-assistant">
+        <span class="icon">🤖</span>
+        <span>AI 宠护与话术</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="store-status">
+        <span class="status-indicator"><span class="status-dot"></span> 门店营业中</span>
+        <span class="clock-display" id="liveClock">--:--:--</span>
+      </div>
+      <div style="font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between;">
+        <span>旗舰店 · 01号工位</span>
+        <span>店长：吴大咪</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 右侧主工作区 -->
+  <main class="main-wrapper">
+    <!-- 顶部操作栏 -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 class="page-title" id="pageTitle">
+          <span>📊</span> 经营驾驶舱
+        </h2>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-primary btn-sm" id="btnQuickTicket">
+          <span>⚡️</span> 快速接诊开单
+        </button>
+        <button class="btn btn-accent btn-sm" id="btnQuickBoarding">
+          <span>🏠</span> 寄养登记
+        </button>
+        <button class="btn btn-outline btn-sm" id="btnQuickCustomer">
+          <span>👤</span> 新建档案
+        </button>
+        <div style="width: 1px; height: 20px; background: var(--border); margin: 0 4px;"></div>
+        <button class="btn btn-ghost btn-sm" id="btnExportData" title="备份导出 JSON 数据快照">
+          <span>💾</span> 备份
+        </button>
+        <button class="btn btn-ghost btn-sm" id="btnImportData" title="导入恢复 JSON 数据备份">
+          <span>📥</span> 导入
+        </button>
+        <button class="btn btn-ghost btn-sm" id="btnLoadDemo" title="重新载入演示体验数据">
+          <span>📦</span> 演示数据
+        </button>
+        <button class="btn btn-ghost btn-sm" id="btnClearData" title="清空全部数据" style="color: var(--danger);">
+          <span>🗑️</span> 清空
+        </button>
+      </div>
+    </header>
+
+    <!-- 视图内容滚动区 -->
+    <div class="content-body">
+      
+      <!-- ================= 视图 1：经营驾驶舱 ================= -->
+      <section class="view-section active" id="view-dashboard">
+        <!-- 重点预警横幅 (若有异常自动显示) -->
+        <div class="alert-banner" id="dashboardAlertBanner">
+          <div class="alert-content">
+            <span class="alert-tag">安全预警</span>
+            <span id="dashboardAlertText">检测到今日在店有【易应激/咬人风险】宠物，洗护作业请务必戴嘴套并双人配合！</span>
+          </div>
+          <button class="btn btn-outline btn-sm" style="background:#fff; color:#782D1D;" onclick="app.switchView('tickets')">
+            立即查看工单 →
+          </button>
+        </div>
+
+        <!-- 4 核心指标卡 -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-label">今日预约与在店</span>
+              <div class="metric-icon-wrap" style="background: var(--primary-light); color: var(--primary);">✂️</div>
+            </div>
+            <div class="metric-value-wrap">
+              <span class="metric-value" id="mTodayTickets">0</span>
+              <span class="metric-unit">只</span>
+            </div>
+            <div class="metric-sub" id="mTodayTicketsSub">
+              在店服务 <b id="mTicketsServing" class="metric-badge-ok">0</b> 待取宠 <b id="mTicketsReady" class="metric-badge-warn">0</b>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-label">寄养房态占用率</span>
+              <div class="metric-icon-wrap" style="background: var(--info-light); color: var(--info);">🏡</div>
+            </div>
+            <div class="metric-value-wrap">
+              <span class="metric-value" id="mBoardingRate">0%</span>
+            </div>
+            <div class="metric-sub" id="mBoardingSub">
+              在住 <b id="mRoomsOccupied">0</b> 间 / 总 <span id="mRoomsTotal">0</span> 间
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-label">今日实收营收</span>
+              <div class="metric-icon-wrap" style="background: #FAEDCD; color: #B08968;">💰</div>
+            </div>
+            <div class="metric-value-wrap">
+              <span class="metric-unit">¥</span>
+              <span class="metric-value" id="mTodayRevenue">0.00</span>
+            </div>
+            <div class="metric-sub">
+              今日订单 <span id="mTodayOrdersCount">0</span> 笔 (含洗美/寄养/储值)
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-label">健康与安全预警</span>
+              <div class="metric-icon-wrap" style="background: var(--danger-light); color: var(--danger);">🚨</div>
+            </div>
+            <div class="metric-value-wrap">
+              <span class="metric-value" id="mAlertCount" style="color: var(--danger);">0</span>
+              <span class="metric-unit">项</span>
+            </div>
+            <div class="metric-sub" id="mAlertSub">
+              超时未接 / 疫苗临期 / 易咬人宠
+            </div>
+          </div>
+        </div>
+
+        <!-- 驾驶舱中部分栏 -->
+        <div class="dashboard-grid">
+          <!-- 左侧：今日洗美流水线看板 -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span>📋</span> 今日洗美流水线看板
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="app.switchView('tickets')">全部工单</button>
+            </div>
+            
+            <div class="kanban-board">
+              <!-- 待到店 -->
+              <div class="kanban-col">
+                <div class="kanban-col-head">
+                  <span>待到店 (Pending)</span>
+                  <span class="kanban-count" id="countPending">0</span>
+                </div>
+                <div class="kanban-list" id="listPending"></div>
+              </div>
+
+              <!-- 服务中 -->
+              <div class="kanban-col">
+                <div class="kanban-col-head" style="color:#2B7A78;">
+                  <span>洗护中 (Serving)</span>
+                  <span class="kanban-count" id="countServing">0</span>
+                </div>
+                <div class="kanban-list" id="listServing"></div>
+              </div>
+
+              <!-- 待接走 -->
+              <div class="kanban-col">
+                <div class="kanban-col-head" style="color:var(--primary);">
+                  <span>待接走 (Ready)</span>
+                  <span class="kanban-count" id="countReady">0</span>
+                </div>
+                <div class="kanban-list" id="listReady"></div>
+              </div>
+
+              <!-- 已离店 -->
+              <div class="kanban-col">
+                <div class="kanban-col-head" style="color:var(--text-muted);">
+                  <span>已完成 (Done)</span>
+                  <span class="kanban-count" id="countCompleted">0</span>
+                </div>
+                <div class="kanban-list" id="listCompleted"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧：寄养巡房打卡 & 近7日趋势 -->
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+            <!-- 寄养房态打卡 -->
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title">
+                  <span>🐾</span> 寄养管家 · 今日巡房打卡
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="app.switchView('boarding')">房态大屏</button>
+              </div>
+              <div id="quickBoardingList" style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- 动态渲染在住宠物的早晚打卡列表 -->
+              </div>
+            </div>
+
+            <!-- 近7日经营趋势 -->
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title">
+                  <span>📈</span> 近 7 日营收趋势
+                </div>
+                <span style="font-size: 11px; color: var(--text-muted);">洗美 / 寄养 / 充值</span>
+              </div>
+              <div id="trendChartWrap" style="width: 100%; height: 160px;">
+                <!-- 动态生成交互式 SVG 统计图 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 视图 2：洗美工单流 ================= -->
+      <section class="view-section" id="view-tickets">
+        <div class="table-wrapper">
+          <div class="table-toolbar">
+            <div class="filter-pills">
+              <button class="pill active" data-filter="all">全部工单 (<span id="pillAllCount">0</span>)</button>
+              <button class="pill" data-filter="pending">待到店 (<span id="pillPendingCount">0</span>)</button>
+              <button class="pill" data-filter="serving">洗护中 (<span id="pillServingCount">0</span>)</button>
+              <button class="pill" data-filter="ready">待接走 (<span id="pillReadyCount">0</span>)</button>
+              <button class="pill" data-filter="completed">已离店 (<span id="pillCompletedCount">0</span>)</button>
+            </div>
+            <div class="search-input-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="searchTicketInput" placeholder="搜索宠物名、主人电话、工单号...">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="app.openNewTicketModal()">
+              <span>➕</span> 新建预约开单
+            </button>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>工单号</th>
+                <th>宠物与主人</th>
+                <th>服务项目</th>
+                <th>洗美师</th>
+                <th>状态</th>
+                <th>健康检查与特别医嘱</th>
+                <th>金额</th>
+                <th>推进与操作</th>
+              </tr>
+            </thead>
+            <tbody id="ticketsTableBody">
+              <!-- 动态注入工单数据行 -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= 视图 3：寄养房态管家 ================= -->
+      <section class="view-section" id="view-boarding">
+        <div class="table-wrapper" style="margin-bottom: 20px;">
+          <div class="table-toolbar">
+            <div class="filter-pills">
+              <button class="pill active" data-room-filter="all">全部房型</button>
+              <button class="pill" data-room-filter="cat">🐱 猫咪树屋/套房</button>
+              <button class="pill" data-room-filter="dog">🐶 狗狗花园/标间</button>
+            </div>
+            <button class="btn btn-accent btn-sm" onclick="app.openCheckInModal()">
+              <span>🏠</span> 办理入住登记
+            </button>
+          </div>
+        </div>
+
+        <div class="rooms-grid" id="roomsGrid">
+          <!-- 动态渲染房态卡片 -->
+        </div>
+      </section>
+
+      <!-- ================= 视图 4：宠主与会员 CRM ================= -->
+      <section class="view-section" id="view-customers">
+        <div class="table-wrapper">
+          <div class="table-toolbar">
+            <div class="search-input-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="searchCustomerInput" placeholder="输入宠主姓名、手机号或毛孩子名字...">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="app.openNewCustomerModal()">
+              <span>➕</span> 新建会员/宠物建档
+            </button>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>宠主姓名</th>
+                <th>手机号</th>
+                <th>会员等级</th>
+                <th>卡金余额</th>
+                <th>累计消费</th>
+                <th>名下毛孩子档案</th>
+                <th>建档日期</th>
+                <th>快捷操作</th>
+              </tr>
+            </thead>
+            <tbody id="customersTableBody">
+              <!-- 动态渲染会员与宠物列表 -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= 视图 5：收银与财务记账 ================= -->
+      <section class="view-section" id="view-finance">
+        <!-- 财务指标概览 -->
+        <div class="metrics-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 20px;">
+          <div class="metric-card">
+            <span class="metric-label">今日实收流水</span>
+            <div class="metric-value-wrap">
+              <span class="metric-unit">¥</span>
+              <span class="metric-value" id="fTodayTotal">0.00</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">洗美造型收入</span>
+            <div class="metric-value-wrap">
+              <span class="metric-unit">¥</span>
+              <span class="metric-value" id="fServiceTotal">0.00</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">寄养服务收入</span>
+            <div class="metric-value-wrap">
+              <span class="metric-unit">¥</span>
+              <span class="metric-value" id="fBoardingTotal">0.00</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">会员充值与商品</span>
+            <div class="metric-value-wrap">
+              <span class="metric-unit">¥</span>
+              <span class="metric-value" id="fOtherTotal">0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <div class="table-toolbar">
+            <div class="filter-pills">
+              <button class="pill active" data-order-filter="all">全部账单</button>
+              <button class="pill" data-order-filter="洗美造型">洗美造型</button>
+              <button class="pill" data-order-filter="寄养服务">寄养服务</button>
+              <button class="pill" data-order-filter="会员充值">会员充值</button>
+              <button class="pill" data-order-filter="商品零售">商品零售</button>
+            </div>
+            <button class="btn btn-outline btn-sm" id="btnExportCSV">
+              <span>📊</span> 导出对账表 (CSV)
+            </button>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>交易流水号</th>
+                <th>业务分类</th>
+                <th>宠主与宠物</th>
+                <th>明细描述</th>
+                <th>支付方式</th>
+                <th>实收金额</th>
+                <th>交易时间</th>
+                <th>小票</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <!-- 动态注入流水 -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= 视图 6：AI 宠护与话术 ================= -->
+      <section class="view-section" id="view-ai-assistant">
+        <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr;">
+          <!-- 模块 A: 洗护术后医嘱与居家护理顾问 -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span>🩺</span> AI 宠护顾问 · 洗后护理指导生成
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">选择或输入毛孩子品种与特征</label>
+                <select class="form-control" id="aiBreedSelect">
+                  <option value="柯基犬">柯基犬（双层厚被毛，易掉毛、腹部易潮湿）</option>
+                  <option value="布偶猫">布偶猫（长毛易打结，肠胃易应激）</option>
+                  <option value="法国斗牛犬">法国斗牛犬（面部深褶皱、易积垢真菌皮炎）</option>
+                  <option value="泰迪/贵宾犬">泰迪/贵宾犬（卷毛需蓬松修剪，耳毛浓密易耳螨）</option>
+                  <option value="金毛寻回犬">金毛犬（体型大，易患热斑湿疹、皮屑）</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">洗检发现的问题与护理诉求</label>
+                <textarea class="form-control" id="aiConditionInput" rows="3" placeholder="例如：右后爪有轻微红疹，洗澡时耳道有少量褐色分泌物，本次做了药浴去屑..."></textarea>
+              </div>
+
+              <button class="btn btn-primary" id="btnGenerateAiCare">
+                <span>✨</span> 立即生成专业护理交代与回访贴士
+              </button>
+
+              <div style="background: var(--bg-subtle); padding: 14px; border-radius: var(--radius-md); min-height: 180px; position: relative;">
+                <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">
+                  📋 生成建议结果 (可直接复制给宠主):
+                </div>
+                <div id="aiCareResult" style="font-size: 13px; color: var(--text-main); white-space: pre-wrap; line-height: 1.6;">
+点击上方按钮，系统将根据品种特性与皮肤状况智能组合专业护理医嘱。
+                </div>
+                <button class="btn btn-outline btn-sm" id="btnCopyCareResult" style="position: absolute; right: 12px; top: 12px;">
+                  一键复制
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 模块 B: 私域微信关怀与催接宠通知 -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span>💬</span> 智能微信私域回访与取宠通知
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">场景模板</label>
+                <select class="form-control" id="aiMsgScenario">
+                  <option value="ready">🎉 洗护完工通知接宠（附洗后萌照提示）</option>
+                  <option value="care">❤️ 术后/药浴次日温馨关怀回访</option>
+                  <option value="boarding">📸 寄养每日平安日记与视频通报</option>
+                  <option value="remind">⏰ 疫苗/体内外驱虫到期续费提醒</option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">宠主姓名</label>
+                  <input type="text" class="form-control" id="aiMsgOwner" value="林小夏">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">毛孩子名字</label>
+                  <input type="text" class="form-control" id="aiMsgPet" value="奥利奥">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">特别表现亮点</label>
+                <input type="text" class="form-control" id="aiMsgHighlight" value="今天剪指甲超级配合，药浴泡了整整15分钟，毛发超级蓬松！">
+              </div>
+
+              <button class="btn btn-accent" id="btnGenerateAiMsg">
+                <span>✨</span> 生成温暖人情味微信文案
+              </button>
+
+              <div style="background: var(--bg-subtle); padding: 14px; border-radius: var(--radius-md); min-height: 180px; position: relative;">
+                <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">
+                  📱 微信文案预览:
+                </div>
+                <div id="aiMsgResult" style="font-size: 13px; color: var(--text-main); white-space: pre-wrap; line-height: 1.6;">
+点击上方按钮，生成符合吴大咪一人公司私域 4 正向标准的温情回访话术。
+                </div>
+                <button class="btn btn-outline btn-sm" id="btnCopyMsgResult" style="position: absolute; right: 12px; top: 12px;">
+                  一键复制
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ================= 各种业务弹窗 Modal ================= -->
+
+<!-- 1. 快速接诊开单 Modal -->
+<div class="modal-overlay" id="modalTicket">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title"><span>✂️</span> 快速接诊开单 / 洗美预约</h3>
+      <button class="modal-close" onclick="app.closeModal('modalTicket')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">选择预约/到店宠物 <span class="required">*</span></label>
+        <select class="form-control" id="ticketPetSelect"></select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">洗美服务项目 <span class="required">*</span></label>
+        <select class="form-control" id="ticketServiceSelect">
+          <option value="精致洗吹 + 药浴去屑" data-price="138">精致洗吹 + 药浴去屑 (¥138)</option>
+          <option value="猫咪低应激SPA泡泡浴" data-price="168">猫咪低应激SPA泡泡浴 (¥168)</option>
+          <option value="日韩系萌宠造型修剪 + 洁齿" data-price="228">日韩系萌宠造型修剪 + 洁齿 (¥228)</option>
+          <option value="全套药浴洗护 + 褶皱深清" data-price="158">全套药浴洗护 + 褶皱深清 (¥158)</option>
+          <option value="基础快洗 + 剪指甲拔耳毛" data-price="98">基础快洗 + 剪指甲拔耳毛 (¥98)</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">指定洗美师</label>
+          <select class="form-control" id="ticketGroomerSelect">
+            <option value="阿杰 (高级洗美师)">阿杰 (高级洗美师)</option>
+            <option value="欣欣 (猫咪专科护理)">欣欣 (猫咪专科护理)</option>
+            <option value="Leo (造型总监)">Leo (造型总监)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">服务费用 (元) <span class="required">*</span></label>
+          <input type="number" class="form-control" id="ticketPriceInput" value="138">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">入店健康自检与异常备注</label>
+        <textarea class="form-control" id="ticketNotesInput" rows="2" placeholder="例：耳道有轻微红肿，脚掌有小破皮，已与主人确认..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">初始状态</label>
+        <select class="form-control" id="ticketStatusSelect">
+          <option value="pending">待到店 (预定排期)</option>
+          <option value="serving" selected>服务中 (宠物已在店上台)</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="app.closeModal('modalTicket')">取消</button>
+      <button class="btn btn-primary" id="btnSubmitTicket">确认开单</button>
+    </div>
+  </div>
+</div>
+
+<!-- 2. 办理寄养入住 Modal -->
+<div class="modal-overlay" id="modalBoarding">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title"><span>🏠</span> 办理寄养入住登记</h3>
+      <button class="modal-close" onclick="app.closeModal('modalBoarding')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">分配房间 <span class="required">*</span></label>
+        <select class="form-control" id="boardingRoomSelect"></select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">入住宠物 <span class="required">*</span></label>
+        <select class="form-control" id="boardingPetSelect"></select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">入住日期 <span class="required">*</span></label>
+          <input type="date" class="form-control" id="boardingCheckInDate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">预定离店日期 <span class="required">*</span></label>
+          <input type="date" class="form-control" id="boardingCheckOutDate">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">日常饮食与特殊医嘱</label>
+        <textarea class="form-control" id="boardingCareNotes" rows="2" placeholder="自带渴望猫粮，早晚各一顿，每天下午吃半罐主食罐，需梳毛..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="app.closeModal('modalBoarding')">取消</button>
+      <button class="btn btn-accent" id="btnSubmitBoarding">确认入住</button>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 新建会员与宠物 Modal -->
+<div class="modal-overlay" id="modalCustomer">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title"><span>👤</span> 新增会员宠主与宠物建档</h3>
+      <button class="modal-close" onclick="app.closeModal('modalCustomer')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size: 13px; font-weight: 700; color: var(--primary); border-bottom: 1px dashed var(--border); padding-bottom: 4px;">
+        1. 宠主主人信息
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">宠主姓名 <span class="required">*</span></label>
+          <input type="text" class="form-control" id="custNameInput" placeholder="如：李晓明">
+        </div>
+        <div class="form-group">
+          <label class="form-label">手机号码 <span class="required">*</span></label>
+          <input type="tel" class="form-control" id="custPhoneInput" placeholder="11位手机号">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">初始会员等级</label>
+          <select class="form-control" id="custVipSelect">
+            <option value="普通会员">普通会员</option>
+            <option value="银卡会员">银卡会员 (9折)</option>
+            <option value="金卡会员">金卡会员 (8.5折)</option>
+            <option value="钻石会员">钻石会员 (8折)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">初始开卡储值金额 (元)</label>
+          <input type="number" class="form-control" id="custBalanceInput" value="0">
+        </div>
+      </div>
+
+      <div style="font-size: 13px; font-weight: 700; color: var(--primary); border-bottom: 1px dashed var(--border); padding-bottom: 4px; margin-top: 8px;">
+        2. 毛孩子信息
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">宠物名字 <span class="required">*</span></label>
+          <input type="text" class="form-control" id="petNameInput" placeholder="如：豆豆">
+        </div>
+        <div class="form-group">
+          <label class="form-label">种类</label>
+          <select class="form-control" id="petSpeciesSelect">
+            <option value="犬类">犬类 🐶</option>
+            <option value="猫类">猫类 🐱</option>
+            <option value="异宠">异宠 🐰</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">具体品种 <span class="required">*</span></label>
+          <input type="text" class="form-control" id="petBreedInput" placeholder="如：柯基 / 布偶猫 / 柴犬">
+        </div>
+        <div class="form-group">
+          <label class="form-label">体重 (kg)</label>
+          <input type="number" step="0.1" class="form-control" id="petWeightInput" placeholder="如：8.5">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">性格与安全标签 (多选)</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" name="petTag" value="亲人温顺"> 亲人温顺</label>
+          <label class="checkbox-label"><input type="checkbox" name="petTag" value="易应激"> 易应激</label>
+          <label class="checkbox-label"><input type="checkbox" name="petTag" value="会咬人(需戴嘴套)"> 会咬人(需戴嘴套)</label>
+          <label class="checkbox-label"><input type="checkbox" name="petTag" value="洗澡抗拒"> 洗澡抗拒</label>
+          <label class="checkbox-label"><input type="checkbox" name="petTag" value="肠胃敏感"> 肠胃敏感</label>
+          <label class="checkbox-label"><input type="checkbox" name="petTag" value="耳道易发炎"> 耳道易发炎</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="app.closeModal('modalCustomer')">取消</button>
+      <button class="btn btn-primary" id="btnSubmitCustomer">确认建档</button>
+    </div>
+  </div>
+</div>
+
+<!-- 4. 收银结算 Modal -->
+<div class="modal-overlay" id="modalCheckout">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title"><span>💰</span> 收银出单结算</h3>
+      <button class="modal-close" onclick="app.closeModal('modalCheckout')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div style="background: var(--bg-subtle); padding: 14px; border-radius: var(--radius-md); display: flex; flex-direction: column; gap: 6px;">
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--text-muted);">结算单号:</span>
+          <b id="chkTicketNo">TK2026092001</b>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--text-muted);">服务对象:</span>
+          <b id="chkPetName">奥利奥 (柯基犬) · 主人 林小夏</b>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--text-muted);">服务项目:</span>
+          <span id="chkService">精致洗吹 + 药浴去屑</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 16px; margin-top: 6px; border-top: 1px dashed var(--border); padding-top: 6px;">
+          <b>应收金额:</b>
+          <b style="color: var(--accent); font-size: 20px;">¥ <span id="chkAmount">138.00</span></b>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">支付方式</label>
+        <select class="form-control" id="chkPayMethod">
+          <option value="会员卡扣款">💳 会员卡扣款 (当前余额 ¥<span id="chkCardBalance">0.00</span>)</option>
+          <option value="微信支付">🟢 微信支付</option>
+          <option value="支付宝">🔵 支付宝</option>
+          <option value="现金支付">💵 现金支付</option>
+        </select>
+      </div>
+
+      <div id="chkCardWarning" style="font-size: 12px; color: var(--danger); display: none;">
+        ⚠️ 该会员卡内余额不足以全额抵扣，请先为会员充值，或改用微信/支付宝支付！
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="app.closeModal('modalCheckout')">取消</button>
+      <button class="btn btn-primary" id="btnConfirmPay">确认收银出单</button>
+    </div>
+  </div>
+</div>
+
+<!-- 5. 快速储值充值 Modal -->
+<div class="modal-overlay" id="modalRecharge">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title"><span>💳</span> 会员卡储值充值</h3>
+      <button class="modal-close" onclick="app.closeModal('modalRecharge')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">会员姓名</label>
+        <input type="text" class="form-control" id="rechargeCustName" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">当前可用余额</label>
+        <input type="text" class="form-control" id="rechargeCustCurrent" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">充值金额 (元) <span class="required">*</span></label>
+        <select class="form-control" id="rechargePresetSelect">
+          <option value="500">充 500 元</option>
+          <option value="1000" selected>充 1000 元 (赠送 100 元洗美券)</option>
+          <option value="2000">充 2000 元 (升级金卡 / 享8.5折)</option>
+          <option value="5000">充 5000 元 (升级钻石会员 / 享8折)</option>
+          <option value="custom">其他自定义金额</option>
+        </select>
+      </div>
+      <div class="form-group" id="rechargeCustomWrap" style="display:none;">
+        <label class="form-label">自定义输入金额</label>
+        <input type="number" class="form-control" id="rechargeCustomAmount" placeholder="输入整数金额">
+      </div>
+      <div class="form-group">
+        <label class="form-label">充值支付渠道</label>
+        <select class="form-control" id="rechargePayChannel">
+          <option value="微信支付">微信支付</option>
+          <option value="支付宝">支付宝</option>
+          <option value="现金">现金收款</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="app.closeModal('modalRecharge')">取消</button>
+      <button class="btn btn-primary" id="btnSubmitRecharge">确认充值入账</button>
+    </div>
+  </div>
+</div>
+
+<!-- 6. 电子收银小票 Modal -->
+<div class="modal-overlay" id="modalReceipt">
+  <div class="modal-box" style="max-width: 400px;">
+    <div class="modal-header">
+      <h3 class="modal-title"><span>🧾</span> 电子收银凭证</h3>
+      <button class="modal-close" onclick="app.closeModal('modalReceipt')">&times;</button>
+    </div>
+    <div class="modal-body" id="receiptContent" style="background: #FFFDF9; font-family: monospace; font-size: 12px; line-height: 1.6; border: 1px dashed var(--border); padding: 18px; border-radius: var(--radius-sm);">
+      <!-- 动态小票内容 -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="app.closeModal('modalReceipt')">关闭</button>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">打印小票</button>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 数据导入弹窗 -->
+<div class="modal-overlay" id="modalImport">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title"><span>📥</span> 导入恢复备份 JSON</h3>
+      <button class="modal-close" onclick="app.closeModal('modalImport')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 13px; color: var(--text-secondary);">请选择此前通过“备份”按钮导出的 JSON 文件，导入将完全覆盖当前本地数据：</p>
+      <input type="file" id="importFileInput" accept=".json" class="form-control" style="padding: 8px;">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="app.closeModal('modalImport')">取消</button>
+      <button class="btn btn-accent" id="btnConfirmImport">确认导入</button>
+    </div>
+  </div>
+</div>
+
+<!-- 全局提示框容器 -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- 引入脚本 -->
+<script>
+/**
+ * 萌宠管家 · 宠物生活馆运营工作台
+ * 持久化存储引擎 (IndexedDB + LocalStorage 容灾适配器)
+ * 具备数据完全留存本地、演示数据一键装载、JSON快照备份与恢复功能
+ */
+
+const DB_NAME = 'PetJoyWorkbenchDB';
+const DB_VERSION = 2; // 升级版本触发全量演示数据刷新
+const STORAGE_KEY_PREFIX = 'petjoy_';
+
+// 初始高保真商业级演示数据包（13位会员、14只萌宠、10个工单、10间房态、22笔财务账单）
+const DEMO_DATA = {
+  customers: [
+    { id: 'c1', name: '林小夏', phone: '13812345678', vipLevel: '金卡会员', balance: 1680.00, totalSpent: 4250.00, createdAt: '2026-01-15' },
+    { id: 'c2', name: '张云鹏', phone: '13987654321', vipLevel: '银卡会员', balance: 320.00, totalSpent: 1580.00, createdAt: '2026-03-10' },
+    { id: 'c3', name: '周雨薇', phone: '13766668888', vipLevel: '钻石会员', balance: 3500.00, totalSpent: 9800.00, createdAt: '2025-11-20' },
+    { id: 'c4', name: '陈浩然', phone: '13611223344', vipLevel: '普通会员', balance: 0.00, totalSpent: 260.00, createdAt: '2026-07-01' },
+    { id: 'c5', name: '赵雅婷', phone: '13599887766', vipLevel: '金卡会员', balance: 890.00, totalSpent: 3100.00, createdAt: '2026-02-18' },
+    { id: 'c6', name: '孙博文', phone: '13344556677', vipLevel: '普通会员', balance: 50.00, totalSpent: 780.00, createdAt: '2026-05-04' },
+    { id: 'c7', name: '苏晓彤', phone: '13911112233', vipLevel: '钻石会员', balance: 4200.00, totalSpent: 13500.00, createdAt: '2025-09-01' },
+    { id: 'c8', name: '陆子涵', phone: '18622334455', vipLevel: '金卡会员', balance: 1280.00, totalSpent: 5600.00, createdAt: '2026-02-11' },
+    { id: 'c9', name: '杜文静', phone: '15833445566', vipLevel: '银卡会员', balance: 460.00, totalSpent: 2150.00, createdAt: '2026-04-19' },
+    { id: 'c10', name: '顾明辉', phone: '17744556677', vipLevel: '钻石会员', balance: 2800.00, totalSpent: 8900.00, createdAt: '2025-12-05' },
+    { id: 'c11', name: '冯小晴', phone: '15055667788', vipLevel: '普通会员', balance: 180.00, totalSpent: 620.00, createdAt: '2026-08-02' },
+    { id: 'c12', name: '沈天成', phone: '18966778899', vipLevel: '金卡会员', balance: 2100.00, totalSpent: 6700.00, createdAt: '2026-01-28' },
+    { id: 'c13', name: '董丽华', phone: '13177889900', vipLevel: '银卡会员', balance: 650.00, totalSpent: 2480.00, createdAt: '2026-03-25' }
+  ],
+  pets: [
+    {
+      id: 'p1',
+      ownerId: 'c1',
+      name: '奥利奥',
+      species: '犬类',
+      breed: '柯基犬',
+      gender: '公 (已绝育)',
+      birthday: '2023-04-12',
+      weight: 12.5,
+      tags: ['亲人温顺', '掉毛怪', '耳道易发红'],
+      vaccineExpireDate: '2026-11-20',
+      dewormExpireDate: '2026-10-05',
+      notes: '洗完一定要用低风温彻底吹干腹部与脚趾缝。'
+    },
+    {
+      id: 'p2',
+      ownerId: 'c2',
+      name: '棉花糖',
+      species: '猫类',
+      breed: '布偶猫',
+      gender: '母 (已绝育)',
+      birthday: '2024-01-08',
+      weight: 4.8,
+      tags: ['易应激', '洗澡抗拒', '肠胃敏感'],
+      vaccineExpireDate: '2026-10-15',
+      dewormExpireDate: '2026-09-28',
+      notes: '洗猫需用慢柔水流，进烘干箱前需店员陪伴安抚。'
+    },
+    {
+      id: 'p3',
+      ownerId: 'c3',
+      name: '大壮',
+      species: '犬类',
+      breed: '金毛寻回犬',
+      gender: '公',
+      birthday: '2022-08-25',
+      weight: 31.0,
+      tags: ['超亲人', '爱玩水', '定期药浴'],
+      vaccineExpireDate: '2026-12-30',
+      dewormExpireDate: '2026-10-12',
+      notes: '背部偶有皮屑，需使用澳洲燕麦止痒舒缓香波。'
+    },
+    {
+      id: 'p4',
+      ownerId: 'c4',
+      name: '肉包',
+      species: '犬类',
+      breed: '法国斗牛犬',
+      gender: '公',
+      birthday: '2023-11-03',
+      weight: 11.2,
+      tags: ['会咬人(需戴嘴套)', '褶皱需深清', '怕热防中暑'],
+      vaccineExpireDate: '2026-09-25', // 7日内预警
+      dewormExpireDate: '2026-09-22',
+      notes: '面部褶皱易藏污纳垢，剪指甲时有反抗攻击倾向，必须双人配合作业。'
+    },
+    {
+      id: 'p5',
+      ownerId: 'c5',
+      name: '雪球',
+      species: '猫类',
+      breed: '英国短毛猫 (蓝白)',
+      gender: '母',
+      birthday: '2024-05-19',
+      weight: 3.9,
+      tags: ['胆小怕生', '健康状态佳'],
+      vaccineExpireDate: '2027-05-01',
+      dewormExpireDate: '2026-11-01',
+      notes: '在店寄养中，喜食渴望鸡肉罐头。'
+    },
+    {
+      id: 'p6',
+      ownerId: 'c6',
+      name: '奶茶',
+      species: '犬类',
+      breed: '泰迪/贵宾犬',
+      gender: '母 (已绝育)',
+      birthday: '2023-09-14',
+      weight: 3.5,
+      tags: ['活泼可爱', '需修泰迪圆头', '易有泪痕'],
+      vaccineExpireDate: '2026-10-02',
+      dewormExpireDate: '2026-10-02',
+      notes: '耳毛需深度拔除并做耳道消炎。'
+    },
+    {
+      id: 'p7',
+      ownerId: 'c7',
+      name: '闪电',
+      species: '犬类',
+      breed: '边境牧羊犬',
+      gender: '公',
+      birthday: '2023-02-20',
+      weight: 18.5,
+      tags: ['高智商', '爱飞盘', '体能充沛'],
+      vaccineExpireDate: '2026-12-10',
+      dewormExpireDate: '2026-10-15',
+      notes: '洗护配合度高，寄养时需每日至少草坪接飞盘运动 40 分钟。'
+    },
+    {
+      id: 'p8',
+      ownerId: 'c7',
+      name: '皮皮',
+      species: '猫类',
+      breed: '美国短毛猫 (银虎斑)',
+      gender: '公 (已绝育)',
+      birthday: '2023-07-11',
+      weight: 5.2,
+      tags: ['亲人粘人', '健康活泼'],
+      vaccineExpireDate: '2027-03-15',
+      dewormExpireDate: '2026-11-20',
+      notes: '喜好梳毛，脾气温顺。'
+    },
+    {
+      id: 'p9',
+      ownerId: 'c8',
+      name: '旺财',
+      species: '犬类',
+      breed: '柴犬 (赤柴)',
+      gender: '公',
+      birthday: '2023-06-18',
+      weight: 10.8,
+      tags: ['倔驴脾气', '掉毛狂魔', '剪指甲尖叫'],
+      vaccineExpireDate: '2026-09-24', // 7日内预警
+      dewormExpireDate: '2026-10-01',
+      notes: '柴犬双层被毛去浮毛需用高风压吹水枪反复吹透。'
+    },
+    {
+      id: 'p10',
+      ownerId: 'c9',
+      name: '泡芙',
+      species: '犬类',
+      breed: '比熊犬',
+      gender: '母',
+      birthday: '2024-02-14',
+      weight: 4.6,
+      tags: ['棉花糖圆头', '泪痕重', '皮肤敏感'],
+      vaccineExpireDate: '2027-02-14',
+      dewormExpireDate: '2026-10-10',
+      notes: '眼角需做泪痕软化清洁，洗后毛发需彻底拉直拉蓬松。'
+    },
+    {
+      id: 'p11',
+      ownerId: 'c10',
+      name: '雷神',
+      species: '猫类',
+      breed: '缅因库恩猫 (银黑虎斑)',
+      gender: '公',
+      birthday: '2022-11-08',
+      weight: 10.4,
+      tags: ['温柔巨人', '大体型', '双人体力活'],
+      vaccineExpireDate: '2026-11-30',
+      dewormExpireDate: '2026-10-18',
+      notes: '体型巨大达 10.4kg，洗澡和吹水需两位护理员配合完成。'
+    },
+    {
+      id: 'p12',
+      ownerId: 'c11',
+      name: '扁扁',
+      species: '猫类',
+      breed: '异国短毛猫 (加菲)',
+      gender: '公 (已绝育)',
+      birthday: '2023-10-22',
+      weight: 4.2,
+      tags: ['短鼻道', '眼部易积泪', '呼吸音粗'],
+      vaccineExpireDate: '2026-10-22',
+      dewormExpireDate: '2026-10-01',
+      notes: '短鼻猫严禁高温烘干箱，必须全程低温手工慢吹。'
+    },
+    {
+      id: 'p13',
+      ownerId: 'c12',
+      name: '奥斯卡',
+      species: '犬类',
+      breed: '迷你雪纳瑞 (椒盐色)',
+      gender: '公',
+      birthday: '2023-05-30',
+      weight: 7.2,
+      tags: ['小老头造型', '耳毛浓密', '留长眉毛'],
+      vaccineExpireDate: '2026-12-01',
+      dewormExpireDate: '2026-10-15',
+      notes: '修剪英伦小老头造型，眉毛修斜三角，胡子修整齐方正。'
+    },
+    {
+      id: 'p14',
+      ownerId: 'c13',
+      name: '大白',
+      species: '犬类',
+      breed: '萨摩耶犬',
+      gender: '母',
+      birthday: '2023-03-05',
+      weight: 23.0,
+      tags: ['微笑天使', '爱在泥地打滚', '厚雪白被毛'],
+      vaccineExpireDate: '2027-01-10',
+      dewormExpireDate: '2026-10-20',
+      notes: '白毛需使用天然增白滋养香波，护毛素需彻底吸收冲净。'
+    }
+  ],
+  tickets: [
+    {
+      id: 't1',
+      ticketNo: 'TK2026092001',
+      petId: 'p1',
+      serviceType: '精致洗吹 + 药浴去屑',
+      groomer: '阿杰 (高级洗美师)',
+      price: 138.00,
+      status: 'ready', // 待接走 (已完工通知宠主)
+      healthCheckNotes: '右后脚掌有轻微潮红，已擦碘伏；毛发无打结，耳道清洁完毕。',
+      startTime: '13:30',
+      finishTime: '15:10', // 完工超过1小时，触发超时未接预警
+      createdAt: '2026-09-20'
+    },
+    {
+      id: 't2',
+      ticketNo: 'TK2026092002',
+      petId: 'p2',
+      serviceType: '猫咪低应激SPA泡泡浴',
+      groomer: '欣欣 (猫咪专科护理)',
+      price: 168.00,
+      status: 'serving', // 服务中
+      healthCheckNotes: '轻微耳螨，已用耳漂浸润冲洗，无皮肤病。目前正轻柔吹风中。',
+      startTime: '15:30',
+      finishTime: null,
+      createdAt: '2026-09-20'
+    },
+    {
+      id: 't3',
+      ticketNo: 'TK2026092003',
+      petId: 'p4',
+      serviceType: '全套药浴洗护 + 褶皱深清',
+      groomer: '阿杰 (高级洗美师)',
+      price: 158.00,
+      status: 'pending', // 待到店
+      healthCheckNotes: '注意：该宠情绪激动时有咬人史，已预备安全嘴套。',
+      startTime: '17:00',
+      finishTime: null,
+      createdAt: '2026-09-20'
+    },
+    {
+      id: 't4',
+      ticketNo: 'TK2026092004',
+      petId: 'p6',
+      serviceType: '日韩系萌宠造型修剪 + 洁齿',
+      groomer: 'Leo (造型总监)',
+      price: 228.00,
+      status: 'completed', // 已离店结账
+      healthCheckNotes: '泪痕已做软化清理，泰迪耳位修剪圆润，宠主非常满意。',
+      startTime: '10:00',
+      finishTime: '12:00',
+      createdAt: '2026-09-20'
+    },
+    {
+      id: 't5',
+      ticketNo: 'TK2026092005',
+      petId: 'p10',
+      serviceType: '日韩系棉花糖圆头修剪 + 泥灸',
+      groomer: 'Leo (造型总监)',
+      price: 258.00,
+      status: 'serving', // 服务中
+      healthCheckNotes: '耳后有小打结已开结，面部泪痕已做敷色，正在精修头部线条。',
+      startTime: '16:00',
+      finishTime: null,
+      createdAt: '2026-09-20'
+    },
+    {
+      id: 't6',
+      ticketNo: 'TK2026092006',
+      petId: 'p9',
+      serviceType: '柴犬双层被毛深度去浮毛 + 碳酸泉SPA',
+      groomer: '小芳 (资深洗护助理)',
+      price: 148.00,
+      status: 'pending', // 待到店
+      healthCheckNotes: '柴犬换季掉毛严重，剪指甲抗拒尖叫，需耐心安抚配合。',
+      startTime: '17:30',
+      finishTime: null,
+      createdAt: '2026-09-20'
+    },
+    {
+      id: 't7',
+      ticketNo: 'TK2026092007',
+      petId: 'p13',
+      serviceType: '英伦小老头造型精修 + 拔耳毛',
+      groomer: 'Leo (造型总监)',
+      price: 198.00,
+      status: 'ready', // 待接走
+      healthCheckNotes: '耳毛拔除后已滴消炎精油，胡须修剪方正对称，状态良好。',
+      startTime: '14:20',
+      finishTime: '16:15',
+      createdAt: '2026-09-20'
+    },
+    {
+      id: 't8',
+      ticketNo: 'TK2026092008',
+      petId: 'p14',
+      serviceType: '大型犬白毛深层去污SPA + 吹水拉毛',
+      groomer: '阿杰 (高级洗美师)',
+      price: 280.00,
+      status: 'serving', // 服务中
+      healthCheckNotes: '脚掌有轻微草屑泥污，腹部毛发厚密，已用双吹水机加急作业。',
+      startTime: '15:45',
+      finishTime: null,
+      createdAt: '2026-09-20'
+    },
+    {
+      id: 't9',
+      ticketNo: 'TK2026092009',
+      petId: 'p11',
+      serviceType: '巨型猫咪深层排毛SPA + 剪指甲',
+      groomer: '欣欣 (猫咪专科护理)',
+      price: 260.00,
+      status: 'completed', // 已离店
+      healthCheckNotes: '10.4kg缅因巨猫，排毛量丰沛，毛发光泽柔顺，双人完成。',
+      startTime: '11:00',
+      finishTime: '13:00',
+      createdAt: '2026-09-20'
+    },
+    {
+      id: 't10',
+      ticketNo: 'TK2026092010',
+      petId: 'p7',
+      serviceType: '运动型边牧清爽快洗 + 爪垫护理',
+      groomer: '小芳 (资深洗护助理)',
+      price: 138.00,
+      status: 'pending', // 待到店
+      healthCheckNotes: '主人预约 18:30 晚高峰到店，洗完直接办理寄养入住。',
+      startTime: '18:30',
+      finishTime: null,
+      createdAt: '2026-09-20'
+    }
+  ],
+  rooms: [
+    {
+      id: 'r1',
+      roomNo: 'C101',
+      category: '猫咪阳光树屋房',
+      dailyRate: 120.00,
+      status: 'occupied',
+      currentPetId: 'p5',
+      checkInDate: '2026-09-18',
+      checkOutDate: '2026-09-23',
+      careLogs: [
+        { date: '2026-09-20 09:00', task: '早餐喂食', done: true, note: '渴望鸡肉主粮 40g + 冻干碎' },
+        { date: '2026-09-20 12:30', task: '清理猫砂通风', done: true, note: '便便成型正常，换新豆腐猫砂' },
+        { date: '2026-09-20 18:00', task: '晚间互动逗猫', done: false, note: '待用羽毛逗猫棒互动 15 分钟并拍照' }
+      ]
+    },
+    {
+      id: 'r2',
+      roomNo: 'C102',
+      category: '猫咪阳光树屋房',
+      dailyRate: 120.00,
+      status: 'occupied',
+      currentPetId: 'p12',
+      checkInDate: '2026-09-19',
+      checkOutDate: '2026-09-24',
+      careLogs: [
+        { date: '2026-09-20 08:30', task: '眼鼻泪痕清洁', done: true, note: '用生理盐水棉片轻柔清洁加菲眼角分泌物' },
+        { date: '2026-09-20 09:15', task: '早餐湿粮喂养', done: true, note: '巅峰牛肉主食罐半罐，食欲旺盛' },
+        { date: '2026-09-20 19:30', task: '晚间巡房观察', done: false, note: '检查饮水量与呼吸音' }
+      ]
+    },
+    {
+      id: 'r3',
+      roomNo: 'C103',
+      category: '猫咪阳光树屋房',
+      dailyRate: 120.00,
+      status: 'empty',
+      currentPetId: null,
+      checkInDate: null,
+      checkOutDate: null,
+      careLogs: []
+    },
+    {
+      id: 'r4',
+      roomNo: 'C201',
+      category: '猫咪轻奢总统套房',
+      dailyRate: 180.00,
+      status: 'occupied',
+      currentPetId: 'p11',
+      checkInDate: '2026-09-19',
+      checkOutDate: '2026-09-26',
+      careLogs: [
+        { date: '2026-09-20 09:00', task: '大份早餐喂食', done: true, note: '纽翠斯黑钻鸡肉粮 70g + 复合维生素' },
+        { date: '2026-09-20 13:00', task: '豪华大猫爬架梳毛', done: true, note: '排毛梳理顺畅，配合度好' },
+        { date: '2026-09-20 19:00', task: '夜间监控核验', done: false, note: '确认 24h 智能新风温度 24℃' }
+      ]
+    },
+    {
+      id: 'r5',
+      roomNo: 'D101',
+      category: '狗狗花园豪华大套',
+      dailyRate: 180.00,
+      status: 'occupied',
+      currentPetId: 'p3',
+      checkInDate: '2026-09-19',
+      checkOutDate: '2026-09-24',
+      careLogs: [
+        { date: '2026-09-20 07:30', task: '早间草坪晨跑', done: true, note: '庭院户外奔跑 30 分钟，大小便通畅' },
+        { date: '2026-09-20 08:30', task: '早餐配关节药片', done: true, note: '伯纳天纯鸭肉粮 + 软骨素1粒' },
+        { date: '2026-09-20 19:00', task: '傍晚院子散步', done: false, note: '待晚饭后慢走 25 分钟' }
+      ]
+    },
+    {
+      id: 'r6',
+      roomNo: 'D102',
+      category: '狗狗花园豪华大套',
+      dailyRate: 180.00,
+      status: 'occupied',
+      currentPetId: 'p7',
+      checkInDate: '2026-09-20',
+      checkOutDate: '2026-09-25',
+      careLogs: [
+        { date: '2026-09-20 10:00', task: '入住健康体检', done: true, note: '体表无跳蚤蜱虫，精神亢奋' },
+        { date: '2026-09-20 15:00', task: '接飞盘互动训练', done: true, note: '户外运动 40 分钟，超级机灵' },
+        { date: '2026-09-20 20:00', task: '晚间饮水检查', done: false, note: '补充清洁温开水' }
+      ]
+    },
+    {
+      id: 'r7',
+      roomNo: 'D103',
+      category: '狗狗花园豪华大套',
+      dailyRate: 180.00,
+      status: 'empty',
+      currentPetId: null,
+      checkInDate: null,
+      checkOutDate: null,
+      careLogs: []
+    },
+    {
+      id: 'r8',
+      roomNo: 'D201',
+      category: '狗狗阳光标准间',
+      dailyRate: 100.00,
+      status: 'occupied',
+      currentPetId: 'p1',
+      checkInDate: '2026-09-20',
+      checkOutDate: '2026-09-22',
+      careLogs: [
+        { date: '2026-09-20 14:00', task: '午后入住适应', done: true, note: '柯基性格温顺，熟悉环境快' },
+        { date: '2026-09-20 18:30', task: '晚饭喂养', done: false, note: '自带海洋之星三文鱼粮 60g' }
+      ]
+    },
+    {
+      id: 'r9',
+      roomNo: 'D202',
+      category: '狗狗阳光标准间',
+      dailyRate: 100.00,
+      status: 'cleaning',
+      currentPetId: null,
+      checkInDate: null,
+      checkOutDate: null,
+      careLogs: []
+    },
+    {
+      id: 'r10',
+      roomNo: 'D203',
+      category: '狗狗阳光标准间',
+      dailyRate: 100.00,
+      status: 'empty',
+      currentPetId: null,
+      checkInDate: null,
+      checkOutDate: null,
+      careLogs: []
+    }
+  ],
+  orders: [
+    {
+      id: 'o1',
+      orderNo: 'ORD20260920-001',
+      type: 'service',
+      customerId: 'c6',
+      petId: 'p6',
+      amount: 228.00,
+      payMethod: '微信支付',
+      category: '洗美造型',
+      description: '泰迪奶茶 日韩系修剪造型 + 洁齿护理',
+      timestamp: '2026-09-20 12:15'
+    },
+    {
+      id: 'o2',
+      orderNo: 'ORD20260920-002',
+      type: 'recharge',
+      customerId: 'c1',
+      petId: null,
+      amount: 1000.00,
+      payMethod: '支付宝',
+      category: '会员充值',
+      description: '林小夏 金卡会员储值赠送100元',
+      timestamp: '2026-09-20 13:20'
+    },
+    {
+      id: 'o3',
+      orderNo: 'ORD20260920-003',
+      type: 'service',
+      customerId: 'c10',
+      petId: 'p11',
+      amount: 260.00,
+      payMethod: '会员卡扣款',
+      category: '洗美造型',
+      description: '缅因猫雷神 巨型猫排毛SPA',
+      timestamp: '2026-09-20 13:05'
+    },
+    {
+      id: 'o4',
+      orderNo: 'ORD20260920-004',
+      type: 'boarding',
+      customerId: 'c7',
+      petId: 'p7',
+      amount: 900.00,
+      payMethod: '会员卡扣款',
+      category: '寄养服务',
+      description: '边牧闪电 花园豪华套预订5天',
+      timestamp: '2026-09-20 10:30'
+    },
+    {
+      id: 'o5',
+      orderNo: 'ORD20260920-005',
+      type: 'retail',
+      customerId: 'c8',
+      petId: 'p9',
+      amount: 168.00,
+      payMethod: '微信支付',
+      category: '商品零售',
+      description: '维克耳漂 125ml + 卵磷脂美毛零食',
+      timestamp: '2026-09-20 14:45'
+    },
+    {
+      id: 'o6',
+      orderNo: 'ORD20260919-001',
+      type: 'boarding',
+      customerId: 'c3',
+      petId: 'p3',
+      amount: 900.00,
+      payMethod: '会员卡扣款',
+      category: '寄养服务',
+      description: '金毛大壮 花园豪华套寄养 5 天预付',
+      timestamp: '2026-09-19 14:00'
+    },
+    {
+      id: 'o7',
+      orderNo: 'ORD20260919-002',
+      type: 'retail',
+      customerId: 'c2',
+      petId: 'p2',
+      amount: 198.00,
+      payMethod: '微信支付',
+      category: '商品零售',
+      description: '渴望冻干猫粮 340g + 巅峰主食罐头 2罐',
+      timestamp: '2026-09-19 16:30'
+    },
+    {
+      id: 'o8',
+      orderNo: 'ORD20260919-003',
+      type: 'service',
+      customerId: 'c9',
+      petId: 'p10',
+      amount: 210.00,
+      payMethod: '会员卡扣款',
+      category: '洗美造型',
+      description: '比熊泡芙 赛级雪白拉毛深洗',
+      timestamp: '2026-09-19 11:40'
+    },
+    {
+      id: 'o9',
+      orderNo: 'ORD20260919-004',
+      type: 'recharge',
+      customerId: 'c7',
+      petId: null,
+      amount: 2000.00,
+      payMethod: '微信支付',
+      category: '会员充值',
+      description: '苏晓彤 钻石会员续费储值',
+      timestamp: '2026-09-19 18:20'
+    },
+    {
+      id: 'o10',
+      orderNo: 'ORD20260918-001',
+      type: 'service',
+      customerId: 'c5',
+      petId: 'p5',
+      amount: 150.00,
+      payMethod: '会员卡扣款',
+      category: '洗美造型',
+      description: '英短雪球 入住前深度健康药浴SPA',
+      timestamp: '2026-09-18 11:20'
+    },
+    {
+      id: 'o11',
+      orderNo: 'ORD20260918-002',
+      type: 'boarding',
+      customerId: 'c5',
+      petId: 'p5',
+      amount: 600.00,
+      payMethod: '微信支付',
+      category: '寄养服务',
+      description: '英短雪球 阳光树屋房寄养 5 天',
+      timestamp: '2026-09-18 11:45'
+    },
+    {
+      id: 'o12',
+      orderNo: 'ORD20260918-003',
+      type: 'service',
+      customerId: 'c12',
+      petId: 'p13',
+      amount: 180.00,
+      payMethod: '支付宝',
+      category: '洗美造型',
+      description: '雪纳瑞奥斯卡 造型修剪',
+      timestamp: '2026-09-18 15:30'
+    },
+    {
+      id: 'o13',
+      orderNo: 'ORD20260917-001',
+      type: 'service',
+      customerId: 'c1',
+      petId: 'p1',
+      amount: 120.00,
+      payMethod: '会员卡扣款',
+      category: '洗美造型',
+      description: '柯基奥利奥 双层被毛去浮毛 + 泥炭SPA',
+      timestamp: '2026-09-17 15:40'
+    },
+    {
+      id: 'o14',
+      orderNo: 'ORD20260917-002',
+      type: 'retail',
+      customerId: 'c13',
+      petId: 'p14',
+      amount: 320.00,
+      payMethod: '微信支付',
+      category: '商品零售',
+      description: '大型犬牛肉冻干大礼包 + 磨牙牛角骨',
+      timestamp: '2026-09-17 17:10'
+    },
+    {
+      id: 'o15',
+      orderNo: 'ORD20260916-001',
+      type: 'service',
+      customerId: 'c13',
+      petId: 'p14',
+      amount: 280.00,
+      payMethod: '会员卡扣款',
+      category: '洗美造型',
+      description: '萨摩耶大白 全套亮白去黄SPA',
+      timestamp: '2026-09-16 14:15'
+    },
+    {
+      id: 'o16',
+      orderNo: 'ORD20260916-002',
+      type: 'recharge',
+      customerId: 'c10',
+      petId: null,
+      amount: 1000.00,
+      payMethod: '支付宝',
+      category: '会员充值',
+      description: '顾明辉 会员卡充值赠券',
+      timestamp: '2026-09-16 16:00'
+    },
+    {
+      id: 'o17',
+      orderNo: 'ORD20260915-001',
+      type: 'service',
+      customerId: 'c8',
+      petId: 'p9',
+      amount: 160.00,
+      payMethod: '微信支付',
+      category: '洗美造型',
+      description: '柴犬旺财 换季爆毛深层梳洗',
+      timestamp: '2026-09-15 11:30'
+    },
+    {
+      id: 'o18',
+      orderNo: 'ORD20260915-002',
+      type: 'boarding',
+      customerId: 'c11',
+      petId: 'p12',
+      amount: 600.00,
+      payMethod: '微信支付',
+      category: '寄养服务',
+      description: '加菲猫扁扁 阳光房寄养 5 天预付',
+      timestamp: '2026-09-15 15:50'
+    },
+    {
+      id: 'o19',
+      orderNo: 'ORD20260914-001',
+      type: 'service',
+      customerId: 'c3',
+      petId: 'p3',
+      amount: 160.00,
+      payMethod: '会员卡扣款',
+      category: '洗美造型',
+      description: '金毛大壮 燕麦药浴止痒',
+      timestamp: '2026-09-14 13:20'
+    },
+    {
+      id: 'o20',
+      orderNo: 'ORD20260914-002',
+      type: 'retail',
+      customerId: 'c7',
+      petId: 'p7',
+      amount: 240.00,
+      payMethod: '会员卡扣款',
+      category: '商品零售',
+      description: '边牧专业橡胶飞盘 + 训犬鸡肉肉条',
+      timestamp: '2026-09-14 16:40'
+    }
+  ]
+};
+
+class PetJoyStorage {
+  constructor() {
+    this.db = null;
+    this.isReady = false;
+  }
+
+  // 初始化数据库连接
+  async init() {
+    return new Promise((resolve) => {
+      if (window.indexedDB) {
+        const request = window.indexedDB.open(DB_NAME, DB_VERSION);
+        request.onerror = () => {
+          console.warn('IndexedDB 打开失败，自动降级为 LocalStorage 引擎');
+          this.initLocalStorageFallback();
+          this.isReady = true;
+          resolve(this);
+        };
+        request.onsuccess = (e) => {
+          this.db = e.target.result;
+          this.isReady = true;
+          this.checkAndSeedDefault();
+          resolve(this);
+        };
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          const stores = ['customers', 'pets', 'tickets', 'rooms', 'orders'];
+          stores.forEach((storeName) => {
+            if (!db.objectStoreNames.contains(storeName)) {
+              db.createObjectStore(storeName, { keyPath: 'id' });
+            }
+          });
+        };
+      } else {
+        this.initLocalStorageFallback();
+        this.isReady = true;
+        resolve(this);
+      }
+    });
+  }
+
+  initLocalStorageFallback() {
+    const stores = ['customers', 'pets', 'tickets', 'rooms', 'orders'];
+    stores.forEach((store) => {
+      const key = STORAGE_KEY_PREFIX + store;
+      if (!localStorage.getItem(key)) {
+        localStorage.setItem(key, JSON.stringify(DEMO_DATA[store] || []));
+      }
+    });
+  }
+
+  async checkAndSeedDefault() {
+    const customers = await this.getAll('customers');
+    // 如果是旧版少量数据 (<=6条) 或空库，自动刷新为更丰富的展示级演示数据
+    if (!customers || customers.length <= 6) {
+      console.log('检测到初始或旧版本数据，正在载入全量高保真展示演示数据...');
+      await this.loadDemoData();
+    }
+  }
+
+  // 装载演示数据
+  async loadDemoData() {
+    for (const [storeName, items] of Object.entries(DEMO_DATA)) {
+      await this.clear(storeName);
+      for (const item of items) {
+        await this.add(storeName, JSON.parse(JSON.stringify(item)));
+      }
+    }
+    return true;
+  }
+
+  // 清空全部业务数据
+  async clearAllData() {
+    const stores = ['customers', 'pets', 'tickets', 'rooms', 'orders'];
+    for (const storeName of stores) {
+      await this.clear(storeName);
+    }
+    return true;
+  }
+
+  // 通用获取单表所有数据
+  async getAll(storeName) {
+    if (this.db) {
+      return new Promise((resolve, reject) => {
+        try {
+          const tx = this.db.transaction(storeName, 'readonly');
+          const store = tx.objectStore(storeName);
+          const req = store.getAll();
+          req.onsuccess = () => resolve(req.result || []);
+          req.onerror = (e) => reject(e);
+        } catch (err) {
+          resolve(this.getFromLocalStorage(storeName));
+        }
+      });
+    }
+    return this.getFromLocalStorage(storeName);
+  }
+
+  // 获取单个项
+  async get(storeName, id) {
+    if (this.db) {
+      return new Promise((resolve) => {
+        try {
+          const tx = this.db.transaction(storeName, 'readonly');
+          const store = tx.objectStore(storeName);
+          const req = store.get(id);
+          req.onsuccess = () => resolve(req.result || null);
+          req.onerror = () => resolve(null);
+        } catch (err) {
+          const list = this.getFromLocalStorage(storeName);
+          resolve(list.find((x) => x.id === id) || null);
+        }
+      });
+    }
+    const list = this.getFromLocalStorage(storeName);
+    return list.find((x) => x.id === id) || null;
+  }
+
+  // 添加单条
+  async add(storeName, item) {
+    if (!item.id) {
+      item.id = 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+    }
+    if (this.db) {
+      return new Promise((resolve, reject) => {
+        try {
+          const tx = this.db.transaction(storeName, 'readwrite');
+          const store = tx.objectStore(storeName);
+          const req = store.add(item);
+          req.onsuccess = () => {
+            this.syncToLocalStorage(storeName);
+            resolve(item);
+          };
+          req.onerror = (e) => reject(e);
+        } catch (err) {
+          this.addToLocalStorage(storeName, item);
+          resolve(item);
+        }
+      });
+    }
+    this.addToLocalStorage(storeName, item);
+    return item;
+  }
+
+  // 更新单条
+  async update(storeName, item) {
+    if (this.db) {
+      return new Promise((resolve, reject) => {
+        try {
+          const tx = this.db.transaction(storeName, 'readwrite');
+          const store = tx.objectStore(storeName);
+          const req = store.put(item);
+          req.onsuccess = () => {
+            this.syncToLocalStorage(storeName);
+            resolve(item);
+          };
+          req.onerror = (e) => reject(e);
+        } catch (err) {
+          this.updateLocalStorage(storeName, item);
+          resolve(item);
+        }
+      });
+    }
+    this.updateLocalStorage(storeName, item);
+    return item;
+  }
+
+  // 删除单条
+  async delete(storeName, id) {
+    if (this.db) {
+      return new Promise((resolve, reject) => {
+        try {
+          const tx = this.db.transaction(storeName, 'readwrite');
+          const store = tx.objectStore(storeName);
+          const req = store.delete(id);
+          req.onsuccess = () => {
+            this.syncToLocalStorage(storeName);
+            resolve(true);
+          };
+          req.onerror = (e) => reject(e);
+        } catch (err) {
+          this.deleteFromLocalStorage(storeName, id);
+          resolve(true);
+        }
+      });
+    }
+    this.deleteFromLocalStorage(storeName, id);
+    return true;
+  }
+
+  // 清空单表
+  async clear(storeName) {
+    if (this.db) {
+      return new Promise((resolve) => {
+        try {
+          const tx = this.db.transaction(storeName, 'readwrite');
+          const store = tx.objectStore(storeName);
+          const req = store.clear();
+          req.onsuccess = () => {
+            localStorage.removeItem(STORAGE_KEY_PREFIX + storeName);
+            resolve(true);
+          };
+          req.onerror = () => resolve(false);
+        } catch (e) {
+          localStorage.removeItem(STORAGE_KEY_PREFIX + storeName);
+          resolve(true);
+        }
+      });
+    }
+    localStorage.removeItem(STORAGE_KEY_PREFIX + storeName);
+    return true;
+  }
+
+  // 备份导出全量 JSON
+  async exportBackupJSON() {
+    const data = {};
+    const stores = ['customers', 'pets', 'tickets', 'rooms', 'orders'];
+    for (const store of stores) {
+      data[store] = await this.getAll(store);
+    }
+    data.exportTime = new Date().toISOString();
+    data.app = 'PetJoy Studio Workbench';
+    data.version = '1.2.0';
+    return JSON.stringify(data, null, 2);
+  }
+
+  // 还原导入全量 JSON
+  async importBackupJSON(jsonString) {
+    try {
+      const data = JSON.parse(jsonString);
+      const stores = ['customers', 'pets', 'tickets', 'rooms', 'orders'];
+      for (const store of stores) {
+        if (Array.isArray(data[store])) {
+          await this.clear(store);
+          for (const item of data[store]) {
+            await this.add(store, item);
+          }
+        }
+      }
+      return { success: true, message: '数据恢复成功' };
+    } catch (err) {
+      return { success: false, message: '导入解析错误: ' + err.message };
+    }
+  }
+
+  // LocalStorage 辅助读写方法
+  getFromLocalStorage(storeName) {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_PREFIX + storeName);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  addToLocalStorage(storeName, item) {
+    const list = this.getFromLocalStorage(storeName);
+    list.push(item);
+    localStorage.setItem(STORAGE_KEY_PREFIX + storeName, JSON.stringify(list));
+  }
+
+  updateLocalStorage(storeName, item) {
+    let list = this.getFromLocalStorage(storeName);
+    list = list.map((x) => (x.id === item.id ? item : x));
+    localStorage.setItem(STORAGE_KEY_PREFIX + storeName, JSON.stringify(list));
+  }
+
+  deleteFromLocalStorage(storeName, id) {
+    let list = this.getFromLocalStorage(storeName);
+    list = list.filter((x) => x.id !== id);
+    localStorage.setItem(STORAGE_KEY_PREFIX + storeName, JSON.stringify(list));
+  }
+
+  async syncToLocalStorage(storeName) {
+    try {
+      const items = await this.getAll(storeName);
+      localStorage.setItem(STORAGE_KEY_PREFIX + storeName, JSON.stringify(items));
+    } catch (e) {}
+  }
+}
+
+// 挂载全局单例
+window.petJoyDB = new PetJoyStorage();
+
+</script>
+<script>
+/**
+ * 萌宠管家 · 宠物生活馆运营工作台
+ * 核心交互与业务控制层 (app.js)
+ */
+
+class PetJoyApp {
+  constructor() {
+    this.currentView = 'dashboard';
+    this.ticketFilter = 'all';
+    this.roomFilter = 'all';
+    this.orderFilter = 'all';
+    this.activeCheckoutTicket = null;
+    this.activeRechargeCustomer = null;
+
+    // 内存数据缓存
+    this.data = {
+      customers: [],
+      pets: [],
+      tickets: [],
+      rooms: [],
+      orders: []
+    };
+  }
+
+  // 初始化应用
+  async init() {
+    this.initClock();
+    this.bindGlobalEvents();
+
+    // 等待存储引擎就绪
+    await window.petJoyDB.init();
+    await this.refreshData();
+    this.switchView('dashboard');
+    this.showToast('欢迎回到萌宠管家工作台！', 'success');
+  }
+
+  // 刷新所有数据
+  async refreshData() {
+    this.data.customers = await window.petJoyDB.getAll('customers');
+    this.data.pets = await window.petJoyDB.getAll('pets');
+    this.data.tickets = await window.petJoyDB.getAll('tickets');
+    this.data.rooms = await window.petJoyDB.getAll('rooms');
+    this.data.orders = await window.petJoyDB.getAll('orders');
+
+    this.renderAll();
+  }
+
+  // 渲染所有视图
+  renderAll() {
+    this.updateBadges();
+    this.renderDashboard();
+    this.renderTickets();
+    this.renderBoarding();
+    this.renderCustomers();
+    this.renderFinance();
+    this.renderAiDefaults();
+  }
+
+  // 视图切换
+  switchView(viewName) {
+    this.currentView = viewName;
+    document.querySelectorAll('.nav-item').forEach((item) => {
+      item.classList.toggle('active', item.dataset.view === viewName);
+    });
+
+    document.querySelectorAll('.view-section').forEach((sec) => {
+      sec.classList.remove('active');
+    });
+
+    const targetSec = document.getElementById(`view-${viewName}`);
+    if (targetSec) targetSec.classList.add('active');
+
+    // 动态更新页面标题
+    const titles = {
+      dashboard: '📊 经营驾驶舱',
+      tickets: '✂️ 洗美工单流',
+      boarding: '🏡 寄养房态管家',
+      customers: '🐾 宠主与会员CRM',
+      finance: '💳 收银与财务记账',
+      'ai-assistant': '🤖 AI 宠护与话术'
+    };
+    const titleElem = document.getElementById('pageTitle');
+    if (titleElem) titleElem.innerHTML = `<span>${titles[viewName].split(' ')[0]}</span> ${titles[viewName].split(' ')[1]}`;
+  }
+
+  // 顶部与菜单角标更新
+  updateBadges() {
+    // 待处理工单数量 (未完成)
+    const activeTickets = this.data.tickets.filter((t) => t.status !== 'completed');
+    const badgeTickets = document.getElementById('navTicketBadge');
+    if (badgeTickets) badgeTickets.textContent = activeTickets.length;
+
+    // 寄养在住房间数量
+    const occupiedRooms = this.data.rooms.filter((r) => r.status === 'occupied');
+    const badgeRooms = document.getElementById('navBoardingBadge');
+    if (badgeRooms) badgeRooms.textContent = occupiedRooms.length;
+  }
+
+  // ================= 视图 1：经营驾驶舱 =================
+  renderDashboard() {
+    const today = new Date().toISOString().split('T')[0];
+
+    // 1. 工单指标
+    const todayTickets = this.data.tickets;
+    const serving = todayTickets.filter((t) => t.status === 'serving').length;
+    const ready = todayTickets.filter((t) => t.status === 'ready').length;
+    document.getElementById('mTodayTickets').textContent = todayTickets.length;
+    document.getElementById('mTicketsServing').textContent = serving;
+    document.getElementById('mTicketsReady').textContent = ready;
+
+    // 2. 寄养指标
+    const totalRooms = this.data.rooms.length;
+    const occupiedRooms = this.data.rooms.filter((r) => r.status === 'occupied').length;
+    const rate = totalRooms > 0 ? Math.round((occupiedRooms / totalRooms) * 100) : 0;
+    document.getElementById('mBoardingRate').textContent = rate + '%';
+    document.getElementById('mRoomsOccupied').textContent = occupiedRooms;
+    document.getElementById('mRoomsTotal').textContent = totalRooms;
+
+    // 3. 今日营收 (筛选今日订单)
+    const todayOrders = this.data.orders.filter((o) => (o.timestamp || '').startsWith(today));
+    const todayRev = todayOrders.reduce((sum, o) => sum + (parseFloat(o.amount) || 0), 0);
+    document.getElementById('mTodayRevenue').textContent = todayRev.toFixed(2);
+    document.getElementById('mTodayOrdersCount').textContent = todayOrders.length;
+
+    // 4. 安全与健康预警
+    let alertCount = 0;
+    const alertMessages = [];
+
+    // 预警 A: 检查在店有攻击性或易应激的宠物
+    const inStoreTickets = this.data.tickets.filter((t) => t.status === 'serving' || t.status === 'pending');
+    for (const t of inStoreTickets) {
+      const pet = this.data.pets.find((p) => p.id === t.petId);
+      if (pet && pet.tags && pet.tags.some((tag) => tag.includes('咬人') || tag.includes('应激'))) {
+        alertCount++;
+        alertMessages.push(`在店宠物【${pet.name}】(${pet.breed}) 标记有易应激/咬人风险，洗美请务必佩戴安全嘴套并双人配合！`);
+      }
+    }
+
+    // 预警 B: 完工超 60 分钟未接
+    const readyTickets = this.data.tickets.filter((t) => t.status === 'ready');
+    for (const t of readyTickets) {
+      if (t.finishTime) {
+        alertCount++;
+        const pet = this.data.pets.find((p) => p.id === t.petId);
+        alertMessages.push(`宠物【${pet ? pet.name : '毛孩子'}】已于 ${t.finishTime} 洗护完工，待取超时，建议微信催促接回！`);
+      }
+    }
+
+    // 预警 C: 7 日内疫苗驱虫到期
+    for (const pet of this.data.pets) {
+      if (pet.vaccineExpireDate) {
+        const diffDays = (new Date(pet.vaccineExpireDate) - new Date()) / (1000 * 3600 * 24);
+        if (diffDays >= 0 && diffDays <= 7) {
+          alertCount++;
+          alertMessages.push(`会员宠物【${pet.name}】核心疫苗将于 ${pet.vaccineExpireDate} 到期，请及时回访问候！`);
+        }
+      }
+    }
+
+    document.getElementById('mAlertCount').textContent = alertCount;
+    const alertBanner = document.getElementById('dashboardAlertBanner');
+    const alertText = document.getElementById('dashboardAlertText');
+    if (alertCount > 0) {
+      alertBanner.classList.remove('hide');
+      alertText.textContent = alertMessages[0];
+    } else {
+      alertBanner.classList.add('hide');
+    }
+
+    // 5. 渲染流水线看板
+    this.renderKanbanCols();
+
+    // 6. 渲染寄养巡房打卡快检
+    this.renderQuickBoardingList();
+
+    // 7. 渲染近 7 日交互趋势图
+    this.renderTrendChart();
+  }
+
+  renderKanbanCols() {
+    const cols = {
+      pending: document.getElementById('listPending'),
+      serving: document.getElementById('listServing'),
+      ready: document.getElementById('listReady'),
+      completed: document.getElementById('listCompleted')
+    };
+
+    const counts = { pending: 0, serving: 0, ready: 0, completed: 0 };
+    Object.values(cols).forEach((el) => (el.innerHTML = ''));
+
+    this.data.tickets.forEach((ticket) => {
+      const pet = this.data.pets.find((p) => p.id === ticket.petId) || { name: '未知宠物', breed: '未知品种', tags: [] };
+      const status = ticket.status || 'pending';
+      counts[status] = (counts[status] || 0) + 1;
+
+      const card = document.createElement('div');
+      card.className = 'ticket-card';
+      
+      // 特殊标签
+      const dangerTag = pet.tags && pet.tags.some((t) => t.includes('咬人') || t.includes('应激'))
+        ? `<span class="badge-tag badge-tag-danger">⚠️ 易咬/应激</span>`
+        : '';
+
+      let actionBtn = '';
+      if (status === 'pending') {
+        actionBtn = `<button class="btn btn-outline btn-sm" onclick="app.advanceTicketStatus('${ticket.id}', 'serving')">开始洗护</button>`;
+      } else if (status === 'serving') {
+        actionBtn = `<button class="btn btn-primary btn-sm" onclick="app.advanceTicketStatus('${ticket.id}', 'ready')">完工待取</button>`;
+      } else if (status === 'ready') {
+        actionBtn = `<button class="btn btn-accent btn-sm" onclick="app.openCheckoutModal('${ticket.id}')">收银结算</button>`;
+      } else {
+        actionBtn = `<span style="font-size: 11px; color: var(--text-muted);">已结算离店</span>`;
+      }
+
+      card.innerHTML = `
+        <div class="ticket-card-header">
+          <div class="pet-name-badge">
+            <span>${pet.species === '猫类' ? '🐱' : '🐶'}</span>
+            <span>${pet.name}</span>
+            <span class="pet-breed-tag">${pet.breed}</span>
+          </div>
+          ${dangerTag}
+        </div>
+        <div style="font-size: 12px; color: var(--primary); font-weight: 600;">
+          ${ticket.serviceType}
+        </div>
+        <div class="ticket-meta">
+          <span>师：${ticket.groomer ? ticket.groomer.split(' ')[0] : '轮牌'}</span>
+          <span style="font-weight: 700; color: var(--text-main);">¥${parseFloat(ticket.price).toFixed(2)}</span>
+        </div>
+        <div class="ticket-actions">
+          ${actionBtn}
+          <button class="btn btn-ghost btn-sm" style="margin-left: auto; font-size: 11px;" onclick="app.showTicketDetail('${ticket.id}')">详情</button>
+        </div>
+      `;
+
+      if (cols[status]) cols[status].appendChild(card);
+    });
+
+    document.getElementById('countPending').textContent = counts.pending;
+    document.getElementById('countServing').textContent = counts.serving;
+    document.getElementById('countReady').textContent = counts.ready;
+    document.getElementById('countCompleted').textContent = counts.completed;
+  }
+
+  // 寄养快速打卡卡片
+  renderQuickBoardingList() {
+    const listEl = document.getElementById('quickBoardingList');
+    listEl.innerHTML = '';
+
+    const occupiedRooms = this.data.rooms.filter((r) => r.status === 'occupied');
+    if (occupiedRooms.length === 0) {
+      listEl.innerHTML = `
+        <div style="text-align: center; padding: 24px; color: var(--text-muted); font-size: 12px;">
+          当前没有在住宠物，房间全部空闲中。
+        </div>
+      `;
+      return;
+    }
+
+    listEl.style.cssText = 'display: flex; flex-direction: column; gap: 10px; max-height: 320px; overflow-y: auto; padding-right: 4px;';
+
+    occupiedRooms.slice(0, 4).forEach((room) => {
+      const pet = this.data.pets.find((p) => p.id === room.currentPetId) || { name: '入住毛孩', breed: '' };
+      const logs = room.careLogs || [];
+
+      const card = document.createElement('div');
+      card.style.cssText = 'background: var(--bg-subtle); padding: 10px 12px; border-radius: var(--radius-md); font-size: 12px; border: 1px solid var(--border);';
+      
+      let tasksHtml = '';
+      logs.forEach((item, idx) => {
+        tasksHtml += `
+          <div class="care-item ${item.done ? 'done' : ''}" style="cursor: pointer;" onclick="app.toggleRoomCareTask('${room.id}', ${idx})">
+            <span>${item.done ? '✅' : '⏳'} ${item.task} (${item.date.split(' ')[1] || ''})</span>
+            <span style="font-size: 11px; color: var(--text-muted);">${item.done ? '已完成' : '点击打卡'}</span>
+          </div>
+        `;
+      });
+
+      card.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <b>${room.roomNo} · ${pet.name} (${pet.breed})</b>
+          <span style="font-size: 11px; color: var(--text-muted);">至 ${room.checkOutDate || '长期'}</span>
+        </div>
+        <div class="care-checklist">
+          ${tasksHtml}
+        </div>
+      `;
+      listEl.appendChild(card);
+    });
+  }
+
+  // 近 7 日营收趋势 SVG 生成
+  renderTrendChart() {
+    const chartWrap = document.getElementById('trendChartWrap');
+    if (!chartWrap) return;
+
+    // 统计近 7 天每天的营收
+    const days = [];
+    const values = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const dateStr = d.toISOString().split('T')[0];
+      const shortStr = `${d.getMonth() + 1}/${d.getDate()}`;
+      days.push(shortStr);
+
+      const dayOrders = this.data.orders.filter((o) => (o.timestamp || '').startsWith(dateStr));
+      const total = dayOrders.reduce((sum, o) => sum + (parseFloat(o.amount) || 0), 0);
+      values.push(total);
+    }
+
+    const maxVal = Math.max(...values, 1000);
+    const height = 130;
+    const width = 360;
+    const padding = 25;
+    const barWidth = 24;
+
+    const points = values.map((val, idx) => {
+      const x = padding + (idx * (width - 2 * padding)) / (values.length - 1);
+      const y = height - padding - (val / maxVal) * (height - 2 * padding);
+      return { x, y, val };
+    });
+
+    let svg = `<svg viewBox="0 0 ${width} ${height}" style="width: 100%; height: 100%;">`;
+    // 渐变定义
+    svg += `
+      <defs>
+        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2D6A4F" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#2D6A4F" stop-opacity="0.0"/>
+        </linearGradient>
+      </defs>
+    `;
+
+    // 柱状条与折线
+    points.forEach((p, idx) => {
+      const barH = height - padding - p.y;
+      svg += `<rect x="${p.x - barWidth / 2}" y="${p.y}" width="${barWidth}" height="${barH}" rx="4" fill="#E8F5E9" />`;
+      // X 轴文字
+      svg += `<text x="${p.x}" y="${height - 6}" font-size="10" fill="#8C847D" text-anchor="middle">${days[idx]}</text>`;
+      // 柱顶数值
+      if (p.val > 0) {
+        svg += `<text x="${p.x}" y="${p.y - 4}" font-size="9" font-weight="bold" fill="#2D6A4F" text-anchor="middle">¥${Math.round(p.val)}</text>`;
+      }
+    });
+
+    svg += `</svg>`;
+    chartWrap.innerHTML = svg;
+  }
+
+  // ================= 视图 2：洗美工单流 =================
+  renderTickets() {
+    const tbody = document.getElementById('ticketsTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    const query = (document.getElementById('searchTicketInput')?.value || '').trim().toLowerCase();
+
+    // 统计各过滤选项数量
+    const allCount = this.data.tickets.length;
+    const pendingCount = this.data.tickets.filter((t) => t.status === 'pending').length;
+    const servingCount = this.data.tickets.filter((t) => t.status === 'serving').length;
+    const readyCount = this.data.tickets.filter((t) => t.status === 'ready').length;
+    const completedCount = this.data.tickets.filter((t) => t.status === 'completed').length;
+
+    document.getElementById('pillAllCount').textContent = allCount;
+    document.getElementById('pillPendingCount').textContent = pendingCount;
+    document.getElementById('pillServingCount').textContent = servingCount;
+    document.getElementById('pillReadyCount').textContent = readyCount;
+    document.getElementById('pillCompletedCount').textContent = completedCount;
+
+    let filtered = this.data.tickets;
+    if (this.ticketFilter !== 'all') {
+      filtered = filtered.filter((t) => t.status === this.ticketFilter);
+    }
+
+    if (query) {
+      filtered = filtered.filter((t) => {
+        const pet = this.data.pets.find((p) => p.id === t.petId);
+        const owner = pet ? this.data.customers.find((c) => c.id === pet.ownerId) : null;
+        return (
+          t.ticketNo.toLowerCase().includes(query) ||
+          (pet && pet.name.toLowerCase().includes(query)) ||
+          (owner && owner.name.toLowerCase().includes(query)) ||
+          (owner && owner.phone.includes(query))
+        );
+      });
+    }
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 32px; color: var(--text-muted);">暂无符合条件的工单记录</td></tr>`;
+      return;
+    }
+
+    filtered.forEach((t) => {
+      const pet = this.data.pets.find((p) => p.id === t.petId) || { name: '未知宠物', breed: '', tags: [] };
+      const owner = this.data.customers.find((c) => c.id === pet.ownerId) || { name: '未知客', phone: '-' };
+
+      let statusBadge = '';
+      if (t.status === 'pending') statusBadge = '<span class="badge-tag badge-tag-warning">待到店</span>';
+      else if (t.status === 'serving') statusBadge = '<span class="badge-tag badge-tag-info">洗护服务中</span>';
+      else if (t.status === 'ready') statusBadge = '<span class="badge-tag" style="background:#D8F3DC; color:#2D6A4F; font-weight:700;">待取宠</span>';
+      else statusBadge = '<span class="badge-tag badge-tag-gray">已离店结账</span>';
+
+      // 危险标签
+      const dangerBadge = pet.tags && pet.tags.some((x) => x.includes('咬人') || x.includes('应激'))
+        ? `<span class="badge-tag badge-tag-danger">咬人戴嘴套</span>`
+        : '';
+
+      let opBtn = '';
+      if (t.status === 'pending') {
+        opBtn = `<button class="btn btn-outline btn-sm" onclick="app.advanceTicketStatus('${t.id}', 'serving')">到店上台</button>`;
+      } else if (t.status === 'serving') {
+        opBtn = `<button class="btn btn-primary btn-sm" onclick="app.advanceTicketStatus('${t.id}', 'ready')">完工待取</button>`;
+      } else if (t.status === 'ready') {
+        opBtn = `<button class="btn btn-accent btn-sm" onclick="app.openCheckoutModal('${t.id}')">收银结算</button>`;
+      } else {
+        opBtn = `<button class="btn btn-ghost btn-sm" onclick="app.showTicketReceipt('${t.id}')">凭证</button>`;
+      }
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="font-family: monospace; font-weight: 600;">${t.ticketNo}</td>
+        <td>
+          <div style="font-weight: 600;">${pet.name} <span style="font-size:11px; color:var(--text-muted);">(${pet.breed})</span></div>
+          <div style="font-size: 11px; color: var(--text-muted);">${owner.name} · ${owner.phone}</div>
+          ${dangerBadge}
+        </td>
+        <td style="color: var(--primary); font-weight: 500;">${t.serviceType}</td>
+        <td>${t.groomer}</td>
+        <td>${statusBadge}</td>
+        <td style="max-width: 220px; font-size: 12px; color: var(--text-secondary);">
+          ${t.healthCheckNotes || '<span style="color:var(--text-muted);">无特殊异常</span>'}
+        </td>
+        <td style="font-weight: 700; color: var(--text-main);">¥${parseFloat(t.price).toFixed(2)}</td>
+        <td>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            ${opBtn}
+            <button class="btn btn-ghost btn-sm" style="color:var(--danger);" onclick="app.deleteTicket('${t.id}')">删除</button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // 推进工单状态
+  async advanceTicketStatus(ticketId, nextStatus) {
+    const ticket = this.data.tickets.find((t) => t.id === ticketId);
+    if (!ticket) return;
+
+    ticket.status = nextStatus;
+    if (nextStatus === 'ready' && !ticket.finishTime) {
+      const now = new Date();
+      ticket.finishTime = `${now.getHours()}:${now.getMinutes() < 10 ? '0' : ''}${now.getMinutes()}`;
+    }
+
+    await window.petJoyDB.update('tickets', ticket);
+    await this.refreshData();
+    this.showToast(`工单 ${ticket.ticketNo} 状态已更新为【${nextStatus}】`, 'success');
+  }
+
+  // 删除工单
+  async deleteTicket(ticketId) {
+    if (!confirm('确定要删除此工单记录吗？')) return;
+    await window.petJoyDB.delete('tickets', ticketId);
+    await this.refreshData();
+    this.showToast('工单已成功删除', 'info');
+  }
+
+  // ================= 视图 3：寄养房态管家 =================
+  renderBoarding() {
+    const grid = document.getElementById('roomsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    let rooms = this.data.rooms;
+    if (this.roomFilter === 'cat') {
+      rooms = rooms.filter((r) => r.category.includes('猫'));
+    } else if (this.roomFilter === 'dog') {
+      rooms = rooms.filter((r) => r.category.includes('狗'));
+    }
+
+    rooms.forEach((room) => {
+      const card = document.createElement('div');
+      card.className = `room-card ${room.status}`;
+
+      const pet = room.currentPetId ? this.data.pets.find((p) => p.id === room.currentPetId) : null;
+      const owner = pet ? this.data.customers.find((c) => c.id === pet.ownerId) : null;
+
+      let statusBadge = '';
+      if (room.status === 'occupied') {
+        statusBadge = `<span class="room-status-badge status-occupied">在住中</span>`;
+      } else if (room.status === 'empty') {
+        statusBadge = `<span class="room-status-badge status-empty">空闲待入住</span>`;
+      } else {
+        statusBadge = `<span class="room-status-badge status-cleaning">清洁消毒中</span>`;
+      }
+
+      let middleContent = '';
+      let actions = '';
+
+      if (room.status === 'occupied' && pet) {
+        let careTasksHtml = '';
+        (room.careLogs || []).forEach((log, idx) => {
+          careTasksHtml += `
+            <div class="care-item ${log.done ? 'done' : ''}" style="cursor: pointer;" onclick="app.toggleRoomCareTask('${room.id}', ${idx})">
+              <span>${log.done ? '✅' : '⏳'} ${log.task}</span>
+              <span style="font-size: 10px; color: var(--text-muted);">${log.done ? '已打卡' : '点击打卡'}</span>
+            </div>
+          `;
+        });
+
+        middleContent = `
+          <div class="guest-info">
+            <div style="font-weight: 700; font-size: 13px;">
+              ${pet.species === '猫类' ? '🐱' : '🐶'} ${pet.name} (${pet.breed})
+            </div>
+            <div style="color: var(--text-muted); font-size: 11px;">
+              宠主：${owner ? owner.name : '-'} (${owner ? owner.phone : '-'})
+            </div>
+            <div style="color: var(--text-muted); font-size: 11px;">
+              住店：${room.checkInDate} 至 ${room.checkOutDate || '未定'}
+            </div>
+          </div>
+          <div class="care-checklist">
+            <div style="font-size: 11px; font-weight: 600; color: var(--text-secondary); margin-bottom: 2px;">今日巡房关怀打卡:</div>
+            ${careTasksHtml}
+          </div>
+        `;
+
+        actions = `
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <button class="btn btn-outline btn-sm" style="flex: 1;" onclick="app.addCareLogPrompt('${room.id}')">➕ 加护理项</button>
+            <button class="btn btn-accent btn-sm" style="flex: 1;" onclick="app.checkoutBoardingRoom('${room.id}')">退房结算</button>
+          </div>
+        `;
+      } else if (room.status === 'empty') {
+        middleContent = `
+          <div style="padding: 24px 0; text-align: center; color: var(--text-muted); font-size: 13px;">
+            房间已消毒通风，随时可办理入住
+          </div>
+        `;
+        actions = `
+          <button class="btn btn-primary btn-sm" style="width: 100%; margin-top: 8px;" onclick="app.openCheckInModal('${room.id}')">
+            办理入住登记
+          </button>
+        `;
+      } else {
+        middleContent = `
+          <div style="padding: 24px 0; text-align: center; color: var(--warning); font-size: 13px;">
+            正在紫外线消毒与更换全新垫料中...
+          </div>
+        `;
+        actions = `
+          <button class="btn btn-outline btn-sm" style="width: 100%; margin-top: 8px;" onclick="app.finishRoomCleaning('${room.id}')">
+            完成保洁，设为空闲
+          </button>
+        `;
+      }
+
+      card.innerHTML = `
+        <div class="room-top">
+          <div>
+            <div class="room-no">${room.roomNo}</div>
+            <div class="room-category">${room.category} · ¥${parseFloat(room.dailyRate).toFixed(2)}/天</div>
+          </div>
+          ${statusBadge}
+        </div>
+        ${middleContent}
+        ${actions}
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // 寄养打卡切换
+  async toggleRoomCareTask(roomId, taskIndex) {
+    const room = this.data.rooms.find((r) => r.id === roomId);
+    if (!room || !room.careLogs || !room.careLogs[taskIndex]) return;
+
+    room.careLogs[taskIndex].done = !room.careLogs[taskIndex].done;
+    await window.petJoyDB.update('rooms', room);
+    await this.refreshData();
+  }
+
+  // 添加护理打卡项
+  async addCareLogPrompt(roomId) {
+    const task = prompt('请输入新护理任务名称 (例: 晚间喂营养膏/梳毛互动/给眼药水):', '梳毛互动与拍照');
+    if (!task) return;
+
+    const room = this.data.rooms.find((r) => r.id === roomId);
+    if (!room) return;
+
+    if (!room.careLogs) room.careLogs = [];
+    const now = new Date();
+    room.careLogs.push({
+      date: `${now.toISOString().split('T')[0]} ${now.getHours()}:${now.getMinutes() < 10 ? '0' : ''}${now.getMinutes()}`,
+      task: task,
+      done: true,
+      note: '人工登记'
+    });
+
+    await window.petJoyDB.update('rooms', room);
+    await this.refreshData();
+    this.showToast('已添加巡房护理打卡记录', 'success');
+  }
+
+  // 寄养退房结算
+  async checkoutBoardingRoom(roomId) {
+    const room = this.data.rooms.find((r) => r.id === roomId);
+    if (!room) return;
+
+    const pet = this.data.pets.find((p) => p.id === room.currentPetId);
+    if (!confirm(`确定为【${pet ? pet.name : '毛孩子'}】办理退房结算并将房间转为清洁状态吗？`)) return;
+
+    room.status = 'cleaning';
+    room.currentPetId = null;
+    room.careLogs = [];
+
+    await window.petJoyDB.update('rooms', room);
+    await this.refreshData();
+    this.showToast(`退房成功，房间 ${room.roomNo} 进入保洁消毒流程`, 'success');
+  }
+
+  async finishRoomCleaning(roomId) {
+    const room = this.data.rooms.find((r) => r.id === roomId);
+    if (!room) return;
+    room.status = 'empty';
+    await window.petJoyDB.update('rooms', room);
+    await this.refreshData();
+    this.showToast(`房间 ${room.roomNo} 已恢复为空闲待入住`, 'success');
+  }
+
+  // ================= 视图 4：宠主与会员 CRM =================
+  renderCustomers() {
+    const tbody = document.getElementById('customersTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    const query = (document.getElementById('searchCustomerInput')?.value || '').trim().toLowerCase();
+    let filtered = this.data.customers;
+
+    if (query) {
+      filtered = filtered.filter((c) => {
+        const boundPets = this.data.pets.filter((p) => p.ownerId === c.id);
+        return (
+          c.name.toLowerCase().includes(query) ||
+          c.phone.includes(query) ||
+          boundPets.some((p) => p.name.toLowerCase().includes(query))
+        );
+      });
+    }
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 32px; color: var(--text-muted);">暂无会员宠主记录</td></tr>`;
+      return;
+    }
+
+    filtered.forEach((c) => {
+      const pets = this.data.pets.filter((p) => p.ownerId === c.id);
+
+      let petsHtml = '';
+      if (pets.length === 0) {
+        petsHtml = '<span style="color:var(--text-muted); font-size:12px;">暂无登记宠物</span>';
+      } else {
+        petsHtml = pets
+          .map((p) => {
+            const danger = p.tags && p.tags.some((t) => t.includes('咬人') || t.includes('应激'))
+              ? '<span class="badge-tag badge-tag-danger">咬人戴嘴套</span>'
+              : '';
+            return `
+              <div style="font-size: 12px; margin-bottom: 4px;">
+                <b>${p.species === '猫类' ? '🐱' : '🐶'} ${p.name}</b> (${p.breed || '混血'}, ${p.weight || '-'}kg)
+                ${danger}
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="font-weight: 700;">${c.name}</td>
+        <td style="font-family: monospace;">${c.phone}</td>
+        <td><span class="badge-tag badge-tag-info">${c.vipLevel || '普通会员'}</span></td>
+        <td style="font-weight: 700; color: var(--accent);">¥${parseFloat(c.balance || 0).toFixed(2)}</td>
+        <td style="color: var(--text-secondary);">¥${parseFloat(c.totalSpent || 0).toFixed(2)}</td>
+        <td>${petsHtml}</td>
+        <td style="font-size: 12px; color: var(--text-muted);">${c.createdAt || '-'}</td>
+        <td>
+          <div style="display: flex; gap: 6px;">
+            <button class="btn btn-primary btn-sm" onclick="app.openRechargeModal('${c.id}')">储值充值</button>
+            <button class="btn btn-outline btn-sm" onclick="app.openNewCustomerModal('${c.id}')">添加宠物</button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ================= 视图 5：收银与财务记账 =================
+  renderFinance() {
+    const tbody = document.getElementById('ordersTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    const today = new Date().toISOString().split('T')[0];
+    const todayOrders = this.data.orders.filter((o) => (o.timestamp || '').startsWith(today));
+    const todayTotal = todayOrders.reduce((sum, o) => sum + (parseFloat(o.amount) || 0), 0);
+
+    const serviceTotal = this.data.orders
+      .filter((o) => o.category === '洗美造型')
+      .reduce((sum, o) => sum + (parseFloat(o.amount) || 0), 0);
+
+    const boardingTotal = this.data.orders
+      .filter((o) => o.category === '寄养服务')
+      .reduce((sum, o) => sum + (parseFloat(o.amount) || 0), 0);
+
+    const otherTotal = this.data.orders
+      .filter((o) => o.category === '会员充值' || o.category === '商品零售')
+      .reduce((sum, o) => sum + (parseFloat(o.amount) || 0), 0);
+
+    document.getElementById('fTodayTotal').textContent = todayTotal.toFixed(2);
+    document.getElementById('fServiceTotal').textContent = serviceTotal.toFixed(2);
+    document.getElementById('fBoardingTotal').textContent = boardingTotal.toFixed(2);
+    document.getElementById('fOtherTotal').textContent = otherTotal.toFixed(2);
+
+    let filtered = this.data.orders;
+    if (this.orderFilter !== 'all') {
+      filtered = filtered.filter((o) => o.category === this.orderFilter);
+    }
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 32px; color: var(--text-muted);">暂无交易记录</td></tr>`;
+      return;
+    }
+
+    // 按时间倒序
+    filtered.sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+
+    filtered.forEach((o) => {
+      const cust = this.data.customers.find((c) => c.id === o.customerId);
+      const pet = o.petId ? this.data.pets.find((p) => p.id === o.petId) : null;
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="font-family: monospace; font-size: 12px;">${o.orderNo}</td>
+        <td><span class="badge-tag badge-tag-info">${o.category}</span></td>
+        <td>
+          <div style="font-weight: 600;">${cust ? cust.name : '散客'}</div>
+          <div style="font-size: 11px; color: var(--text-muted);">${pet ? `${pet.name} (${pet.breed})` : '-'}</div>
+        </td>
+        <td style="font-size: 12px; color: var(--text-secondary); max-width: 240px;">${o.description || '-'}</td>
+        <td><span class="badge-tag badge-tag-gray">${o.payMethod}</span></td>
+        <td style="font-weight: 700; color: var(--accent); font-size: 14px;">¥${parseFloat(o.amount).toFixed(2)}</td>
+        <td style="font-size: 11px; color: var(--text-muted);">${o.timestamp}</td>
+        <td>
+          <button class="btn btn-outline btn-sm" onclick="app.showReceiptModal('${o.id}')">电子凭证</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // 导出对账 CSV
+  exportCSV() {
+    if (this.data.orders.length === 0) {
+      this.showToast('暂无订单可导出', 'warning');
+      return;
+    }
+
+    const headers = ['交易单号', '业务类型', '客户姓名', '宠物名称', '金额', '支付方式', '时间', '说明'];
+    const rows = this.data.orders.map((o) => {
+      const cust = this.data.customers.find((c) => c.id === o.customerId);
+      const pet = o.petId ? this.data.pets.find((p) => p.id === o.petId) : null;
+      return [
+        o.orderNo,
+        o.category,
+        cust ? cust.name : '散客',
+        pet ? pet.name : '-',
+        o.amount,
+        o.payMethod,
+        o.timestamp,
+        `"${(o.description || '').replace(/"/g, '""')}"`
+      ];
+    });
+
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `宠物店收银对账表_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    this.showToast('财务对账表 CSV 已导出', 'success');
+  }
+
+  // ================= 视图 6：AI 宠护与话术 =================
+  renderAiDefaults() {
+    // 绑定生成按钮事件
+    const btnCare = document.getElementById('btnGenerateAiCare');
+    if (btnCare) {
+      btnCare.onclick = () => this.generateAiCareAdvice();
+    }
+
+    const btnMsg = document.getElementById('btnGenerateAiMsg');
+    if (btnMsg) {
+      btnMsg.onclick = () => this.generateAiWeChatMessage();
+    }
+
+    const btnCopyCare = document.getElementById('btnCopyCareResult');
+    if (btnCopyCare) {
+      btnCopyCare.onclick = () => {
+        const text = document.getElementById('aiCareResult').innerText;
+        navigator.clipboard.writeText(text);
+        this.showToast('护理建议已复制到剪贴板！', 'success');
+      };
+    }
+
+    const btnCopyMsg = document.getElementById('btnCopyMsgResult');
+    if (btnCopyMsg) {
+      btnCopyMsg.onclick = () => {
+        const text = document.getElementById('aiMsgResult').innerText;
+        navigator.clipboard.writeText(text);
+        this.showToast('微信文案已复制到剪贴板！', 'success');
+      };
+    }
+  }
+
+  generateAiCareAdvice() {
+    const breed = document.getElementById('aiBreedSelect').value;
+    const cond = document.getElementById('aiConditionInput').value || '无明显皮肤病，常规深度清洁保养';
+    const resultEl = document.getElementById('aiCareResult');
+
+    resultEl.innerHTML = `
+🐾【萌宠管家 · 洗后专业护理与居家交代】
+━━━━━━━━━━━━━━━━━━━━━━━━━
+【护理对象】：${breed}
+【洗检发现】：${cond}
+
+【今日洗护方案】：
+1. 选用低敏燕麦植萃舒缓香波浸泡 10 分钟，温和软化皮屑并止痒；
+2. 彻底深层清洁耳道并进行了植物精油耳道消炎上药；
+3. 足底肉球已涂抹修护滋润膏，预防粗糙干裂。
+
+【店长温情叮嘱 (请宠主注意)】：
+• 回家 24 小时内请勿吹强冷风或在室外受凉，准备适量温水；
+• 请保持耳道与脚趾缝干燥通风，避免反复舔舐脚掌；
+• 若发现频繁抓挠耳部，建议早晚使用我们配发的抑菌耳油滴洗 3 天；
+• 建议下次精洗周期：10 ~ 14 天后。
+━━━━━━━━━━━━━━━━━━━━━━━━━
+    `;
+    this.showToast('AI 专业护理医嘱已生成', 'success');
+  }
+
+  generateAiWeChatMessage() {
+    const scenario = document.getElementById('aiMsgScenario').value;
+    const owner = document.getElementById('aiMsgOwner').value || '家长';
+    const pet = document.getElementById('aiMsgPet').value || '宝贝';
+    const highlight = document.getElementById('aiMsgHighlight').value || '今天在店表现超级棒，很乖很配合！';
+    const resultEl = document.getElementById('aiMsgResult');
+
+    let text = '';
+    if (scenario === 'ready') {
+      text = `🎉【萌宠管家 · 洗护完工通知】\n\n${owner}您好呀！🐾 咱们家【${pet}】的精致洗美护理已经全部圆满完成啦～✨\n\n小家伙${highlight}，现在已经换好香喷喷的全新造型，在干净通风的暖风休息区享受美味小冻干啦！\n\n您可以随时来店接它回家贴贴咯，如果路上塞车也不用急，我们会一直有专人陪它玩耍～❤️`;
+    } else if (scenario === 'care') {
+      text = `❤️【萌宠管家 · 次日回访问候】\n\n${owner}早上好呀！昨天【${pet}】回家后胃口和精神都挺好吧？昨天药浴之后身体毛发还舒服吗？\n\n记得这几天让小家伙多喝温水，脚趾缝和耳道继续保持干燥哦。如果有任何护理上的小疑问，随时微信发我，我们随时在！😊`;
+    } else if (scenario === 'boarding') {
+      text = `📸【萌宠管家 · 寄养每日平安日记】\n\n${owner}请放心～今天【${pet}】在店里过得超开心！\n早晚饭都全部吃光光啦，便便成型健康，下午店员还陪它玩了最爱的逗猫棒/草坪散步呢！${highlight}\n\n刚才拍了十几秒的超萌小视频，稍后发给您看～祝您在外一切顺利！🐾`;
+    } else {
+      text = `⏰【萌宠管家 · 健康提醒】\n\n${owner}您好呀！翻看【${pet}】的健康档案，发现它的年度核心疫苗/体内外驱虫差不多到期啦～\n换季正值寄生虫高发期，为了毛孩子健康无忧，这周有空带它来店里顺便做个体检驱虫吧，老会员可直接享受专属折扣哦！`;
+    }
+
+    resultEl.innerHTML = text;
+    this.showToast('温情微信回访话术已生成', 'success');
+  }
+
+  // ================= 模态弹窗与业务动作 =================
+
+  // 1. 新建工单弹窗
+  openNewTicketModal() {
+    const petSelect = document.getElementById('ticketPetSelect');
+    petSelect.innerHTML = '';
+    this.data.pets.forEach((p) => {
+      const owner = this.data.customers.find((c) => c.id === p.ownerId);
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = `${p.species === '猫类' ? '🐱' : '🐶'} ${p.name} (${p.breed}) - 主人：${owner ? owner.name : '-'}`;
+      petSelect.appendChild(opt);
+    });
+
+    // 动态同步价格
+    const sSelect = document.getElementById('ticketServiceSelect');
+    const pInput = document.getElementById('ticketPriceInput');
+    sSelect.onchange = () => {
+      const selected = sSelect.options[sSelect.selectedIndex];
+      if (selected && selected.dataset.price) {
+        pInput.value = selected.dataset.price;
+      }
+    };
+
+    document.getElementById('modalTicket').classList.add('active');
+  }
+
+  async submitNewTicket() {
+    const petId = document.getElementById('ticketPetSelect').value;
+    const serviceType = document.getElementById('ticketServiceSelect').value;
+    const groomer = document.getElementById('ticketGroomerSelect').value;
+    const price = parseFloat(document.getElementById('ticketPriceInput').value) || 120;
+    const notes = document.getElementById('ticketNotesInput').value;
+    const status = document.getElementById('ticketStatusSelect').value;
+
+    const now = new Date();
+    const timeStr = `${now.getHours()}:${now.getMinutes() < 10 ? '0' : ''}${now.getMinutes()}`;
+    const dateStr = now.toISOString().split('T')[0];
+
+    const newTicket = {
+      ticketNo: 'TK' + now.getFullYear() + (now.getMonth() + 1).toString().padStart(2, '0') + now.getDate().toString().padStart(2, '0') + Math.floor(100 + Math.random() * 900),
+      petId,
+      serviceType,
+      groomer,
+      price,
+      healthCheckNotes: notes,
+      status,
+      startTime: status === 'serving' ? timeStr : null,
+      finishTime: null,
+      createdAt: dateStr
+    };
+
+    await window.petJoyDB.add('tickets', newTicket);
+    this.closeModal('modalTicket');
+    await this.refreshData();
+    this.showToast(`预约工单 ${newTicket.ticketNo} 创建成功！`, 'success');
+  }
+
+  // 2. 寄养登记弹窗
+  openCheckInModal(preSelectRoomId = null) {
+    const roomSelect = document.getElementById('boardingRoomSelect');
+    roomSelect.innerHTML = '';
+    const emptyRooms = this.data.rooms.filter((r) => r.status === 'empty' || r.id === preSelectRoomId);
+
+    if (emptyRooms.length === 0) {
+      this.showToast('当前没有空闲房间，请先退房或调整房态！', 'warning');
+      return;
+    }
+
+    emptyRooms.forEach((r) => {
+      const opt = document.createElement('option');
+      opt.value = r.id;
+      opt.textContent = `${r.roomNo} · ${r.category} (¥${r.dailyRate}/天)`;
+      if (r.id === preSelectRoomId) opt.selected = true;
+      roomSelect.appendChild(opt);
+    });
+
+    const petSelect = document.getElementById('boardingPetSelect');
+    petSelect.innerHTML = '';
+    this.data.pets.forEach((p) => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = `${p.species === '猫类' ? '🐱' : '🐶'} ${p.name} (${p.breed})`;
+      petSelect.appendChild(opt);
+    });
+
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('boardingCheckInDate').value = today;
+    const future = new Date();
+    future.setDate(future.getDate() + 3);
+    document.getElementById('boardingCheckOutDate').value = future.toISOString().split('T')[0];
+
+    document.getElementById('modalBoarding').classList.add('active');
+  }
+
+  async submitBoardingCheckIn() {
+    const roomId = document.getElementById('boardingRoomSelect').value;
+    const petId = document.getElementById('boardingPetSelect').value;
+    const checkInDate = document.getElementById('boardingCheckInDate').value;
+    const checkOutDate = document.getElementById('boardingCheckOutDate').value;
+    const notes = document.getElementById('boardingCareNotes').value;
+
+    const room = this.data.rooms.find((r) => r.id === roomId);
+    if (!room) return;
+
+    room.status = 'occupied';
+    room.currentPetId = petId;
+    room.checkInDate = checkInDate;
+    room.checkOutDate = checkOutDate;
+    room.careLogs = [
+      { date: `${checkInDate} 09:00`, task: '早间饮食', done: true, note: '完成入住第一顿喂食' },
+      { date: `${checkInDate} 14:00`, task: '巡房通风', done: false, note: notes || '正常巡视' },
+      { date: `${checkInDate} 19:00`, task: '晚间互动', done: false, note: '陪伴安抚与拍视频' }
+    ];
+
+    await window.petJoyDB.update('rooms', room);
+    this.closeModal('modalBoarding');
+    await this.refreshData();
+    this.showToast(`已成功为房间 ${room.roomNo} 办理入住登记！`, 'success');
+  }
+
+  // 3. 新建会员与宠物
+  openNewCustomerModal(existingCustId = null) {
+    if (existingCustId) {
+      const cust = this.data.customers.find((c) => c.id === existingCustId);
+      if (cust) {
+        document.getElementById('custNameInput').value = cust.name;
+        document.getElementById('custPhoneInput').value = cust.phone;
+        document.getElementById('custNameInput').readOnly = true;
+        document.getElementById('custPhoneInput').readOnly = true;
+      }
+    } else {
+      document.getElementById('custNameInput').value = '';
+      document.getElementById('custPhoneInput').value = '';
+      document.getElementById('custNameInput').readOnly = false;
+      document.getElementById('custPhoneInput').readOnly = false;
+    }
+    document.getElementById('petNameInput').value = '';
+    document.getElementById('petBreedInput').value = '';
+    document.getElementById('petWeightInput').value = '';
+
+    document.getElementById('modalCustomer').classList.add('active');
+  }
+
+  async submitNewCustomer() {
+    const custName = document.getElementById('custNameInput').value.trim();
+    const custPhone = document.getElementById('custPhoneInput').value.trim();
+    const vipLevel = document.getElementById('custVipSelect').value;
+    const balance = parseFloat(document.getElementById('custBalanceInput').value) || 0;
+
+    const petName = document.getElementById('petNameInput').value.trim();
+    const species = document.getElementById('petSpeciesSelect').value;
+    const breed = document.getElementById('petBreedInput').value.trim();
+    const weight = parseFloat(document.getElementById('petWeightInput').value) || 5.0;
+
+    if (!custName || !custPhone || !petName || !breed) {
+      this.showToast('请完整填写宠主姓名、电话、宠物名字与品种！', 'warning');
+      return;
+    }
+
+    // 检查客户是否已存在
+    let cust = this.data.customers.find((c) => c.phone === custPhone);
+    if (!cust) {
+      cust = {
+        name: custName,
+        phone: custPhone,
+        vipLevel: vipLevel,
+        balance: balance,
+        totalSpent: 0,
+        createdAt: new Date().toISOString().split('T')[0]
+      };
+      cust = await window.petJoyDB.add('customers', cust);
+    }
+
+    // 收集勾选的标签
+    const tags = [];
+    document.querySelectorAll('input[name="petTag"]:checked').forEach((cb) => tags.push(cb.value));
+
+    const newPet = {
+      ownerId: cust.id,
+      name: petName,
+      species,
+      breed,
+      gender: '公 (已绝育)',
+      birthday: '2024-01-01',
+      weight,
+      tags,
+      vaccineExpireDate: '2027-01-01',
+      dewormExpireDate: '2026-11-01'
+    };
+
+    await window.petJoyDB.add('pets', newPet);
+    this.closeModal('modalCustomer');
+    await this.refreshData();
+    this.showToast(`会员【${cust.name}】与爱宠【${newPet.name}】建档成功！`, 'success');
+  }
+
+  // 4. 收银出单结算
+  openCheckoutModal(ticketId) {
+    const ticket = this.data.tickets.find((t) => t.id === ticketId);
+    if (!ticket) return;
+
+    this.activeCheckoutTicket = ticket;
+    const pet = this.data.pets.find((p) => p.id === ticket.petId);
+    const owner = pet ? this.data.customers.find((c) => c.id === pet.ownerId) : null;
+
+    document.getElementById('chkTicketNo').textContent = ticket.ticketNo;
+    document.getElementById('chkPetName').textContent = `${pet ? pet.name : '-'} (${pet ? pet.breed : '-'}) · 主人：${owner ? owner.name : '散客'}`;
+    document.getElementById('chkService').textContent = ticket.serviceType;
+    document.getElementById('chkAmount').textContent = parseFloat(ticket.price).toFixed(2);
+
+    const cardBal = owner ? parseFloat(owner.balance || 0) : 0;
+    document.getElementById('chkCardBalance').textContent = cardBal.toFixed(2);
+
+    // 监听支付方式变化
+    const paySelect = document.getElementById('chkPayMethod');
+    const warnEl = document.getElementById('chkCardWarning');
+    const updatePayState = () => {
+      if (paySelect.value === '会员卡扣款' && cardBal < ticket.price) {
+        warnEl.style.display = 'block';
+      } else {
+        warnEl.style.display = 'none';
+      }
+    };
+    paySelect.onchange = updatePayState;
+    updatePayState();
+
+    document.getElementById('modalCheckout').classList.add('active');
+  }
+
+  async confirmCheckout() {
+    const ticket = this.activeCheckoutTicket;
+    if (!ticket) return;
+
+    const pet = this.data.pets.find((p) => p.id === ticket.petId);
+    const owner = pet ? this.data.customers.find((c) => c.id === pet.ownerId) : null;
+    const payMethod = document.getElementById('chkPayMethod').value;
+    const price = parseFloat(ticket.price);
+
+    if (payMethod === '会员卡扣款') {
+      if (!owner) {
+        this.showToast('未找到该宠物的会员卡，请改用微信/支付宝！', 'warning');
+        return;
+      }
+      if (owner.balance < price) {
+        this.showToast(`会员卡余额不足 (当前 ¥${owner.balance})，无法完成扣款！`, 'danger');
+        return;
+      }
+      owner.balance = parseFloat((owner.balance - price).toFixed(2));
+      owner.totalSpent = parseFloat(((owner.totalSpent || 0) + price).toFixed(2));
+      await window.petJoyDB.update('customers', owner);
+    } else if (owner) {
+      owner.totalSpent = parseFloat(((owner.totalSpent || 0) + price).toFixed(2));
+      await window.petJoyDB.update('customers', owner);
+    }
+
+    // 生成收银账单流水
+    const now = new Date();
+    const orderNo = 'ORD' + now.getFullYear() + (now.getMonth() + 1).toString().padStart(2, '0') + now.getDate().toString().padStart(2, '0') + '-' + Math.floor(100 + Math.random() * 900);
+    const newOrder = {
+      orderNo,
+      type: 'service',
+      customerId: owner ? owner.id : null,
+      petId: pet ? pet.id : null,
+      amount: price,
+      payMethod,
+      category: '洗美造型',
+      description: `${pet ? pet.name : ''} ${ticket.serviceType}`,
+      timestamp: `${now.toISOString().split('T')[0]} ${now.getHours()}:${now.getMinutes() < 10 ? '0' : ''}${now.getMinutes()}`
+    };
+
+    await window.petJoyDB.add('orders', newOrder);
+
+    // 更新工单状态为已完成
+    ticket.status = 'completed';
+    await window.petJoyDB.update('tickets', ticket);
+
+    this.closeModal('modalCheckout');
+    await this.refreshData();
+    this.showToast(`收银成功！已出单 ¥${price.toFixed(2)} (${payMethod})`, 'success');
+
+    // 自动弹出电子小票
+    this.showReceiptModal(newOrder.id);
+  }
+
+  // 5. 储值充值
+  openRechargeModal(customerId) {
+    const cust = this.data.customers.find((c) => c.id === customerId);
+    if (!cust) return;
+
+    this.activeRechargeCustomer = cust;
+    document.getElementById('rechargeCustName').value = cust.name + ' (' + cust.phone + ')';
+    document.getElementById('rechargeCustCurrent').value = '¥ ' + parseFloat(cust.balance || 0).toFixed(2);
+
+    const pSelect = document.getElementById('rechargePresetSelect');
+    const customWrap = document.getElementById('rechargeCustomWrap');
+    pSelect.onchange = () => {
+      customWrap.style.display = pSelect.value === 'custom' ? 'block' : 'none';
+    };
+
+    document.getElementById('modalRecharge').classList.add('active');
+  }
+
+  async submitRecharge() {
+    const cust = this.activeRechargeCustomer;
+    if (!cust) return;
+
+    const pSelect = document.getElementById('rechargePresetSelect');
+    let amount = parseFloat(pSelect.value);
+    if (pSelect.value === 'custom') {
+      amount = parseFloat(document.getElementById('rechargeCustomAmount').value) || 0;
+    }
+
+    if (amount <= 0) {
+      this.showToast('请输入有效的充值金额！', 'warning');
+      return;
+    }
+
+    const payChannel = document.getElementById('rechargePayChannel').value;
+    cust.balance = parseFloat(((cust.balance || 0) + amount).toFixed(2));
+    await window.petJoyDB.update('customers', cust);
+
+    // 记一笔流水
+    const now = new Date();
+    const orderNo = 'REC' + now.getFullYear() + (now.getMonth() + 1).toString().padStart(2, '0') + now.getDate().toString().padStart(2, '0') + '-' + Math.floor(100 + Math.random() * 900);
+    const newOrder = {
+      orderNo,
+      type: 'recharge',
+      customerId: cust.id,
+      petId: null,
+      amount,
+      payMethod: payChannel,
+      category: '会员充值',
+      description: `${cust.name} 会员卡储值入账 ¥${amount}`,
+      timestamp: `${now.toISOString().split('T')[0]} ${now.getHours()}:${now.getMinutes() < 10 ? '0' : ''}${now.getMinutes()}`
+    };
+    await window.petJoyDB.add('orders', newOrder);
+
+    this.closeModal('modalRecharge');
+    await this.refreshData();
+    this.showToast(`充值成功！当前会员余额 ¥${cust.balance.toFixed(2)}`, 'success');
+  }
+
+  // 6. 展示电子小票
+  showReceiptModal(orderId) {
+    const order = this.data.orders.find((o) => o.id === orderId);
+    if (!order) return;
+
+    const cust = this.data.customers.find((c) => c.id === order.customerId);
+    const pet = order.petId ? this.data.pets.find((p) => p.id === order.petId) : null;
+    const content = document.getElementById('receiptContent');
+
+    content.innerHTML = `
+      <div style="text-align: center; margin-bottom: 8px;">
+        <div style="font-size: 15px; font-weight: bold;">🐾 萌宠管家 · 宠物生活馆</div>
+        <div style="font-size: 11px; color: #888;">--- 官方电子结账凭证 ---</div>
+      </div>
+      <div>----------------------------------------</div>
+      <div>单据流水号: ${order.orderNo}</div>
+      <div>交易时间: ${order.timestamp}</div>
+      <div>顾客姓名: ${cust ? cust.name : '散客'} (${cust ? cust.phone : '-'})</div>
+      ${pet ? `<div>服务毛孩: ${pet.name} (${pet.breed})</div>` : ''}
+      <div>业务分类: ${order.category}</div>
+      <div>明细描述: ${order.description || '-'}</div>
+      <div>----------------------------------------</div>
+      <div style="display:flex; justify-content:space-between; font-size:14px; font-weight:bold;">
+        <span>实收金额:</span>
+        <span>¥ ${parseFloat(order.amount).toFixed(2)}</span>
+      </div>
+      <div>支付渠道: ${order.payMethod}</div>
+      ${cust && order.payMethod === '会员卡扣款' ? `<div>卡内剩余可用余额: ¥ ${parseFloat(cust.balance).toFixed(2)}</div>` : ''}
+      <div>----------------------------------------</div>
+      <div style="text-align: center; color: #666; font-size: 11px;">
+        感谢您对毛孩子的细心呵护！<br>
+        如遇健康问题请随时微信联络店长。<br>
+        *** 愿每一个毛孩子都被温柔以待 ***
+      </div>
+    `;
+
+    document.getElementById('modalReceipt').classList.add('active');
+  }
+
+  showTicketReceipt(ticketId) {
+    const order = this.data.orders.find((o) => o.ticketId === ticketId || (o.description && o.description.includes(ticketId)));
+    if (order) {
+      this.showReceiptModal(order.id);
+    } else {
+      const ticket = this.data.tickets.find((t) => t.id === ticketId);
+      if (ticket) {
+        alert(`工单 ${ticket.ticketNo} 已完成结账。金额：¥${ticket.price}。`);
+      }
+    }
+  }
+
+  showTicketDetail(ticketId) {
+    const ticket = this.data.tickets.find((t) => t.id === ticketId);
+    if (!ticket) return;
+    const pet = this.data.pets.find((p) => p.id === ticket.petId);
+    const owner = pet ? this.data.customers.find((c) => c.id === pet.ownerId) : null;
+    alert(`【工单详情】\n工单号：${ticket.ticketNo}\n宠物：${pet ? pet.name : '-'} (${pet ? pet.breed : '-'})\n主人：${owner ? owner.name : '-'} (${owner ? owner.phone : '-'})\n项目：${ticket.serviceType}\n洗美师：${ticket.groomer}\n费用：¥${ticket.price}\n状态：${ticket.status}\n健康检查备注：\n${ticket.healthCheckNotes || '无特殊异常'}`);
+  }
+
+  // 关闭指定弹窗
+  closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.remove('active');
+  }
+
+  // 备份导出全量 JSON
+  async exportDataBackup() {
+    const jsonStr = await window.petJoyDB.exportBackupJSON();
+    const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `萌宠管家数据备份_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    this.showToast('本地备份文件已安全下载！', 'success');
+  }
+
+  // 导入全量 JSON
+  openImportModal() {
+    document.getElementById('modalImport').classList.add('active');
+  }
+
+  async confirmImportData() {
+    const fileInput = document.getElementById('importFileInput');
+    if (!fileInput.files || fileInput.files.length === 0) {
+      this.showToast('请先选择备份的 JSON 文件', 'warning');
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const content = e.target.result;
+      const res = await window.petJoyDB.importBackupJSON(content);
+      if (res.success) {
+        this.closeModal('modalImport');
+        await this.refreshData();
+        this.showToast('数据已成功恢复！', 'success');
+      } else {
+        this.showToast(res.message, 'danger');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  // 载入演示数据
+  async loadDemoData() {
+    if (!confirm('重新载入演示数据将恢复预置的 6位会员、8间房态与今日洗美单，确定载入吗？')) return;
+    await window.petJoyDB.loadDemoData();
+    await this.refreshData();
+    this.showToast('宠物店高保真演示数据已完整载入！', 'success');
+  }
+
+  // 清空全部数据
+  async clearAllData() {
+    if (!confirm('⚠️ 警告：清空全部数据将清除本地所有宠物、工单和收银明细！确定要清空吗？')) return;
+    await window.petJoyDB.clearAllData();
+    await this.refreshData();
+    this.showToast('本地工作台数据已全部清空，当前为空状态', 'info');
+  }
+
+  // Toast 消息提示
+  showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type === 'success' ? 'toast-success' : type === 'danger' ? 'toast-error' : ''}`;
+    toast.innerHTML = `<span>${type === 'success' ? '✅' : type === 'danger' ? '❌' : 'ℹ️'}</span> <span>${message}</span>`;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(100%)';
+      toast.style.transition = 'all 0.3s ease';
+      setTimeout(() => toast.remove(), 300);
+    }, 2800);
+  }
+
+  // 绑定全局按钮与事件
+  bindGlobalEvents() {
+    // 导航点击
+    document.querySelectorAll('.nav-item').forEach((item) => {
+      item.onclick = () => this.switchView(item.dataset.view);
+    });
+
+    // 快捷按钮
+    document.getElementById('btnQuickTicket')?.addEventListener('click', () => this.openNewTicketModal());
+    document.getElementById('btnQuickBoarding')?.addEventListener('click', () => this.openCheckInModal());
+    document.getElementById('btnQuickCustomer')?.addEventListener('click', () => this.openNewCustomerModal());
+
+    document.getElementById('btnExportData')?.addEventListener('click', () => this.exportDataBackup());
+    document.getElementById('btnImportData')?.addEventListener('click', () => this.openImportModal());
+    document.getElementById('btnLoadDemo')?.addEventListener('click', () => this.loadDemoData());
+    document.getElementById('btnClearData')?.addEventListener('click', () => this.clearAllData());
+
+    // 表单提交按钮
+    document.getElementById('btnSubmitTicket')?.addEventListener('click', () => this.submitNewTicket());
+    document.getElementById('btnSubmitBoarding')?.addEventListener('click', () => this.submitBoardingCheckIn());
+    document.getElementById('btnSubmitCustomer')?.addEventListener('click', () => this.submitNewCustomer());
+    document.getElementById('btnConfirmPay')?.addEventListener('click', () => this.confirmCheckout());
+    document.getElementById('btnSubmitRecharge')?.addEventListener('click', () => this.submitRecharge());
+    document.getElementById('btnConfirmImport')?.addEventListener('click', () => this.confirmImportData());
+    document.getElementById('btnExportCSV')?.addEventListener('click', () => this.exportCSV());
+
+    // 筛选按钮切换 (工单)
+    document.querySelectorAll('[data-filter]').forEach((pill) => {
+      pill.onclick = () => {
+        document.querySelectorAll('[data-filter]').forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+        this.ticketFilter = pill.dataset.filter;
+        this.renderTickets();
+      };
+    });
+
+    // 房态筛选
+    document.querySelectorAll('[data-room-filter]').forEach((pill) => {
+      pill.onclick = () => {
+        document.querySelectorAll('[data-room-filter]').forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+        this.roomFilter = pill.dataset.roomFilter;
+        this.renderBoarding();
+      };
+    });
+
+    // 账单分类筛选
+    document.querySelectorAll('[data-order-filter]').forEach((pill) => {
+      pill.onclick = () => {
+        document.querySelectorAll('[data-order-filter]').forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+        this.orderFilter = pill.dataset.orderFilter;
+        this.renderFinance();
+      };
+    });
+
+    // 搜索监听
+    document.getElementById('searchTicketInput')?.addEventListener('input', () => this.renderTickets());
+    document.getElementById('searchCustomerInput')?.addEventListener('input', () => this.renderCustomers());
+  }
+
+  // 顶部实时时钟
+  initClock() {
+    const clockEl = document.getElementById('liveClock');
+    const update = () => {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      if (clockEl) clockEl.textContent = `${h}:${m}:${s}`;
+    };
+    update();
+    setInterval(update, 1000);
+  }
+}
+
+// 启动应用
+window.app = new PetJoyApp();
+document.addEventListener('DOMContentLoaded', () => {
+  window.app.init();
+});
+
+</script>
+
+  <script>
+  (function() {
+    function initMobileNav() {
+      document.querySelectorAll('.nav-item').forEach(function(item) {
+        item.style.touchAction = 'manipulation';
+        item.style.webkitTapHighlightColor = 'transparent';
+        item.style.cursor = 'pointer';
+
+        // 统一监听 pointerup，彻底消除点击延迟和滚动卡死
+        item.addEventListener('pointerup', function(e) {
+          var targetVal = item.getAttribute('data-view') || item.dataset.view;
+          if (targetVal && window.app && typeof window.app.switchView === 'function') {
+            window.app.switchView(targetVal);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }, { passive: true });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileNav);
+    } else {
+      initMobileNav();
+    }
+  })();
+  </script>
+  
+</body>
+</html>

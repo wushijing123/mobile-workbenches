@@ -1,0 +1,3857 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>杭州·悦己美学沙龙 · 数字化运营工作台</title>
+  <style>
+/* ==========================================================================
+   杭州·悦己美学沙龙 (YueJi Beauty Studio Workbench)
+   设计系统与视觉样式表 - French Chic & Soft Luxury Aesthetic
+   ========================================================================== */
+
+:root {
+  /* 主色调：法式干枯玫瑰粉 & 奢华香槟金 */
+  --rose-primary: #D87D88;
+  --rose-hover: #C56975;
+  --rose-active: #AB525E;
+  --rose-light: #FBF0F1;
+  --rose-glow: rgba(216, 125, 136, 0.25);
+
+  --gold-primary: #C5A880;
+  --gold-hover: #B39366;
+  --gold-light: #F9F5EE;
+  --gold-glow: rgba(197, 168, 128, 0.25);
+
+  /* 基础质感与文字 */
+  --bg-page: #FAF7F5;
+  --bg-surface: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --bg-card-hover: rgba(255, 255, 255, 0.98);
+  --bg-secondary: #F4EFEA;
+  --bg-elevated: #FFFFFF;
+
+  --text-main: #2D2524;
+  --text-regular: #5E5351;
+  --text-muted: #9E918F;
+  --text-placeholder: #BCB2AF;
+
+  --border-light: rgba(197, 168, 128, 0.2);
+  --border-card: rgba(216, 125, 136, 0.16);
+  --border-focus: #D87D88;
+
+  /* 业务状态语义色 */
+  --status-idle-bg: #EDF7EE;
+  --status-idle-text: #2E7D32;
+  --status-busy-bg: #FCE4EC;
+  --status-busy-text: #C2185B;
+  --status-warn-bg: #FFF8E1;
+  --status-warn-text: #B78103;
+  --status-danger-bg: #FFEBEE;
+  --status-danger-text: #C62828;
+  --status-clean-bg: #E0F2F1;
+  --status-clean-text: #00796B;
+
+  /* 阴影体系 */
+  --shadow-sm: 0 2px 8px rgba(45, 37, 36, 0.04);
+  --shadow-md: 0 8px 24px rgba(45, 37, 36, 0.06), 0 2px 6px rgba(216, 125, 136, 0.03);
+  --shadow-lg: 0 16px 36px rgba(45, 37, 36, 0.09), 0 4px 12px rgba(197, 168, 128, 0.05);
+  --shadow-hover: 0 12px 30px rgba(216, 125, 136, 0.14);
+
+  /* 圆角与过渡 */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+  --transition-fast: 0.18s ease;
+  --transition-normal: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 全局重置与基础字阶 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* 顶部品牌毛玻璃导航栏 */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 247, 245, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.brand-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--rose-primary), var(--gold-primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 12px var(--rose-glow);
+}
+
+.brand-info h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-badge {
+  font-size: 0.72rem;
+  background: var(--gold-light);
+  color: var(--gold-hover);
+  border: 1px solid rgba(197, 168, 128, 0.4);
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+}
+
+.brand-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* 导航选项卡 (Tabs) */
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  background: rgba(244, 239, 234, 0.7);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-light);
+  gap: 2px;
+}
+
+.nav-tab-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-regular);
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-tab-btn:hover {
+  color: var(--rose-primary);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.nav-tab-btn.active {
+  background: #FFFFFF;
+  color: var(--rose-primary);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(45, 37, 36, 0.08);
+}
+
+/* 导航右侧快捷操作与数据管理 */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border: 1px solid transparent;
+  text-decoration: none;
+  min-height: 38px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--rose-primary), #E48E98);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px var(--rose-glow);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--rose-hover), #D87D88);
+  box-shadow: 0 6px 18px var(--rose-glow);
+  transform: translateY(-1px);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-primary), #D3B995);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px var(--gold-glow);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, var(--gold-hover), var(--gold-primary));
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: var(--text-regular);
+  border: 1px solid var(--border-light);
+}
+
+.btn-secondary:hover {
+  color: var(--rose-primary);
+  border-color: var(--rose-primary);
+  background: var(--rose-light);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+}
+
+.btn-ghost:hover {
+  color: var(--text-main);
+  background: var(--bg-secondary);
+}
+
+.btn-sm {
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  min-height: 30px;
+}
+
+/* 主内容容器 */
+.main-container {
+  flex: 1;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.view-section {
+  display: none;
+  animation: fadeIn 0.24s ease;
+}
+
+.view-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 页面头部介绍区 */
+.view-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.view-title-group h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.view-title-group p {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* 卡片容器通用 */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(216, 125, 136, 0.28);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 核心指标统计卡片网格 (Dashboard Metric Cards) */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.metric-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(251, 240, 241, 0.6));
+  border: 1px solid rgba(216, 125, 136, 0.2);
+}
+
+.metric-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, var(--rose-light) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.metric-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metric-value {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0.4rem 0 0.25rem;
+  letter-spacing: -0.5px;
+}
+
+.metric-value .unit {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-regular);
+  margin-left: 2px;
+}
+
+.metric-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metric-badge-up {
+  color: #2E7D32;
+  font-weight: 600;
+}
+
+/* 经营主看板双栏布局 */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* 工位态势实时大看板 (Stations Live Board) */
+.station-board-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.station-card {
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.station-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.station-card.busy {
+  border-color: rgba(216, 125, 136, 0.4);
+  background: linear-gradient(180deg, #FFFFFF, rgba(251, 240, 241, 0.35));
+}
+
+.station-card.idle {
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.station-card.cleaning {
+  border-color: rgba(0, 150, 136, 0.3);
+  background: #FAFDFD;
+}
+
+.station-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.station-type-tag {
+  font-size: 0.7rem;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+}
+
+.station-type-nail {
+  background: var(--rose-light);
+  color: var(--rose-primary);
+}
+
+.station-type-lash {
+  background: var(--gold-light);
+  color: var(--gold-hover);
+}
+
+.station-status-pill {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.station-status-pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-busy {
+  background: var(--status-busy-bg);
+  color: var(--status-busy-text);
+}
+.status-busy::before { background: var(--status-busy-text); }
+
+.status-idle {
+  background: var(--status-idle-bg);
+  color: var(--status-idle-text);
+}
+.status-idle::before { background: var(--status-idle-text); }
+
+.status-cleaning {
+  background: var(--status-clean-bg);
+  color: var(--status-clean-text);
+}
+.status-cleaning::before { background: var(--status-clean-text); }
+
+.station-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 0.25rem;
+}
+
+.station-body {
+  font-size: 0.8rem;
+  color: var(--text-regular);
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.station-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.6rem;
+  border-top: 1px dashed rgba(197, 168, 128, 0.2);
+}
+
+/* 待办与养护预警中心 (Alerts & Action Stream) */
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.alert-item {
+  padding: 0.85rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  transition: var(--transition-fast);
+}
+
+.alert-item.danger {
+  background: var(--status-danger-bg);
+  border: 1px solid rgba(198, 40, 40, 0.2);
+  color: var(--status-danger-text);
+}
+
+.alert-item.warning {
+  background: var(--status-warn-bg);
+  border: 1px solid rgba(183, 129, 3, 0.2);
+  color: var(--status-warn-text);
+}
+
+.alert-item.info {
+  background: var(--gold-light);
+  border: 1px solid rgba(197, 168, 128, 0.3);
+  color: var(--gold-hover);
+}
+
+.alert-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-weight: 600;
+  font-size: 0.86rem;
+  margin-bottom: 2px;
+}
+
+/* 营收趋势与品类占比 (Chart CSS/SVG) */
+.revenue-breakdown-bar {
+  display: flex;
+  height: 14px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin: 1rem 0 0.75rem;
+  background: var(--bg-secondary);
+}
+
+.breakdown-seg {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.breakdown-seg.nail { background: var(--rose-primary); }
+.breakdown-seg.lash { background: var(--gold-primary); }
+.breakdown-seg.spa { background: #68D391; }
+.breakdown-seg.recharge { background: #63B3ED; }
+
+.breakdown-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: var(--text-regular);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* 表格与工单列表 */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+}
+
+.table-custom {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.table-custom th {
+  background: var(--bg-secondary);
+  color: var(--text-regular);
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  white-space: nowrap;
+}
+
+.table-custom td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(197, 168, 128, 0.12);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.table-custom tr:hover td {
+  background: var(--rose-light);
+}
+
+/* 状态标签 */
+.status-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+}
+
+.pill-in-progress { background: var(--status-busy-bg); color: var(--status-busy-text); }
+.pill-completed { background: var(--status-warn-bg); color: var(--status-warn-text); }
+.pill-paid { background: var(--status-idle-bg); color: var(--status-idle-text); }
+.pill-scheduled { background: var(--gold-light); color: var(--gold-hover); }
+
+/* 会员卡片与美学档案 */
+.member-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.member-profile-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  padding: 1.25rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.member-vip-badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-size: 0.72rem;
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.badge-black-diamond { background: #2D2524; color: #E5C396; }
+.badge-platinum { background: #E2E8F0; color: #4A5568; }
+.badge-gold { background: var(--gold-light); color: var(--gold-hover); border: 1px solid rgba(197, 168, 128, 0.5); }
+.badge-silver { background: #F7FAFC; color: #718096; }
+
+.aesthetic-tag {
+  display: inline-block;
+  background: var(--bg-secondary);
+  color: var(--text-regular);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  font-size: 0.75rem;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+/* 模态弹窗系统 (Modal Dialogs) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(45, 37, 36, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-container {
+  background: #FFFFFF;
+  width: 100%;
+  max-width: 580px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-page);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* 表单输入与选择控件 */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.form-label .required {
+  color: var(--rose-primary);
+  margin-left: 2px;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 9px 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  background: #FFFFFF;
+  color: var(--text-main);
+  font-size: 0.88rem;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--rose-primary);
+  box-shadow: 0 0 0 3px var(--rose-glow);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* AI Copilot 侧栏/抽屉与展示框 */
+.ai-output-box {
+  background: var(--bg-page);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  max-height: 320px;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Toast 提示框 */
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  background: var(--text-main);
+  color: #FFFFFF;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: toastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.2s ease;
+}
+
+.toast.success { background: #2E7D32; }
+.toast.error { background: #C62828; }
+.toast.warning { background: #E65100; }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 响应式断点适配 */
+@media (max-width: 1024px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem 1rem;
+  }
+  .nav-tabs {
+    overflow-x: auto;
+    width: 100%;
+    padding: 4px;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-actions {
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ================= 移动端专项极致优化补丁 ================= */
+@media (max-width: 768px) {
+  html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
+  }
+  .navbar {
+    padding: 8px 12px !important;
+    position: sticky !important;
+    top: 0 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    z-index: 50 !important;
+  }
+  .brand-sub {
+    display: none !important;
+  }
+  /* 导航选项卡下沉为优雅底部 TabBar */
+  .nav-tabs {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    height: auto !important;
+    z-index: 9999 !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+    padding: 6px 4px max(8px, env(safe-area-inset-bottom)) !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    overflow-x: auto !important;
+    margin: 0 !important;
+  }
+  .nav-tab-btn {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    padding: 6px 4px !important;
+    min-width: 48px !important;
+    font-size: 10px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    flex: 1 !important;
+    max-width: 56px !important;
+    border: none !important;
+    background: transparent !important;
+  }
+  .nav-tab-btn * {
+    pointer-events: none !important;
+  }
+  .nav-tab-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .modal-card {
+    width: 94vw !important;
+    max-width: 94vw !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    margin: 12px auto !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- 顶部毛玻璃品牌导航条 -->
+  <header class="navbar">
+    <div class="brand-wrapper" onclick="app.switchTab('dashboard')">
+      <div class="brand-icon-box">💅🏻</div>
+      <div class="brand-info">
+        <h1>悦己美学沙龙 <span class="brand-badge">杭州·品质店</span></h1>
+        <div class="brand-sub">Nail & Lash Aesthetic Studio · 数字化运营工作台</div>
+      </div>
+    </div>
+
+    <!-- 业务模块选项卡 -->
+    <nav class="nav-tabs" id="navTabs">
+      <button class="nav-tab-btn active" data-tab="dashboard" onclick="app.switchTab('dashboard')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        经营总览
+      </button>
+      <button class="nav-tab-btn" data-tab="schedule" onclick="app.switchTab('schedule')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        工位与排期
+      </button>
+      <button class="nav-tab-btn" data-tab="orders" onclick="app.switchTab('orders')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        美学工单
+      </button>
+      <button class="nav-tab-btn" data-tab="members" onclick="app.switchTab('members')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        VIP美学档案
+      </button>
+      <button class="nav-tab-btn" data-tab="cashier" onclick="app.switchTab('cashier')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        收银与流水
+      </button>
+      <button class="nav-tab-btn" data-tab="inventory" onclick="app.switchTab('inventory')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        耗材胶水安全
+      </button>
+      <button class="nav-tab-btn" data-tab="copilot" onclick="app.switchTab('copilot')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        AI私域助手
+      </button>
+    </nav>
+
+    <!-- 顶部操作区 -->
+    <div class="nav-actions">
+      <button class="btn btn-primary" onclick="app.openModal('quickOrderModal')">
+        <span>⚡</span> 快速预约/开单
+      </button>
+      <div style="display: flex; gap: 4px;">
+        <button class="btn btn-secondary btn-sm" onclick="app.resetDemoData()" title="载入杭州示范店标准演示数据">
+          📦 载入示例
+        </button>
+        <button class="btn btn-secondary btn-sm" onclick="beautyStore.exportJSON()" title="下载备份文件">
+          💾 备份
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('importFileInput').click()" title="从备份恢复">
+          📥 导入
+        </button>
+        <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="app.handleImportFile(event)">
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体工作区 -->
+  <main class="main-container">
+
+    <!-- ================= 模块 1：经营总览驾驶舱 ================= -->
+    <section id="view-dashboard" class="view-section active">
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>📊</span> 经营总览驾驶舱</h2>
+          <p>实时监控今日客流、在座工位负荷率、日营收指标与到期养护预警</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <span class="brand-badge" id="currentDateBadge">2026年09月20日 星期日</span>
+        </div>
+      </div>
+
+      <!-- 4 大核心指标卡片 -->
+      <div class="metrics-grid">
+        <div class="card metric-card">
+          <div class="metric-label">
+            <span>今日总营收</span>
+            <span class="badge-black-diamond" style="padding: 1px 6px; border-radius: 4px;">实收+划扣</span>
+          </div>
+          <div class="metric-value">
+            ¥<span id="metricTodayRevenue">0.00</span>
+          </div>
+          <div class="metric-meta">
+            <span class="metric-badge-up">↑ 稳步提升</span>
+            <span>包含储值核销与扫码实收</span>
+          </div>
+        </div>
+
+        <div class="card metric-card">
+          <div class="metric-label">
+            <span>今日接待客次</span>
+            <span class="station-type-tag station-type-nail">手艺服务</span>
+          </div>
+          <div class="metric-value">
+            <span id="metricTodayCustomers">0</span><span class="unit">位</span>
+          </div>
+          <div class="metric-meta">
+            <span>在店 + 完工 + 结单去重客流</span>
+          </div>
+        </div>
+
+        <div class="card metric-card">
+          <div class="metric-label">
+            <span>实时工位占用率</span>
+            <span id="metricOccupancyRateTag" class="station-status-pill status-busy">71%</span>
+          </div>
+          <div class="metric-value">
+            <span id="metricOccupiedCount">0</span><span class="unit">/ 7 席</span>
+          </div>
+          <div class="metric-meta">
+            <span>美甲席 4 位 · 美睫静音仓 3 位</span>
+          </div>
+        </div>
+
+        <div class="card metric-card">
+          <div class="metric-label">
+            <span>需养护回访客户</span>
+            <span class="station-type-tag station-type-lash">21天周期</span>
+          </div>
+          <div class="metric-value" style="color: var(--rose-primary);">
+            <span id="metricCareCount">0</span><span class="unit">人</span>
+          </div>
+          <div class="metric-meta">
+            <span>已超 21 天生长卸补周期</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 双栏态势布局 -->
+      <div class="dashboard-layout">
+        <!-- 左侧：工位态势大看板与营收占比 -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <!-- 实时在店工位态势大看板 -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span>💺</span> 实时工位在座看板
+              </div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">
+                点击在席工位可查看详情或推进状态
+              </div>
+            </div>
+            <div class="station-board-grid" id="dashboardStationsGrid">
+              <!-- JS 动态渲染工位卡片 -->
+            </div>
+          </div>
+
+          <!-- 今日营收构成与品类贡献 -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span>📈</span> 今日项目营收结构
+              </div>
+              <div id="revenueTotalHint" style="font-weight: 600; font-size: 0.9rem; color: var(--rose-primary);">
+                总额：¥0.00
+              </div>
+            </div>
+            <div class="revenue-breakdown-bar" id="revenueBreakdownBar">
+              <div class="breakdown-seg nail" style="width: 50%;" title="美甲营收"></div>
+              <div class="breakdown-seg lash" style="width: 30%;" title="美睫营收"></div>
+              <div class="breakdown-seg spa" style="width: 10%;" title="手部SPA"></div>
+              <div class="breakdown-seg recharge" style="width: 10%;" title="会员充值"></div>
+            </div>
+            <div class="breakdown-legend">
+              <div class="legend-item"><div class="legend-dot" style="background: var(--rose-primary);"></div> 美甲定制：<b id="legNail">¥0</b></div>
+              <div class="legend-item"><div class="legend-dot" style="background: var(--gold-primary);"></div> 美睫嫁接：<b id="legLash">¥0</b></div>
+              <div class="legend-item"><div class="legend-dot" style="background: #68D391;"></div> 手足SPA护理：<b id="legSpa">¥0</b></div>
+              <div class="legend-item"><div class="legend-dot" style="background: #63B3ED;"></div> 会员卡充值：<b id="legRecharge">¥0</b></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右侧：胶水质保安全预警与待办流 -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <!-- 胶水 30 天质保与库存告警 -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span>🚨</span> 胶水安全质保与耗材告警
+              </div>
+              <button class="btn btn-ghost btn-sm" onclick="app.switchTab('inventory')">全部耗材</button>
+            </div>
+            <div class="alerts-list" id="dashboardAlertsList">
+              <!-- 动态预警流 -->
+            </div>
+          </div>
+
+          <!-- 21天周期待养护回访名单 -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span>💌</span> 待周期回访客户 (已满21天)
+              </div>
+            </div>
+            <div id="dashboardCareList" style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <!-- 待关怀客户列表 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 模块 2：工位与排期调度 ================= -->
+    <section id="view-schedule" class="view-section">
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>🗓️</span> 工位与技师排期调度</h2>
+          <p>协调 5 位手艺人与 7 席物理工位，清晰掌握今日各时间段预约与在做状态</p>
+        </div>
+        <button class="btn btn-primary" onclick="app.openModal('quickOrderModal')">
+          <span>+</span> 新增预约挂单
+        </button>
+      </div>
+
+      <!-- 技师手艺人负荷状态概览 -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+          <div class="card-title"><span>👩🏻‍🎨</span> 手艺人今日当值概况</div>
+        </div>
+        <div id="staffStatusCards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem;">
+          <!-- 动态渲染技师信息 -->
+        </div>
+      </div>
+
+      <!-- 工位时间轴矩阵 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span>⏰</span> 今日工位占用与时段分布</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);">
+            绿色：空闲就绪 | 粉色：在席服务中 | 灰色：清洁消毒中
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="table-custom" id="scheduleMatrixTable">
+            <thead>
+              <tr>
+                <th style="width: 180px;">工位席位</th>
+                <th>类型</th>
+                <th>当前状态</th>
+                <th>正在服务的顾客</th>
+                <th>主刀技师</th>
+                <th>预计结束时间</th>
+                <th>快捷操作</th>
+              </tr>
+            </thead>
+            <tbody id="scheduleTableBody">
+              <!-- 动态表格 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 模块 3：美学定制工单流转 ================= -->
+    <section id="view-orders" class="view-section">
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>📋</span> 美学工单管理与流转</h2>
+          <p>全生命周期追踪：预约中 ➔ 已进座 ➔ 服务中（上钟计时） ➔ 完工验收 ➔ 收银结单</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <select class="form-select" id="orderFilterStatus" style="width: 140px;" onchange="app.renderOrders()">
+            <option value="all">全部工单状态</option>
+            <option value="in_progress">服务进行中</option>
+            <option value="completed">完工待结账</option>
+            <option value="paid">已结单</option>
+            <option value="scheduled">预约待到店</option>
+          </select>
+          <button class="btn btn-primary" onclick="app.openModal('quickOrderModal')">
+            <span>+</span> 新建工单
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="table-wrapper">
+          <table class="table-custom">
+            <thead>
+              <tr>
+                <th>工单编号</th>
+                <th>顾客信息</th>
+                <th>项目分类</th>
+                <th>定制款式与参数</th>
+                <th>工位与技师</th>
+                <th>状态</th>
+                <th>服务时长/开始</th>
+                <th>单价(元)</th>
+                <th>流转操作</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <!-- 动态渲染工单 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 模块 4：VIP 会员美学资产档案 ================= -->
+    <section id="view-members" class="view-section">
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>👑</span> VIP 会员美学档案 (CRM)</h2>
+          <p>专属记录每位顾客的甲床特征、敏感过敏史、眼型翘度偏好与剩余储值次卡</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="memberSearchInput" class="form-input" placeholder="🔍 搜索姓名 / 手机号..." style="width: 220px;" oninput="app.renderMembers()">
+          <button class="btn btn-gold" onclick="app.openModal('newMemberModal')">
+            <span>+</span> 登记新会员
+          </button>
+        </div>
+      </div>
+
+      <div class="member-cards-grid" id="membersGrid">
+        <!-- 动态渲染会员美学卡包 -->
+      </div>
+    </section>
+
+    <!-- ================= 模块 5：收银核销与提成分账 ================= -->
+    <section id="view-cashier" class="view-section">
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>💰</span> 收银核销与流水明细</h2>
+          <p>支持储值划扣、次卡核销、微信/支付宝扫码，自动计算手艺人做单与办卡提成</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <span class="station-status-pill status-idle" style="padding: 6px 14px; font-size: 0.85rem;" id="cashierTotalStatsBadge">
+            今日入账：¥0.00 (共 0 笔)
+          </span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span>🧾</span> 今日结单与收款明细</div>
+        </div>
+        <div class="table-wrapper">
+          <table class="table-custom">
+            <thead>
+              <tr>
+                <th>收银流水号</th>
+                <th>顾客姓名</th>
+                <th>支付方式</th>
+                <th>结算金额</th>
+                <th>项目明细</th>
+                <th>主刀手艺人</th>
+                <th>技师提成</th>
+                <th>结账时间</th>
+              </tr>
+            </thead>
+            <tbody id="cashierTableBody">
+              <!-- 动态收银流水 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 模块 6：耗材与胶水安全质保 ================= -->
+    <section id="view-inventory" class="view-section">
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>🧴</span> 耗材库存与胶水 30 天质保监控</h2>
+          <p>严控美睫胶水 30 天开封质保红线，拒绝氧化变质致敏；监控爆款甲油胶与排睫耗材</p>
+        </div>
+        <button class="btn btn-secondary" onclick="app.openModal('addInventoryModal')">
+          <span>+</span> 登记新开封耗材/胶水
+        </button>
+      </div>
+
+      <div class="card" style="margin-bottom: 1.5rem; background: var(--gold-light); border-color: rgba(197, 168, 128, 0.4);">
+        <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.88rem; color: var(--text-main);">
+          <span style="font-size: 1.8rem;">🔬</span>
+          <div>
+            <b>美睫胶水 30 天生命周期品控原则：</b>
+            <p style="color: var(--text-regular); font-size: 0.82rem; margin-top: 2px;">
+              嫁接睫毛胶水接触空气后极易吸收水分氧化。开封 ≤25天为安全期；26-30天为临期黄标；超过30天胶液析出拉丝、刺激度倍增，必须严禁用于眼部并强制报废！
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="table-wrapper">
+          <table class="table-custom">
+            <thead>
+              <tr>
+                <th>耗材/产品名称</th>
+                <th>品类</th>
+                <th>开封日期</th>
+                <th>安全质保期</th>
+                <th>开封已过天数</th>
+                <th>当前质保状态</th>
+                <th>库存量</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTableBody">
+              <!-- 动态渲染耗材 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 模块 7：AI 私域美学营销助手 ================= -->
+    <section id="view-copilot" class="view-section">
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2><span>✨</span> AI 私域美学营销助手</h2>
+          <p>根据顾客款式、甲型眼型与手艺人风格，一键生成小红书爆款文案、离店护理贴士与 21 天老客唤醒话术</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+        <!-- 左侧：参数生成配置 -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><span>⚙️</span> 文案生成配置</div>
+          </div>
+          <form id="aiCopilotForm" onsubmit="event.preventDefault(); app.generateAICopy();">
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label">文案场景目标</label>
+              <select class="form-select" id="aiModeSelect" onchange="app.onAIModeChange()">
+                <option value="xiaohongshu">📱 小红书爆款款式打卡笔记 (种草吸睛+氛围感)</option>
+                <option value="aftercare">🌸 顾客离店 1v1 术后养护贴心小贴士 (微信关怀)</option>
+                <option value="cycleRecall">💌 21 天周期性老客关怀唤醒 (卸甲/补毛邀约)</option>
+              </select>
+            </div>
+
+            <div class="form-row" style="margin-bottom: 1rem;">
+              <div class="form-group">
+                <label class="form-label">服务大类</label>
+                <select class="form-select" id="aiServiceType">
+                  <option value="nail">美甲定制 (Nail Art)</option>
+                  <option value="lash">美睫嫁接 (Eyelash)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">主刀手艺人</label>
+                <select class="form-select" id="aiStaffSelect">
+                  <option value="苏苏">苏苏 (首席美学导师)</option>
+                  <option value="若琳">若琳 (美睫艺术家)</option>
+                  <option value="小敏">小敏 (日式彩绘师)</option>
+                  <option value="安娜">安娜 (轻奢美睫技师)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label">款式/项目名称</label>
+              <input type="text" class="form-input" id="aiServiceName" value="法式清透·日系手绘晕染" placeholder="例如：星芒碎钻猫眼、日式山茶花等">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label">顾客称呼或特定会员</label>
+              <input type="text" class="form-input" id="aiCustomerName" value="林芷晴" placeholder="例如：林女士、琪琪">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+              <label class="form-label">款式细节或美学特征描述</label>
+              <textarea class="form-textarea" id="aiStyleDetails" rows="3" placeholder="例如：灰粉渐变打底，拇指立体贝壳微雕，C型加固，适合方圆甲">灰粉色渐变打底 + 拇指手绘珍珠贝壳 + C弧加固，阳光下有剔透琉璃光泽</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <span>✨</span> 立即生成文案
+            </button>
+          </form>
+        </div>
+
+        <!-- 右侧：生成结果与一键复制 -->
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="card-header">
+              <div class="card-title"><span>📝</span> 预览与成稿</div>
+              <button class="btn btn-secondary btn-sm" onclick="app.copyAICopy()">
+                📋 一键复制文案
+              </button>
+            </div>
+            <div class="ai-output-box" id="aiOutputContent">
+              点击左侧「立即生成文案」，AI 美业私域助手将为您定制符合杭州线下品质沙龙格调的专业内容～
+            </div>
+          </div>
+
+          <div style="background: var(--bg-secondary); padding: 0.85rem; border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--text-muted); margin-top: 1rem;">
+            💡 <b>贴士</b>：文案已融入杭州本土探店视觉调性与线下沙龙去套路化表达，可直接无缝粘贴到小红书创作笔记或微信私聊发给顾客。
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= 模态弹窗集 ================= -->
+
+  <!-- 1. 快速预约/开单弹窗 -->
+  <div class="modal-overlay" id="quickOrderModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title"><span>⚡</span> 快速预约 / 现场开单</div>
+        <button class="modal-close-btn" onclick="app.closeModal('quickOrderModal')">✕</button>
+      </div>
+      <form id="quickOrderForm" onsubmit="event.preventDefault(); app.submitQuickOrder();">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">顾客姓名 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="orderCustomerName" required placeholder="如：林小姐">
+            </div>
+            <div class="form-group">
+              <label class="form-label">联系电话 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="orderCustomerPhone" required placeholder="138-xxxx-xxxx">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">匹配已有会员 (可选)</label>
+              <select class="form-select" id="orderMemberSelect" onchange="app.onOrderMemberSelected()">
+                <option value="">-- 散客 / 暂不关联 --</option>
+                <!-- 动态填充会员 -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">服务大类 <span class="required">*</span></label>
+              <select class="form-select" id="orderServiceType" onchange="app.onServiceTypeChanged()">
+                <option value="nail">美甲定制 (Nail)</option>
+                <option value="lash">美睫嫁接 (Lash)</option>
+                <option value="spa">手足SPA护理 (Spa)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">经典项目方案</label>
+            <select class="form-select" id="orderServiceSelect" onchange="app.onPresetServiceSelected()">
+              <!-- 动态填充项目 -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">定制款式 / 眼型眼睫参数描述</label>
+            <textarea class="form-textarea" id="orderStyleDetails" rows="2" placeholder="如：C翘 9-11mm 山茶花，或 冰透香槟猫眼+极细金边"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">安排工位 <span class="required">*</span></label>
+              <select class="form-select" id="orderStationSelect" required>
+                <!-- 动态填充空闲工位 -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">主刀手艺人 <span class="required">*</span></label>
+              <select class="form-select" id="orderStaffSelect" required>
+                <!-- 动态填充手艺人 -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">预计金额 (元)</label>
+              <input type="number" class="form-input" id="orderPrice" value="298" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">预计服务时长 (分钟)</label>
+              <input type="number" class="form-input" id="orderDuration" value="90" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.closeModal('quickOrderModal')">取消</button>
+          <button type="submit" class="btn btn-primary">确认开单·立即就席</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. 收银结算与核销弹窗 -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title"><span>💰</span> 收银结账与卡项核销</div>
+        <button class="modal-close-btn" onclick="app.closeModal('checkoutModal')">✕</button>
+      </div>
+      <form id="checkoutForm" onsubmit="event.preventDefault(); app.submitCheckout();">
+        <input type="hidden" id="checkoutOrderId">
+        <div class="modal-body">
+          <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-sm);">
+            <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 1.05rem;">
+              <span id="checkoutCustomerName">顾客姓名</span>
+              <span style="color: var(--rose-primary);">应结：¥<span id="checkoutAmountDisplay">0.00</span></span>
+            </div>
+            <div id="checkoutOrderDetails" style="font-size: 0.82rem; color: var(--text-regular); margin-top: 4px;">
+              项目名称
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">支付与结算方式 <span class="required">*</span></label>
+            <select class="form-select" id="checkoutPayMethod" onchange="app.onPayMethodChange()">
+              <option value="wechat">微信扫码支付</option>
+              <option value="alipay">支付宝支付</option>
+              <option value="balance">会员储值账户扣款</option>
+              <option value="card">会员专属次卡核销 (扣1次)</option>
+              <option value="cash">现金 / 其他</option>
+            </select>
+          </div>
+
+          <!-- 会员扣卡/次卡附加选择区 -->
+          <div id="checkoutMemberCardGroup" style="display: none;" class="form-group">
+            <label class="form-label">选择要扣减的会员次卡</label>
+            <select class="form-select" id="checkoutCardName">
+              <!-- 动态填充会员已有次卡 -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">实收结算金额 (元)</label>
+            <input type="number" class="form-input" id="checkoutRealAmount" required>
+          </div>
+
+          <div style="font-size: 0.8rem; color: var(--text-muted);">
+            💡 结账成功后工位将自动释放为【空闲】，并自动按手艺人比例记入今日做单提成流水。
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.closeModal('checkoutModal')">返回</button>
+          <button type="submit" class="btn btn-gold">确认结算·打印收据</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. 新建会员弹窗 -->
+  <div class="modal-overlay" id="newMemberModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title"><span>👑</span> 登记 VIP 会员美学档案</div>
+        <button class="modal-close-btn" onclick="app.closeModal('newMemberModal')">✕</button>
+      </div>
+      <form id="newMemberForm" onsubmit="event.preventDefault(); app.submitNewMember();">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">姓名 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="newMemName" required placeholder="如：林芷晴">
+            </div>
+            <div class="form-group">
+              <label class="form-label">手机号 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="newMemPhone" required placeholder="138-xxxx-xxxx">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">初始会员等级</label>
+              <select class="form-select" id="newMemLevel">
+                <option value="silver">银卡会员 (Silver)</option>
+                <option value="gold">金卡会员 (Gold)</option>
+                <option value="platinum">白金会员 (Platinum)</option>
+                <option value="black_diamond">黑钻VIP (Black Diamond)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">初始储值余额 (元)</label>
+              <input type="number" class="form-input" id="newMemBalance" value="0">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">甲床形态特征</label>
+            <input type="text" class="form-input" id="newMemNailBed" placeholder="如：扁平软甲、需加固底胶、标准C弧等">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">眼型特征与翘度偏好</label>
+              <input type="text" class="form-input" id="newMemEyeShape" placeholder="如：内双圆眼、适合C翘 9-11mm">
+            </div>
+            <div class="form-group">
+              <label class="form-label">过敏敏感史</label>
+              <input type="text" class="form-input" id="newMemAllergies" placeholder="如：酒精敏感、美睫需防熏眼">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">偏好色号与风格备注</label>
+            <input type="text" class="form-input" id="newMemColors" placeholder="如：冰茶猫眼、法式裸透白开水色">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.closeModal('newMemberModal')">取消</button>
+          <button type="submit" class="btn btn-gold">保存会员档案</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. 会员充值弹窗 -->
+  <div class="modal-overlay" id="rechargeModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title"><span>💳</span> 会员储值账户充值</div>
+        <button class="modal-close-btn" onclick="app.closeModal('rechargeModal')">✕</button>
+      </div>
+      <form id="rechargeForm" onsubmit="event.preventDefault(); app.submitRecharge();">
+        <input type="hidden" id="rechargeMemberId">
+        <div class="modal-body">
+          <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 0.5rem;">
+            <div id="rechargeMemberInfo" style="font-weight: 600; font-size: 1rem;">会员：--</div>
+            <div id="rechargeMemberCurrentBalance" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">当前余额：¥0.00</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">充值金额 (元) <span class="required">*</span></label>
+            <input type="number" class="form-input" id="rechargeAmount" value="1000" min="100" step="100" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">支付方式</label>
+            <select class="form-select" id="rechargePayMethod">
+              <option value="wechat">微信支付</option>
+              <option value="alipay">支付宝</option>
+              <option value="cash">现金 / 银行卡</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">销售/归属手艺人</label>
+            <select class="form-select" id="rechargeStaffSelect">
+              <!-- 动态填充手艺人 -->
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.closeModal('rechargeModal')">取消</button>
+          <button type="submit" class="btn btn-gold">确认充值·入账</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. 登记耗材与胶水弹窗 -->
+  <div class="modal-overlay" id="addInventoryModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title"><span>🧴</span> 登记新开封耗材 / 美睫胶水</div>
+        <button class="modal-close-btn" onclick="app.closeModal('addInventoryModal')">✕</button>
+      </div>
+      <form id="addInventoryForm" onsubmit="event.preventDefault(); app.submitNewInventory();">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">耗材/胶水名称 <span class="required">*</span></label>
+            <input type="text" class="form-input" id="invName" required placeholder="如：日本原装·蓝标抗敏美睫胶水">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">类别</label>
+              <select class="form-select" id="invCategory">
+                <option value="glue">美睫胶水 (开封30天强制质保)</option>
+                <option value="nail_gel">甲油胶/色胶 (开封180天质保)</option>
+                <option value="lash_pack">嫁接排睫耗材</option>
+                <option value="accessory">美甲钻饰/饰品</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">开封日期</label>
+              <input type="date" class="form-input" id="invOpenedAt" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">当前库存数量</label>
+              <input type="number" class="form-input" id="invStockCount" value="2" min="1" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">库存预警警戒线</label>
+              <input type="number" class="form-input" id="invWarningThreshold" value="2" min="1" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">特点与存储备注</label>
+            <input type="text" class="form-input" id="invNote" placeholder="如：防潮密封冷藏保存，敏感客专用">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="app.closeModal('addInventoryModal')">取消</button>
+          <button type="submit" class="btn btn-primary">登记开封</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 全局轻量 Toast 提示容器 -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- 引入业务模块脚本 -->
+  <script>
+/**
+ * 杭州·悦己美学沙龙 (YueJi Beauty Studio Workbench)
+ * 核心持久化存储引擎与高仿真美业业务数据管理
+ */
+
+const STORAGE_KEY = 'yueji_beauty_workbench_v1';
+
+// 初始高仿真杭州线下示范店演示数据
+const INITIAL_DEMO_DATA = {
+  // 1. 工位数据 (4席美甲台 + 3席美睫静音仓)
+  stations: [
+    { id: 'S1', name: 'N1 樱花粉·轻奢手绘台', type: 'nail', status: 'busy', currentOrderId: 'ORD-20260920-001' },
+    { id: 'S2', name: 'N2 香槟金·冰透猫眼台', type: 'nail', status: 'busy', currentOrderId: 'ORD-20260920-002' },
+    { id: 'S3', name: 'N3 珍珠白·日式美甲席', type: 'nail', status: 'idle', currentOrderId: null },
+    { id: 'S4', name: 'N4 玫瑰金·尊享延甲位', type: 'nail', status: 'cleaning', currentOrderId: null },
+    { id: 'S5', name: 'L1 柔光·日式静音睫艺仓', type: 'lash', status: 'busy', currentOrderId: 'ORD-20260920-003' },
+    { id: 'S6', name: 'L2 云朵·空气感美睫房', type: 'lash', status: 'idle', currentOrderId: null },
+    { id: 'S7', name: 'L3 星空·VIP奢宠双人房', type: 'lash', status: 'idle', currentOrderId: null }
+  ],
+
+  // 2. 技师手艺人档案
+  staff: [
+    {
+      id: 'STF-01',
+      name: '苏苏',
+      role: 'manager',
+      title: '店长兼首席美学导师',
+      specialty: '高难手绘晕染 / 极光法式延长 / 整体色彩搭配',
+      avatar: '👩🏻‍💼',
+      phone: '138-5819-2001',
+      commissionRate: 0.38,
+      todayOrdersCount: 2
+    },
+    {
+      id: 'STF-02',
+      name: '若琳',
+      role: 'lash_master',
+      title: '资深美睫定制艺术家',
+      specialty: '日式山茶花开花 / YY空气感轻羽 / 眼型调整',
+      avatar: '👱🏻‍♀️',
+      phone: '139-6712-3002',
+      commissionRate: 0.40,
+      todayOrdersCount: 2
+    },
+    {
+      id: 'STF-03',
+      name: '小敏',
+      role: 'nail_artist',
+      title: '日式彩绘美甲师',
+      specialty: '微雕立体珍珠 / 冰茶爆闪猫眼 / 裸透短甲修护',
+      avatar: '👧🏻',
+      phone: '137-5820-4003',
+      commissionRate: 0.35,
+      todayOrdersCount: 1
+    },
+    {
+      id: 'STF-04',
+      name: '安娜',
+      role: 'lash_artist',
+      title: '轻奢美睫技师',
+      specialty: '芭比太阳花 / 纯欲下睫毛 / 睫毛角蛋白轻塑',
+      avatar: '👩🏼',
+      phone: '136-4671-5004',
+      commissionRate: 0.35,
+      todayOrdersCount: 1
+    },
+    {
+      id: 'STF-05',
+      name: '小禾',
+      role: 'spa_technician',
+      title: '手足深层SPA技师',
+      specialty: '玫瑰精油手部水润SPA / 死皮温和精修 / 嵌甲矫正',
+      avatar: '🙋🏻‍♀️',
+      phone: '159-8812-6005',
+      commissionRate: 0.30,
+      todayOrdersCount: 1
+    }
+  ],
+
+  // 3. 热门经典项目库
+  services: [
+    { id: 'SRV-01', category: 'nail', name: '星芒碎钻·极光猫眼凝胶', duration: 90, price: 298, desc: '日式精修死皮 + 进口底胶加固 + 广角磁吸猫眼 + 高透耐磨顶胶' },
+    { id: 'SRV-02', category: 'nail', name: '法式清透·日系手绘晕染', duration: 120, price: 388, desc: '水彩手工晕染 + 贝壳金箔点缀 + 延长指甲修型 + 琉璃光泽封层' },
+    { id: 'SRV-03', category: 'nail', name: '裸透千金·纯色本甲精修', duration: 60, price: 168, desc: '前置俄式干裂修护 + 德国修死皮剪 + 纯植物环保胶 + 精油滋养' },
+    { id: 'SRV-04', category: 'nail', name: '全贴光疗·长甲欧美甲片', duration: 150, price: 468, desc: '无痕半贴/全贴延长 + 塑形C弧 + 施华洛世奇水钻搭配' },
+    { id: 'SRV-05', category: 'lash', name: '日式初恋·单根空气羽睫', duration: 80, price: 328, desc: '0.05细软扁毛 + 一对一精密贴合 + 零重力无异物感' },
+    { id: 'SRV-06', category: 'lash', name: '纯欲漫画·山茶花飞翘款', duration: 100, price: 428, desc: 'C翘 9-12mm 层次错落 + 太阳花束型排布 + 放大灵动双眼' },
+    { id: 'SRV-07', category: 'lash', name: '芭比浓密·YY双毛网织款', duration: 90, price: 368, desc: 'YY型双尖结构 + 自动补齐睫毛空隙 + 适合睫毛稀疏眼型' },
+    { id: 'SRV-08', category: 'spa', name: '保加利亚玫瑰·手部水嫩SPA', duration: 45, price: 198, desc: '温和果酸去角质 + 玫瑰精油热敷按摩 + 密集补水滋养手膜' }
+  ],
+
+  // 4. 会员美学资产档案 (含甲床特征、眼型与偏好)
+  members: [
+    {
+      id: 'MB-001',
+      name: '林芷晴',
+      phone: '138-1918-2001',
+      level: 'black_diamond', // 黑钻VIP
+      balance: 3820,
+      totalSpent: 12800,
+      cards: [
+        { name: '四季尊享手部SPA年卡', remainingTimes: 7, totalTimes: 10 },
+        { name: '美睫免费修补抵扣券', remainingTimes: 2, totalTimes: 3 }
+      ],
+      aestheticProfile: {
+        nailBed: '修长偏平，甲床易软脆，需双层加固底胶',
+        eyeShape: '精致内双，适合C翘/10-11mm山茶花，眼中加长',
+        preferredColors: '裸透灰粉、冰茶晶石猫眼、香槟细闪',
+        allergies: '对强香精酒精敏感，美睫需用超抗敏蓝标胶水',
+        lastVisitDate: '2026-09-02',
+        serviceCycleDays: 18 // 距今18天
+      },
+      tags: ['高客单', '偏好安静', '自带款式图', '爱喝冰美式'],
+      notes: '杭州金融街白领，周五傍晚常客，做指甲时喜欢戴耳机听播客。'
+    },
+    {
+      id: 'MB-002',
+      name: '赵梦琪',
+      phone: '158-6819-3321',
+      level: 'platinum', // 白金会员
+      balance: 1560,
+      totalSpent: 6200,
+      cards: [
+        { name: '爆款美甲5次欢享卡', remainingTimes: 3, totalTimes: 5 }
+      ],
+      aestheticProfile: {
+        nailBed: '标准椭圆C弧，甲质坚韧，持胶度极好',
+        eyeShape: '大杏眼双眼皮，适合B翘/9-11mm轻羽自然单根',
+        preferredColors: '多巴胺高饱和、手绘棋盘格、立体小熊',
+        allergies: '无特殊过敏史',
+        lastVisitDate: '2026-08-28',
+        serviceCycleDays: 23 // 距今23天 (已达保养回访预警)
+      },
+      tags: ['时尚达人', '爱发小红书', '尝试新色', '喜拍成片'],
+      notes: '美院毕业设计师，拍照讲究光影，每次做完会在店里自拍角打卡。'
+    },
+    {
+      id: 'MB-003',
+      name: '许佳宁',
+      phone: '135-8812-4412',
+      level: 'gold', // 金卡会员
+      balance: 850,
+      totalSpent: 3900,
+      cards: [
+        { name: '睫毛焕新3次次卡', remainingTimes: 1, totalTimes: 3 }
+      ],
+      aestheticProfile: {
+        nailBed: '短小扇形甲，指缘倒刺多，需要俄式精修死皮',
+        eyeShape: '眼尾微微下垂，适合D翘 11-12mm 眼尾提拉款',
+        preferredColors: '乌梅子酱、焦糖琥珀晕染、法式极细白边',
+        allergies: '左眼容易流泪，嫁接时备好吸水棉片',
+        lastVisitDate: '2026-08-25',
+        serviceCycleDays: 26 // 距今26天 (待回访预警)
+      },
+      tags: ['注重手部护理', '容易倒刺', '喜好提拉眼型'],
+      notes: '律所助理，平时打字多，指甲长度喜欢修整齐方圆本甲。'
+    },
+    {
+      id: 'MB-004',
+      name: '周诗婷',
+      phone: '187-5711-6678',
+      level: 'silver', // 银卡会员
+      balance: 320,
+      totalSpent: 1680,
+      cards: [],
+      aestheticProfile: {
+        nailBed: '正常方圆甲，有轻微起翘习惯',
+        eyeShape: '圆眼偏可爱，适合太阳花芭比束感睫毛',
+        preferredColors: '白开水裸色、奶杏色、细碎珠光',
+        allergies: '无过敏史',
+        lastVisitDate: '2026-09-15',
+        serviceCycleDays: 5
+      },
+      tags: ['学生党', '偏爱纯欲风', '关注性价比'],
+      notes: '浙大在读研究生，周末与闺蜜同行。'
+    }
+  ],
+
+  // 5. 今日及近期服务工单 (覆盖各状态闭环)
+  orders: [
+    {
+      id: 'ORD-20260920-001',
+      orderNo: 'YJ20260920-01',
+      customerName: '林芷晴',
+      customerPhone: '138-1918-2001',
+      memberId: 'MB-001',
+      serviceType: 'nail',
+      serviceName: '法式清透·日系手绘晕染',
+      styleDetails: '灰粉色渐变打底 + 拇指手绘珍珠贝壳 + C弧加固',
+      stationId: 'S1',
+      stationName: 'N1 樱花粉·轻奢手绘台',
+      staffId: 'STF-01',
+      staffName: '苏苏',
+      status: 'in_progress', // 服务中
+      startTime: '2026-09-20 15:30',
+      estimatedDuration: 120, // 预计120分钟
+      price: 388,
+      photoUrl: '',
+      notes: '顾客自带图，要求法式边缘银线勾边',
+      createdAt: '2026-09-20 15:20'
+    },
+    {
+      id: 'ORD-20260920-002',
+      orderNo: 'YJ20260920-02',
+      customerName: '赵梦琪',
+      customerPhone: '158-6819-3321',
+      memberId: 'MB-002',
+      serviceType: 'nail',
+      serviceName: '星芒碎钻·极光猫眼凝胶',
+      styleDetails: '琉璃香槟猫眼 + 极细法式闪粉包边',
+      stationId: 'S2',
+      stationName: 'N2 香槟金·冰透猫眼台',
+      staffId: 'STF-03',
+      staffName: '小敏',
+      status: 'in_progress', // 服务中
+      startTime: '2026-09-20 16:00',
+      estimatedDuration: 90,
+      price: 298,
+      photoUrl: '',
+      notes: '做完后想在店门口拍摄小红书素材',
+      createdAt: '2026-09-20 15:50'
+    },
+    {
+      id: 'ORD-20260920-003',
+      orderNo: 'YJ20260920-03',
+      customerName: '沈悦 (散客到店)',
+      customerPhone: '139-5801-9922',
+      memberId: null,
+      serviceType: 'lash',
+      serviceName: '日式初恋·单根空气羽睫',
+      styleDetails: 'C翘 0.05细软 / 9-11mm 自然扇形 / 黑棕色',
+      stationId: 'S5',
+      stationName: 'L1 柔光·日式静音睫艺仓',
+      staffId: 'STF-02',
+      staffName: '若琳',
+      status: 'in_progress', // 服务中
+      startTime: '2026-09-20 15:45',
+      estimatedDuration: 80,
+      price: 328,
+      photoUrl: '',
+      notes: '首次体验美睫，已做耳后敏感测试',
+      createdAt: '2026-09-20 15:35'
+    },
+    {
+      id: 'ORD-20260920-004',
+      orderNo: 'YJ20260920-04',
+      customerName: '王思淼',
+      customerPhone: '136-1234-5678',
+      memberId: null,
+      serviceType: 'nail',
+      serviceName: '裸透千金·纯色本甲精修',
+      styleDetails: '裸透冰茶色 + 双层加固',
+      stationId: 'S3',
+      stationName: 'N3 珍珠白·日式美甲席',
+      staffId: 'STF-03',
+      staffName: '小敏',
+      status: 'completed', // 已完工待结账
+      startTime: '2026-09-20 14:00',
+      estimatedDuration: 60,
+      price: 168,
+      photoUrl: '',
+      notes: '服务完毕，正在前台选购护手霜',
+      createdAt: '2026-09-20 13:50'
+    },
+    {
+      id: 'ORD-20260920-005',
+      orderNo: 'YJ20260920-05',
+      customerName: '陈雅晴 (微信预约)',
+      customerPhone: '137-7788-9900',
+      memberId: null,
+      serviceType: 'lash',
+      serviceName: '纯欲漫画·山茶花飞翘款',
+      styleDetails: 'C翘 10-12mm 山茶花',
+      stationId: 'S6',
+      stationName: 'L2 云朵·空气感美睫房',
+      staffId: 'STF-04',
+      staffName: '安娜',
+      status: 'scheduled', // 预约中 (预计17:30到店)
+      startTime: '2026-09-20 17:30',
+      estimatedDuration: 100,
+      price: 428,
+      photoUrl: '',
+      notes: '提前打过招呼，带闺蜜一起来',
+      createdAt: '2026-09-20 11:20'
+    },
+    {
+      id: 'ORD-20260920-006',
+      orderNo: 'YJ20260920-06',
+      customerName: '周诗婷',
+      customerPhone: '187-5711-6678',
+      memberId: 'MB-004',
+      serviceType: 'nail',
+      serviceName: '保加利亚玫瑰·手部水嫩SPA',
+      styleDetails: '全套手部精油护理',
+      stationId: 'S4',
+      stationName: 'N4 玫瑰金·尊享延甲位',
+      staffId: 'STF-05',
+      staffName: '小禾',
+      status: 'paid', // 已结单
+      startTime: '2026-09-20 13:00',
+      estimatedDuration: 45,
+      price: 198,
+      photoUrl: '',
+      notes: '会员卡扣款',
+      createdAt: '2026-09-20 12:50'
+    }
+  ],
+
+  // 6. 今日收银明细与提成分账记录
+  bills: [
+    {
+      id: 'BILL-001',
+      billNo: 'RC20260920-001',
+      orderId: 'ORD-20260920-006',
+      customerName: '周诗婷',
+      memberId: 'MB-004',
+      payMethod: 'balance', // 储值扣除
+      amount: 198,
+      staffId: 'STF-05',
+      staffName: '小禾',
+      commissionAmount: 59.4, // 30%提成
+      items: '保加利亚玫瑰·手部水嫩SPA',
+      createdAt: '2026-09-20 13:55'
+    },
+    {
+      id: 'BILL-002',
+      billNo: 'RC20260920-002',
+      orderId: null,
+      customerName: '林芷晴',
+      memberId: 'MB-001',
+      payMethod: 'wechat', // 微信充值
+      amount: 2000,
+      staffId: 'STF-01',
+      staffName: '苏苏',
+      commissionAmount: 160, // 8%充值办卡提成
+      items: '黑钻会员充值金 2000元',
+      createdAt: '2026-09-20 14:10'
+    },
+    {
+      id: 'BILL-003',
+      billNo: 'RC20260920-003',
+      orderId: 'ORD-HIST-098',
+      customerName: '刘女士',
+      memberId: null,
+      payMethod: 'alipay', // 支付宝
+      amount: 328,
+      staffId: 'STF-02',
+      staffName: '若琳',
+      commissionAmount: 131.2, // 40%美睫提成
+      items: '日式初恋·单根空气羽睫',
+      createdAt: '2026-09-20 12:30'
+    }
+  ],
+
+  // 7. 耗材库存与美睫胶水 30 天质保监控
+  inventory: [
+    {
+      id: 'INV-001',
+      name: '日本原装·蓝标医美级抗敏美睫胶',
+      category: 'glue',
+      openedAt: '2026-09-08', // 开封12天
+      shelfLifeDays: 30,
+      stockCount: 4,
+      unit: '瓶',
+      warningThreshold: 2,
+      note: '无刺激，专供眼部敏感及孕妇客户'
+    },
+    {
+      id: 'INV-002',
+      name: '极速 0.5s 秒干黑磁美睫胶水',
+      category: 'glue',
+      openedAt: '2026-08-24', // 开封27天 (临期警告！)
+      shelfLifeDays: 30,
+      stockCount: 2,
+      unit: '瓶',
+      warningThreshold: 2,
+      note: '粘性极强，注意避光密封冷藏，剩余 3 天到期'
+    },
+    {
+      id: 'INV-003',
+      name: '日式天然树脂超牢嫁接胶',
+      category: 'glue',
+      openedAt: '2026-08-15', // 开封36天 (已过期报警，禁止使用！)
+      shelfLifeDays: 30,
+      stockCount: 1,
+      unit: '瓶',
+      warningThreshold: 2,
+      note: '已超 30 天质保期，胶体粘稠氧化，需作废下架'
+    },
+    {
+      id: 'INV-004',
+      name: '日式罐装冰透果冻凝胶 #08 白桃乌龙',
+      category: 'nail_gel',
+      openedAt: '2026-09-01',
+      shelfLifeDays: 180,
+      stockCount: 1, // 仅剩1罐，低库存预警
+      unit: '罐',
+      warningThreshold: 3,
+      note: '爆款主打色，需紧急补货'
+    },
+    {
+      id: 'INV-005',
+      name: '银河极光广角磁吸猫眼胶 #03 冰川银',
+      category: 'nail_gel',
+      openedAt: '2026-09-10',
+      shelfLifeDays: 180,
+      stockCount: 5,
+      unit: '瓶',
+      warningThreshold: 2,
+      note: '手部显白利器'
+    },
+    {
+      id: 'INV-006',
+      name: '0.05细软水貂触感排睫 (8-12mm 混合装)',
+      category: 'lash_pack',
+      openedAt: '2026-09-05',
+      shelfLifeDays: 365,
+      stockCount: 8,
+      unit: '盒',
+      warningThreshold: 3,
+      note: '山茶花嫁接主力耗材'
+    },
+    {
+      id: 'INV-007',
+      name: '施华洛世奇平底尖底美甲水钻混装盒',
+      category: 'accessory',
+      openedAt: '2026-09-01',
+      shelfLifeDays: 720,
+      stockCount: 2,
+      unit: '盒',
+      warningThreshold: 2,
+      note: '法式新娘甲高频饰品'
+    }
+  ]
+};
+
+// 存储引擎封装
+class BeautyStorageEngine {
+  constructor() {
+    this.data = this.loadData();
+  }
+
+  // 初始化加载
+  loadData() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.stations && parsed.orders) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('读取本地数据失败，将载入初始示范数据:', e);
+    }
+    const cloned = JSON.parse(JSON.stringify(INITIAL_DEMO_DATA));
+    this.saveData(cloned);
+    return cloned;
+  }
+
+  // 保存数据至 localStorage
+  saveData(customData = null) {
+    if (customData) {
+      this.data = customData;
+    }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
+      window.dispatchEvent(new CustomEvent('yueji_data_updated', { detail: { timestamp: Date.now() } }));
+      return true;
+    } catch (e) {
+      console.error('本地存储保存失败:', e);
+      return false;
+    }
+  }
+
+  // 重置为杭州示范店标准演示数据
+  resetToDemo() {
+    this.data = JSON.parse(JSON.stringify(INITIAL_DEMO_DATA));
+    this.saveData();
+    return this.data;
+  }
+
+  // 清空所有业务数据 (保留基础工位与技师)
+  clearAll() {
+    this.data = {
+      stations: INITIAL_DEMO_DATA.stations.map(s => ({ ...s, status: 'idle', currentOrderId: null })),
+      staff: INITIAL_DEMO_DATA.staff.map(st => ({ ...st, todayOrdersCount: 0 })),
+      services: [...INITIAL_DEMO_DATA.services],
+      members: [],
+      orders: [],
+      bills: [],
+      inventory: []
+    };
+    this.saveData();
+    return this.data;
+  }
+
+  // 导出 JSON 备份
+  exportJSON() {
+    const jsonStr = JSON.stringify(this.data, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `悦己美业工作台备份_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // 导入 JSON 备份
+  importJSON(jsonString) {
+    try {
+      const parsed = JSON.parse(jsonString);
+      if (!parsed.stations || !parsed.staff || !parsed.orders) {
+        throw new Error('导入文件数据格式不符合悦己美业工作台标准');
+      }
+      this.data = parsed;
+      this.saveData();
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: err.message };
+    }
+  }
+
+  // 核心计算口径与统计看板
+  getDashboardStats() {
+    const today = new Date().toISOString().slice(0, 10);
+    
+    // 1. 今日总营收
+    const todayBills = this.data.bills.filter(b => b.createdAt.startsWith(today));
+    const todayRevenue = todayBills.reduce((acc, cur) => acc + (Number(cur.amount) || 0), 0);
+    
+    // 2. 今日接待客次 (在店 + 完工 + 结单)
+    const activeOrders = this.data.orders.filter(o => 
+      ['in_progress', 'completed', 'paid'].includes(o.status) && o.createdAt.startsWith(today)
+    );
+    const uniqueCustomers = new Set(activeOrders.map(o => o.customerPhone || o.customerName)).size;
+
+    // 3. 实时工位负荷率
+    const totalStations = this.data.stations.length;
+    const occupiedStations = this.data.stations.filter(s => s.status === 'busy').length;
+    const occupancyRate = totalStations > 0 ? Math.round((occupiedStations / totalStations) * 100) : 0;
+
+    // 4. 需养护回访客户 (上次到店超过21天)
+    const membersNeedingCare = this.data.members.filter(m => {
+      const days = m.aestheticProfile?.serviceCycleDays || 0;
+      return days >= 21;
+    });
+
+    // 5. 胶水质保与耗材预警清单
+    const inventoryAlerts = this.getInventoryAlerts();
+
+    // 6. 今日营收构成统计 (美甲 / 美睫 / SPA / 会员充值)
+    let nailIncome = 0;
+    let lashIncome = 0;
+    let spaIncome = 0;
+    let rechargeIncome = 0;
+
+    todayBills.forEach(b => {
+      if (b.items.includes('美甲') || b.items.includes('猫眼') || b.items.includes('晕染')) {
+        nailIncome += b.amount;
+      } else if (b.items.includes('美睫') || b.items.includes('睫毛') || b.items.includes('山茶花')) {
+        lashIncome += b.amount;
+      } else if (b.items.includes('SPA') || b.items.includes('手部')) {
+        spaIncome += b.amount;
+      } else if (b.items.includes('充值') || b.items.includes('会员')) {
+        rechargeIncome += b.amount;
+      } else {
+        nailIncome += b.amount;
+      }
+    });
+
+    return {
+      todayRevenue,
+      todayCustomerCount: uniqueCustomers,
+      occupiedStations,
+      totalStations,
+      occupancyRate,
+      careCount: membersNeedingCare.length,
+      careMembers: membersNeedingCare,
+      inventoryAlerts,
+      revenueBreakdown: {
+        nail: nailIncome,
+        lash: lashIncome,
+        spa: spaIncome,
+        recharge: rechargeIncome
+      }
+    };
+  }
+
+  // 胶水 30 天质保与库存告警检测
+  getInventoryAlerts() {
+    const today = new Date();
+    const alerts = [];
+
+    this.data.inventory.forEach(item => {
+      // 胶水类按开封天数
+      if (item.category === 'glue') {
+        const opened = new Date(item.openedAt);
+        const diffDays = Math.floor((today - opened) / (1000 * 3600 * 24));
+        const remainingDays = item.shelfLifeDays - diffDays;
+
+        if (remainingDays <= 0) {
+          alerts.push({
+            id: item.id,
+            name: item.name,
+            type: 'expired',
+            level: 'danger',
+            title: '⚠️ 胶水已严重过期',
+            detail: `开封已 ${diffDays} 天（超期 ${Math.abs(remainingDays)} 天），极易引起顾客眼部致敏，请立即作废报废！`,
+            remainingDays
+          });
+        } else if (remainingDays <= 5) {
+          alerts.push({
+            id: item.id,
+            name: item.name,
+            type: 'expiring',
+            level: 'warning',
+            title: '⚡ 胶水开封即将临期',
+            detail: `开封已 ${diffDays} 天，仅剩 ${remainingDays} 天质保，请尽快使用或备新。`,
+            remainingDays
+          });
+        }
+      }
+
+      // 低库存预警
+      if (item.stockCount <= item.warningThreshold) {
+        alerts.push({
+          id: item.id,
+          name: item.name,
+          type: 'low_stock',
+          level: 'warning',
+          title: '📦 耗材库存告急',
+          detail: `当前库存仅剩 ${item.stockCount} ${item.unit}（警戒线: ${item.warningThreshold}），请及时补货。`,
+          stock: item.stockCount
+        });
+      }
+    });
+
+    return alerts;
+  }
+
+  // ================= 工单 CRUD =================
+  addOrder(orderData) {
+    const id = 'ORD-' + Date.now();
+    const orderNo = 'YJ' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' + Math.floor(10 + Math.random() * 90);
+    const newOrder = {
+      id,
+      orderNo,
+      status: 'in_progress', // 默认开单进座即服务中
+      createdAt: new Date().toISOString().slice(0, 16).replace('T', ' '),
+      ...orderData
+    };
+    this.data.orders.unshift(newOrder);
+
+    // 绑定占用工位
+    if (newOrder.stationId) {
+      const station = this.data.stations.find(s => s.id === newOrder.stationId);
+      if (station) {
+        station.status = 'busy';
+        station.currentOrderId = newOrder.id;
+      }
+    }
+
+    // 技师今日单量 +1
+    if (newOrder.staffId) {
+      const st = this.data.staff.find(s => s.id === newOrder.staffId);
+      if (st) st.todayOrdersCount = (st.todayOrdersCount || 0) + 1;
+    }
+
+    this.saveData();
+    return newOrder;
+  }
+
+  updateOrderStatus(orderId, newStatus) {
+    const order = this.data.orders.find(o => o.id === orderId);
+    if (!order) return null;
+    order.status = newStatus;
+
+    // 若工单完工/结单/取消，释放工位
+    if (['completed', 'paid', 'cancelled'].includes(newStatus)) {
+      const station = this.data.stations.find(s => s.currentOrderId === orderId || s.id === order.stationId);
+      if (station) {
+        station.status = 'idle';
+        station.currentOrderId = null;
+      }
+    }
+    this.saveData();
+    return order;
+  }
+
+  deleteOrder(orderId) {
+    const order = this.data.orders.find(o => o.id === orderId);
+    if (order && order.stationId) {
+      const station = this.data.stations.find(s => s.id === order.stationId);
+      if (station && station.currentOrderId === orderId) {
+        station.status = 'idle';
+        station.currentOrderId = null;
+      }
+    }
+    this.data.orders = this.data.orders.filter(o => o.id !== orderId);
+    this.saveData();
+    return true;
+  }
+
+  // ================= 收银结算 =================
+  checkoutOrder(orderId, paymentData) {
+    const order = this.data.orders.find(o => o.id === orderId);
+    if (!order) throw new Error('工单不存在');
+
+    const billId = 'BILL-' + Date.now();
+    const billNo = 'RC' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' + Math.floor(100 + Math.random() * 900);
+    const amount = Number(paymentData.amount) || order.price;
+
+    // 计算技师提成
+    let commissionRate = 0.35;
+    const staff = this.data.staff.find(s => s.id === order.staffId);
+    if (staff) commissionRate = staff.commissionRate || 0.35;
+    const commissionAmount = Math.round(amount * commissionRate * 10) / 10;
+
+    // 会员储值卡扣款逻辑
+    if (paymentData.payMethod === 'balance' && order.memberId) {
+      const member = this.data.members.find(m => m.id === order.memberId);
+      if (member) {
+        if (member.balance < amount) {
+          throw new Error(`会员余额不足！当前余额为 ¥${member.balance}，应付 ¥${amount}`);
+        }
+        member.balance -= amount;
+        member.totalSpent += amount;
+        member.aestheticProfile.lastVisitDate = new Date().toISOString().slice(0, 10);
+        member.aestheticProfile.serviceCycleDays = 0; // 重置周期天数
+      }
+    }
+
+    // 会员次卡划扣逻辑
+    if (paymentData.payMethod === 'card' && order.memberId) {
+      const member = this.data.members.find(m => m.id === order.memberId);
+      if (member && member.cards) {
+        const card = member.cards.find(c => c.name === paymentData.cardName);
+        if (card) {
+          if (card.remainingTimes <= 0) throw new Error('该次卡已无可用次数');
+          card.remainingTimes -= 1;
+        }
+        member.aestheticProfile.lastVisitDate = new Date().toISOString().slice(0, 10);
+        member.aestheticProfile.serviceCycleDays = 0;
+      }
+    }
+
+    const newBill = {
+      id: billId,
+      billNo,
+      orderId: order.id,
+      customerName: order.customerName,
+      memberId: order.memberId,
+      payMethod: paymentData.payMethod,
+      amount,
+      staffId: order.staffId,
+      staffName: order.staffName,
+      commissionAmount,
+      items: order.serviceName + (order.styleDetails ? ` (${order.styleDetails})` : ''),
+      createdAt: new Date().toISOString().slice(0, 16).replace('T', ' ')
+    };
+
+    this.data.bills.unshift(newBill);
+    this.updateOrderStatus(orderId, 'paid');
+    return newBill;
+  }
+
+  // ================= 会员 CRUD =================
+  addMember(memberData) {
+    const id = 'MB-' + Date.now();
+    const newMember = {
+      id,
+      level: 'silver',
+      balance: 0,
+      totalSpent: 0,
+      cards: [],
+      aestheticProfile: {
+        nailBed: '正常标准甲床',
+        eyeShape: '自然眼型',
+        preferredColors: '裸粉白开水色',
+        allergies: '无过敏史',
+        lastVisitDate: new Date().toISOString().slice(0, 10),
+        serviceCycleDays: 0
+      },
+      tags: ['新会员'],
+      ...memberData
+    };
+    this.data.members.unshift(newMember);
+    this.saveData();
+    return newMember;
+  }
+
+  rechargeMember(memberId, amount, payMethod = 'wechat', staffId = 'STF-01') {
+    const member = this.data.members.find(m => m.id === memberId);
+    if (!member) throw new Error('会员不存在');
+    const rechargeAmt = Number(amount);
+    member.balance += rechargeAmt;
+
+    // 自动升级
+    if (member.balance >= 3000) member.level = 'black_diamond';
+    else if (member.balance >= 1500) member.level = 'platinum';
+    else if (member.balance >= 800) member.level = 'gold';
+
+    // 记一笔流水
+    const staff = this.data.staff.find(s => s.id === staffId);
+    const billId = 'BILL-' + Date.now();
+    const billNo = 'RC' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' + Math.floor(100 + Math.random() * 900);
+    this.data.bills.unshift({
+      id: billId,
+      billNo,
+      orderId: null,
+      customerName: member.name,
+      memberId: member.id,
+      payMethod,
+      amount: rechargeAmt,
+      staffId: staffId,
+      staffName: staff ? staff.name : '前台',
+      commissionAmount: Math.round(rechargeAmt * 0.08), // 8%办卡充值提成
+      items: `会员储值卡充值 ¥${rechargeAmt}`,
+      createdAt: new Date().toISOString().slice(0, 16).replace('T', ' ')
+    });
+
+    this.saveData();
+    return member;
+  }
+
+  // ================= 耗材与胶水 CRUD =================
+  addInventory(itemData) {
+    const id = 'INV-' + Date.now();
+    const newItem = {
+      id,
+      openedAt: new Date().toISOString().slice(0, 10),
+      shelfLifeDays: itemData.category === 'glue' ? 30 : 180,
+      stockCount: 1,
+      unit: itemData.category === 'glue' ? '瓶' : '罐',
+      warningThreshold: 2,
+      ...itemData
+    };
+    this.data.inventory.unshift(newItem);
+    this.saveData();
+    return newItem;
+  }
+
+  discardGlue(inventoryId) {
+    const item = this.data.inventory.find(i => i.id === inventoryId);
+    if (item) {
+      this.data.inventory = this.data.inventory.filter(i => i.id !== inventoryId);
+      this.saveData();
+      return true;
+    }
+    return false;
+  }
+}
+
+// 导出全局单例
+window.beautyStore = new BeautyStorageEngine();
+
+</script>
+  <script>
+/**
+ * 杭州·悦己美学沙龙 - AI 美业私域营销助手 (Beauty AI Copilot)
+ * 专注为美甲美睫线下沙龙生成高转化、有温度、贴合杭州本土客群的私域文案与小红书种草笔记
+ */
+
+class BeautyAICopilot {
+  constructor() {
+    this.promptPresets = {
+      // 1. 小红书爆款款式打卡种草笔记
+      xiaohongshu: (params) => {
+        const { serviceType, serviceName, styleDetails, customerVibe, artistName } = params;
+        const isNail = serviceType === 'nail';
+        
+        const titles = isNail ? [
+          `💅🏻 救命！杭州这家宝藏美甲…把江南初秋晕染在指尖上了`,
+          `✨ 绝了！被问了800遍的清透猫眼！原相机直出美到失语`,
+          `🍂 杭州女生私藏美甲美睫沙龙！审美高级到我直接办年卡`,
+          `🤍 终于做到了梦中情甲！法式手绘清透感天花板`
+        ] : [
+          `👁️ 真的会谢！在杭州嫁接到妈生感山茶花睫毛！直接焊在眼睛上`,
+          `✨ 告别苍蝇腿！日式单根空气羽睫，素颜出门被夸眼睛有光`,
+          `🌸 杭州美睫天花板！内双肿眼泡也能拥有清透漫画眼`,
+          `🧸 杭州宝藏手艺人！嫁接完完全没有异物感，洗脸都不怕`
+        ];
+
+        const selectedTitle = titles[Math.floor(Math.random() * titles.length)];
+
+        let body = `今日作品档案：《${serviceName}》\n`;
+        body += `📍 坐标：杭州·悦己美学沙龙 (西湖区/钱江新城店)\n`;
+        body += `👩🏻‍🎨 主刀手艺人：${artistName || '店长主理人团队'}\n\n`;
+
+        if (isNail) {
+          body += `💫 款式细节拆解：\n`;
+          body += `▫️ 本期定制重点：${styleDetails || '透亮果冻底色 + 层次感手工晕染'}\n`;
+          body += `▫️ 甲型修裁：修长方圆型，前置俄式精细去角质，完全不伤本甲健康\n`;
+          body += `▫️ 光泽感：日本进口晶石高透封层，在杭州的晴天日光下波光粼粼超显白！\n\n`;
+          body += `🌿 手部体验小记：\n`;
+          body += `做指甲的过程真的太治愈了，店里放着安静的爵士乐，还有手部玫瑰精油水疗～手艺人小姐姐特别有耐心，细节控表示被深深折服！\n\n`;
+          body += `#杭州美甲 #杭州美业探店 #秋季美甲款式 #法式美甲 #显白美甲 #日式美甲手绘 #悦己美学`;
+        } else {
+          body += `💫 睫毛定制参数：\n`;
+          body += `▫️ 设计款型：${styleDetails || '日式空气山茶花，C翘 9-11mm 层次错落'}\n`;
+          body += `▫️ 胶水选型：医美级日本蓝标超抗敏胶，全程温和不熏眼、不泛红\n`;
+          body += `▫️ 根根分明，宛如妈生好底子，闭眼完全无负担！\n\n`;
+          body += `🌿 体验感受：\n`;
+          body += `静音独立睫艺仓真的太舒服了，躺在云朵沙发上不知不觉睡了一觉，醒来直接拥有水灵灵的小鹿眼！再也不用每天早起费劲画眼线夹睫毛啦～\n\n`;
+          body += `#杭州美睫 #日式美睫嫁接 #妈生感睫毛 #单根空气羽睫 #眼型调整 #杭州探店美睫 #悦己美学沙龙`;
+        }
+
+        return {
+          title: selectedTitle,
+          content: body,
+          tags: isNail ? ['杭州美甲', '显白美甲', '日式美甲'] : ['杭州美睫', '空气睫毛', '眼型矫正']
+        };
+      },
+
+      // 2. 离店术后护理温馨提醒 (微信1v1关怀)
+      aftercare: (params) => {
+        const { customerName, serviceType, serviceName, artistName } = params;
+        const isNail = serviceType === 'nail';
+
+        if (isNail) {
+          return {
+            title: `💅🏻 悦己美学 · 美甲术后专属养护贴士`,
+            content: `亲爱的 ${customerName || '小姐姐'}：\n\n感谢您今天光临悦己美学！看到您做完《${serviceName}》那份开心的样子，手艺人 ${artistName || '苏苏'} 也超有成就感🥰\n\n为了让指甲的持色度和光泽保持得更持久，特别为您送上一份【3天黄金养护小指南】：\n\n1. 🛁 24小时内尽量避免长时间泡温泉、蒸桑拿或过度洗热水澡（高温水汽可能影响胶质贴合度）；\n2. 🖐️ 日常开易拉罐、快递包裹时，尽量使用【指腹】发力，避免用指尖硬抠，防止前缘起翘；\n3. 💧 指缘如果觉得干燥，记得早晚涂抹我们赠送的小支营养笔，滋养倒刺；\n4. ⚠️ 如指甲不慎起翘，千万不要徒手生撕剥离本甲，随时回店，我们为您免费提供专业修复～\n\n健康换甲周期建议为 3-4 周，期待下次为您定制新美丽！有任何疑问随时微信滴我哦～🌸`
+          };
+        } else {
+          return {
+            title: `👁️ 悦己美学 · 美睫嫁接术后贴心小贴士`,
+            content: `亲爱的 ${customerName || '小姐姐'}：\n\n今天嫁接的《${serviceName}》超级衬您的眼型，整个人眼神亮晶晶的超级灵动！✨\n\n为了让睫毛持久绽放、保持定型弧度，手艺人 ${artistName || '若琳'} 叮嘱您留意以下几点哦：\n\n1. ⏳ 嫁接后【6小时内】胶水正处于分子固化期，请暂时不要碰水、淋浴或流泪揉眼；\n2. 🧖🏻‍♀️ 48小时内请避免高温桑拿或面部热蒸；\n3. 🧴 卸妆洁面时，请尽量使用温和的水质卸妆液，避免油性较强的卸妆油直接大面积擦拭眼部睫毛根部；\n4. 🪮 晨起洗漱后，可以用随单赠送的专用粉色睫毛小刷子，从睫毛中段向上轻轻梳理定型；\n5. 🌸 美睫自然代谢周期为 2-3 周，若需要补毛或局部换翘度，随时联系我们为您提前锁定静音房档期哦！\n\n祝您带着闪亮电眼度过美丽的一天～💕`
+          };
+        }
+      },
+
+      // 3. 21天保养周期客户关怀唤醒 (私域挽回邀约)
+      cycleRecall: (params) => {
+        const { customerName, memberLevel, lastService, daysAgo } = params;
+        const levelName = memberLevel === 'black_diamond' ? '尊贵黑钻VIP' : (memberLevel === 'platinum' ? '白金会员' : '亲爱的好友');
+
+        return {
+          title: `💌 21天老客周期养护关怀短信/微信`,
+          content: `哈喽亲爱的 ${customerName}（${levelName}）～\n\n查看系统日历，距离上次为您做《${lastService || '美甲美睫定制'}》已经过去 ${daysAgo || 21} 天啦！🍃\n\n这段时间指甲的健康生长线大概会长出 2-3mm 左右，重心前移容易不小心磕碰到真甲床；如果是睫毛，也正逢自身原生睫毛的自然更新代谢期～\n\n为了守护您的本甲本睫健康，本周悦己沙龙特别为您开辟了【专属会员老客养护绿色通道】：\n🎁 本周到店即享：免费专业温和卸甲/补睫精修 1 次 + 保加利亚玫瑰手部补水SPA体验\n☕ 我们新上架了当季手冲耶加雪菲和法式海盐小饼干，等待您在惬意的午后随时来小憩放松～\n\n这周五或周末您方便哪天？回复我【时间+项目】，苏苏直接为您锁定心仪手艺人的VIP档期哦！期待与您重聚🥰`
+        };
+      }
+    };
+  }
+
+  generate(type, params) {
+    const generator = this.promptPresets[type];
+    if (!generator) {
+      return {
+        title: '生成文案',
+        content: '未匹配到对应的生成模板'
+      };
+    }
+    return generator(params);
+  }
+}
+
+window.beautyAICopilot = new BeautyAICopilot();
+
+</script>
+  <script>
+/**
+ * 杭州·悦己美学沙龙 (YueJi Beauty Studio Workbench)
+ * 主应用交互控制器与视图渲染引擎
+ */
+
+class YueJiApp {
+  constructor() {
+    this.currentTab = 'dashboard';
+    this.init();
+  }
+
+  init() {
+    this.setupDateDisplay();
+    this.setupEventListeners();
+    this.populateDropdowns();
+    this.switchTab('dashboard');
+
+    // 默认开封日期设置为今天
+    const invOpened = document.getElementById('invOpenedAt');
+    if (invOpened) invOpened.value = new Date().toISOString().slice(0, 10);
+  }
+
+  setupDateDisplay() {
+    const el = document.getElementById('currentDateBadge');
+    if (!el) return;
+    const now = new Date();
+    const days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    el.textContent = `${y}年${m}月${d}日 ${days[now.getDay()]}`;
+  }
+
+  setupEventListeners() {
+    // 监听数据变更事件，局部响应式刷新
+    window.addEventListener('yueji_data_updated', () => {
+      this.refreshCurrentTab();
+    });
+
+    // ESC 键关闭模态弹窗
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+      }
+    });
+  }
+
+  // 切换顶部选项卡
+  switchTab(tabId) {
+    this.currentTab = tabId;
+
+    // 更新导航高亮
+    document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tabId);
+    });
+
+    // 切换主页面展示
+    document.querySelectorAll('.view-section').forEach(sec => {
+      sec.classList.remove('active');
+    });
+    const target = document.getElementById(`view-${tabId}`);
+    if (target) {
+      target.classList.add('active');
+    }
+
+    this.refreshCurrentTab();
+  }
+
+  refreshCurrentTab() {
+    switch (this.currentTab) {
+      case 'dashboard':
+        this.renderDashboard();
+        break;
+      case 'schedule':
+        this.renderSchedule();
+        break;
+      case 'orders':
+        this.renderOrders();
+        break;
+      case 'members':
+        this.renderMembers();
+        break;
+      case 'cashier':
+        this.renderCashier();
+        break;
+      case 'inventory':
+        this.renderInventory();
+        break;
+      case 'copilot':
+        this.renderCopilot();
+        break;
+    }
+  }
+
+  // ================= 1. 经营总览渲染 =================
+  renderDashboard() {
+    const stats = window.beautyStore.getDashboardStats();
+
+    // 核心指标更新
+    const elRev = document.getElementById('metricTodayRevenue');
+    if (elRev) elRev.textContent = stats.todayRevenue.toFixed(2);
+
+    const elCust = document.getElementById('metricTodayCustomers');
+    if (elCust) elCust.textContent = stats.todayCustomerCount;
+
+    const elOcc = document.getElementById('metricOccupiedCount');
+    if (elOcc) elOcc.textContent = stats.occupiedStations;
+
+    const elOccTag = document.getElementById('metricOccupancyRateTag');
+    if (elOccTag) elOccTag.textContent = `${stats.occupancyRate}%`;
+
+    const elCare = document.getElementById('metricCareCount');
+    if (elCare) elCare.textContent = stats.careCount;
+
+    // 渲染工位态势卡片
+    const stationsGrid = document.getElementById('dashboardStationsGrid');
+    if (stationsGrid) {
+      stationsGrid.innerHTML = '';
+      window.beautyStore.data.stations.forEach(st => {
+        const card = document.createElement('div');
+        card.className = `station-card ${st.status}`;
+
+        const isBusy = st.status === 'busy';
+        const isIdle = st.status === 'idle';
+        const isCleaning = st.status === 'cleaning';
+
+        const statusText = isBusy ? '服务进行中' : (isIdle ? '空闲就绪' : '消毒清洁中');
+        const statusClass = isBusy ? 'status-busy' : (isIdle ? 'status-idle' : 'status-cleaning');
+        const typeText = st.type === 'nail' ? '💅 美甲席' : '👁️ 美睫仓';
+        const typeClass = st.type === 'nail' ? 'station-type-nail' : 'station-type-lash';
+
+        // 查找工单信息
+        const currentOrder = isBusy && st.currentOrderId ? window.beautyStore.data.orders.find(o => o.id === st.currentOrderId) : null;
+
+        card.innerHTML = `
+          <div class="station-top">
+            <span class="station-type-tag ${typeClass}">${typeText}</span>
+            <span class="station-status-pill ${statusClass}">${statusText}</span>
+          </div>
+          <div class="station-name">${st.name}</div>
+          <div class="station-body">
+            ${currentOrder ? `
+              <div style="font-weight: 600; color: var(--text-main); font-size: 0.85rem;">
+                ${currentOrder.customerName}
+              </div>
+              <div style="font-size: 0.76rem; color: var(--rose-primary); margin-top: 2px;">
+                ${currentOrder.serviceName}
+              </div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">
+                主刀手艺人：<b>${currentOrder.staffName}</b>
+              </div>
+            ` : (isIdle ? `
+              <div style="color: var(--text-muted); font-size: 0.8rem; text-align: center; padding: 6px 0;">
+                席位已清洁，随时可入座
+              </div>
+            ` : `
+              <div style="color: var(--status-clean-text); font-size: 0.8rem; text-align: center; padding: 6px 0;">
+                紫外线消毒与耗材归位中
+              </div>
+            `)}
+          </div>
+          <div class="station-footer">
+            ${isBusy && currentOrder ? `
+              <button class="btn btn-secondary btn-sm" onclick="app.quickCheckout('${currentOrder.id}')" style="width: 100%;">
+                完工结账
+              </button>
+            ` : (isIdle ? `
+              <button class="btn btn-primary btn-sm" onclick="app.quickOrderForStation('${st.id}')" style="width: 100%;">
+                ⚡ 安排入座
+              </button>
+            ` : `
+              <button class="btn btn-secondary btn-sm" onclick="app.finishCleaning('${st.id}')" style="width: 100%;">
+                完成清洁
+              </button>
+            `)}
+          </div>
+        `;
+        stationsGrid.appendChild(card);
+      });
+    }
+
+    // 渲染营收比例图
+    const bd = stats.revenueBreakdown;
+    const totalRev = bd.nail + bd.lash + bd.spa + bd.recharge;
+    const elHint = document.getElementById('revenueTotalHint');
+    if (elHint) elHint.textContent = `总入账：¥${totalRev.toFixed(2)}`;
+
+    document.getElementById('legNail').textContent = `¥${bd.nail.toFixed(2)}`;
+    document.getElementById('legLash').textContent = `¥${bd.lash.toFixed(2)}`;
+    document.getElementById('legSpa').textContent = `¥${bd.spa.toFixed(2)}`;
+    document.getElementById('legRecharge').textContent = `¥${bd.recharge.toFixed(2)}`;
+
+    const bar = document.getElementById('revenueBreakdownBar');
+    if (bar) {
+      if (totalRev <= 0) {
+        bar.innerHTML = '<div style="width: 100%; background: #E2E8F0; text-align: center; font-size: 0.75rem; color: #718096; line-height: 14px;">今日暂无入账明细</div>';
+      } else {
+        const pNail = Math.max(2, Math.round((bd.nail / totalRev) * 100));
+        const pLash = Math.max(2, Math.round((bd.lash / totalRev) * 100));
+        const pSpa = Math.max(2, Math.round((bd.spa / totalRev) * 100));
+        const pRec = Math.max(2, Math.round((bd.recharge / totalRev) * 100));
+        bar.innerHTML = `
+          <div class="breakdown-seg nail" style="width: ${pNail}%;" title="美甲: ¥${bd.nail}"></div>
+          <div class="breakdown-seg lash" style="width: ${pLash}%;" title="美睫: ¥${bd.lash}"></div>
+          <div class="breakdown-seg spa" style="width: ${pSpa}%;" title="SPA: ¥${bd.spa}"></div>
+          <div class="breakdown-seg recharge" style="width: ${pRec}%;" title="充值: ¥${bd.recharge}"></div>
+        `;
+      }
+    }
+
+    // 渲染胶水质保与告警
+    const alertsList = document.getElementById('dashboardAlertsList');
+    if (alertsList) {
+      alertsList.innerHTML = '';
+      if (stats.inventoryAlerts.length === 0) {
+        alertsList.innerHTML = `
+          <div style="text-align: center; color: var(--text-muted); font-size: 0.82rem; padding: 1.5rem 0;">
+            ✅ 所有美睫胶水均在安全质保期内，耗材库存充足
+          </div>
+        `;
+      } else {
+        stats.inventoryAlerts.forEach(al => {
+          const item = document.createElement('div');
+          item.className = `alert-item ${al.level}`;
+          const icon = al.level === 'danger' ? '⛔' : '⚠️';
+          item.innerHTML = `
+            <div class="alert-icon">${icon}</div>
+            <div class="alert-content">
+              <div class="alert-title">${al.title}</div>
+              <div><b>${al.name}</b>：${al.detail}</div>
+              ${al.type === 'expired' ? `
+                <button class="btn btn-secondary btn-sm" style="margin-top: 6px; padding: 2px 8px;" onclick="app.discardGlue('${al.id}')">
+                  🗑️ 立即作废报废此胶水
+                </button>
+              ` : ''}
+            </div>
+          `;
+          alertsList.appendChild(item);
+        });
+      }
+    }
+
+    // 渲染 21 天养护关怀列表
+    const careList = document.getElementById('dashboardCareList');
+    if (careList) {
+      careList.innerHTML = '';
+      if (stats.careMembers.length === 0) {
+        careList.innerHTML = `
+          <div style="text-align: center; color: var(--text-muted); font-size: 0.82rem; padding: 1rem 0;">
+            🌸 近期会员回访已全部跟进完毕
+          </div>
+        `;
+      } else {
+        stats.careMembers.forEach(mem => {
+          const div = document.createElement('div');
+          div.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: #FFFFFF; border-radius: var(--radius-sm); border: 1px solid var(--border-light); font-size: 0.82rem;';
+          div.innerHTML = `
+            <div>
+              <b>${mem.name}</b> <span style="color: var(--text-muted); font-size: 0.75rem;">(${mem.phone})</span>
+              <div style="color: var(--rose-primary); font-size: 0.75rem; margin-top: 2px;">
+                距上次到店已超 <b>${mem.aestheticProfile?.serviceCycleDays || 21}</b> 天
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="app.openCareCopilot('${mem.name}', '${mem.level}', ${mem.aestheticProfile?.serviceCycleDays || 21})">
+              💌 关怀话术
+            </button>
+          `;
+          careList.appendChild(div);
+        });
+      }
+    }
+  }
+
+  // ================= 2. 工位与排期调度渲染 =================
+  renderSchedule() {
+    // 渲染手艺人概况
+    const staffGrid = document.getElementById('staffStatusCards');
+    if (staffGrid) {
+      staffGrid.innerHTML = '';
+      window.beautyStore.data.staff.forEach(st => {
+        const card = document.createElement('div');
+        card.style.cssText = 'background: #FFFFFF; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 1rem; display: flex; align-items: center; gap: 1rem;';
+        card.innerHTML = `
+          <div style="font-size: 2rem; background: var(--bg-secondary); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            ${st.avatar}
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <b style="font-size: 0.95rem;">${st.name}</b>
+              <span class="station-status-pill status-busy" style="font-size: 0.7rem;">今日做单: ${st.todayOrdersCount || 0}</span>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--rose-primary); margin: 2px 0;">${st.title}</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              擅长：${st.specialty}
+            </div>
+          </div>
+        `;
+        staffGrid.appendChild(card);
+      });
+    }
+
+    // 渲染工位排期表
+    const tbody = document.getElementById('scheduleTableBody');
+    if (tbody) {
+      tbody.innerHTML = '';
+      window.beautyStore.data.stations.forEach(st => {
+        const currentOrder = st.currentOrderId ? window.beautyStore.data.orders.find(o => o.id === st.currentOrderId) : null;
+        const tr = document.createElement('tr');
+
+        const isBusy = st.status === 'busy';
+        const isIdle = st.status === 'idle';
+
+        tr.innerHTML = `
+          <td><b>${st.name}</b></td>
+          <td><span class="station-type-tag ${st.type === 'nail' ? 'station-type-nail' : 'station-type-lash'}">${st.type === 'nail' ? '美甲' : '美睫'}</span></td>
+          <td>
+            <span class="station-status-pill ${isBusy ? 'status-busy' : (isIdle ? 'status-idle' : 'status-cleaning')}">
+              ${isBusy ? '在席服务中' : (isIdle ? '空闲中' : '消毒就绪')}
+            </span>
+          </td>
+          <td>${currentOrder ? `<b>${currentOrder.customerName}</b> <span style="font-size: 0.75rem; color: var(--text-muted);">(${currentOrder.serviceName})</span>` : '--'}</td>
+          <td>${currentOrder ? currentOrder.staffName : '--'}</td>
+          <td>${currentOrder ? `${currentOrder.startTime} (~${currentOrder.estimatedDuration}分)` : '--'}</td>
+          <td>
+            ${isBusy && currentOrder ? `
+              <button class="btn btn-secondary btn-sm" onclick="app.quickCheckout('${currentOrder.id}')">完工结算</button>
+            ` : (isIdle ? `
+              <button class="btn btn-primary btn-sm" onclick="app.quickOrderForStation('${st.id}')">现场入座</button>
+            ` : `
+              <button class="btn btn-secondary btn-sm" onclick="app.finishCleaning('${st.id}')">标记就绪</button>
+            `)}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+  }
+
+  // ================= 3. 美学工单流转渲染 =================
+  renderOrders() {
+    const filter = document.getElementById('orderFilterStatus')?.value || 'all';
+    const tbody = document.getElementById('ordersTableBody');
+    if (!tbody) return;
+
+    tbody.innerHTML = '';
+    const filteredOrders = window.beautyStore.data.orders.filter(o => {
+      if (filter === 'all') return true;
+      return o.status === filter;
+    });
+
+    if (filteredOrders.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-muted); padding: 2rem;">未查询到符合条件的工单</td></tr>`;
+      return;
+    }
+
+    filteredOrders.forEach(o => {
+      const tr = document.createElement('tr');
+
+      let statusBadge = '';
+      if (o.status === 'in_progress') statusBadge = '<span class="status-pill pill-in-progress">在席服务中</span>';
+      else if (o.status === 'completed') statusBadge = '<span class="status-pill pill-completed">完工待结账</span>';
+      else if (o.status === 'paid') statusBadge = '<span class="status-pill pill-paid">已结单</span>';
+      else if (o.status === 'scheduled') statusBadge = '<span class="status-pill pill-scheduled">预约待到店</span>';
+
+      tr.innerHTML = `
+        <td><span style="font-family: monospace; font-size: 0.8rem;">${o.orderNo}</span></td>
+        <td>
+          <b>${o.customerName}</b>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">${o.customerPhone || '--'}</div>
+        </td>
+        <td>
+          <span class="station-type-tag ${o.serviceType === 'nail' ? 'station-type-nail' : 'station-type-lash'}">
+            ${o.serviceType === 'nail' ? '美甲' : (o.serviceType === 'lash' ? '美睫' : 'SPA')}
+          </span>
+          <div style="font-size: 0.82rem; font-weight: 500; margin-top: 2px;">${o.serviceName}</div>
+        </td>
+        <td style="max-width: 220px; font-size: 0.8rem; color: var(--text-regular);">
+          ${o.styleDetails || '标准精修'}
+        </td>
+        <td>
+          <div style="font-size: 0.82rem;">${o.stationName}</div>
+          <div style="font-size: 0.75rem; color: var(--rose-primary);">手艺人: ${o.staffName}</div>
+        </td>
+        <td>${statusBadge}</td>
+        <td style="font-size: 0.8rem;">
+          <div>${o.startTime || o.createdAt}</div>
+          <div style="color: var(--text-muted);">${o.estimatedDuration} 分钟</div>
+        </td>
+        <td><b style="color: var(--rose-primary);">¥${o.price}</b></td>
+        <td>
+          <div style="display: flex; gap: 4px;">
+            ${o.status === 'scheduled' ? `
+              <button class="btn btn-primary btn-sm" onclick="app.advanceOrderStatus('${o.id}', 'in_progress')">就席</button>
+            ` : ''}
+            ${o.status === 'in_progress' ? `
+              <button class="btn btn-secondary btn-sm" onclick="app.advanceOrderStatus('${o.id}', 'completed')">完工</button>
+            ` : ''}
+            ${o.status === 'completed' ? `
+              <button class="btn btn-gold btn-sm" onclick="app.quickCheckout('${o.id}')">收银</button>
+            ` : ''}
+            <button class="btn btn-ghost btn-sm" onclick="app.deleteOrder('${o.id}')" title="删除">🗑️</button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ================= 4. VIP 会员档案渲染 =================
+  renderMembers() {
+    const grid = document.getElementById('membersGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const keyword = document.getElementById('memberSearchInput')?.value.trim().toLowerCase() || '';
+
+    const members = window.beautyStore.data.members.filter(m => {
+      if (!keyword) return true;
+      return m.name.toLowerCase().includes(keyword) || m.phone.includes(keyword);
+    });
+
+    if (members.length === 0) {
+      grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 3rem;">未搜索到匹配的 VIP 会员档案</div>`;
+      return;
+    }
+
+    members.forEach(m => {
+      const card = document.createElement('div');
+      card.className = 'member-profile-card';
+
+      let vipBadge = '';
+      if (m.level === 'black_diamond') vipBadge = '<span class="member-vip-badge badge-black-diamond">黑钻 VIP</span>';
+      else if (m.level === 'platinum') vipBadge = '<span class="member-vip-badge badge-platinum">白金会员</span>';
+      else if (m.level === 'gold') vipBadge = '<span class="member-vip-badge badge-gold">金卡会员</span>';
+      else vipBadge = '<span class="member-vip-badge badge-silver">银卡会员</span>';
+
+      const ap = m.aestheticProfile || {};
+
+      card.innerHTML = `
+        ${vipBadge}
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--rose-primary), var(--gold-primary)); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem;">
+            ${m.name.charAt(0)}
+          </div>
+          <div>
+            <div style="font-weight: 700; font-size: 1.05rem;">${m.name}</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">${m.phone}</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; background: var(--bg-secondary); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.82rem;">
+          <div>储值余额：<b style="color: var(--rose-primary);">¥${m.balance.toFixed(2)}</b></div>
+          <div>累计消费：¥${m.totalSpent || 0}</div>
+        </div>
+
+        ${m.cards && m.cards.length > 0 ? `
+          <div style="font-size: 0.78rem; color: var(--text-regular);">
+            <b>持有卡包：</b>
+            ${m.cards.map(c => `<span class="aesthetic-tag" style="background: var(--gold-light); color: var(--gold-hover);">${c.name} (余${c.remainingTimes}次)</span>`).join('')}
+          </div>
+        ` : ''}
+
+        <div style="border-top: 1px dashed var(--border-light); padding-top: 0.6rem; font-size: 0.78rem; display: flex; flex-direction: column; gap: 4px;">
+          <div>💅 <b>甲床形态</b>：${ap.nailBed || '标准方圆甲'}</div>
+          <div>👁️ <b>眼型偏好</b>：${ap.eyeShape || '自然C翘'}</div>
+          <div>🎨 <b>偏好色号</b>：${ap.preferredColors || '裸透粉'}</div>
+          ${ap.allergies ? `<div>⚠️ <b style="color: var(--status-danger-text);">过敏史</b>：${ap.allergies}</div>` : ''}
+        </div>
+
+        <div style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border-light); display: flex; gap: 6px;">
+          <button class="btn btn-secondary btn-sm" style="flex: 1;" onclick="app.openRechargeModal('${m.id}')">💳 充值购卡</button>
+          <button class="btn btn-primary btn-sm" style="flex: 1;" onclick="app.openOrderForMember('${m.id}')">⚡ 预约开单</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // ================= 5. 收银流水明细渲染 =================
+  renderCashier() {
+    const tbody = document.getElementById('cashierTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    const bills = window.beautyStore.data.bills || [];
+    const today = new Date().toISOString().slice(0, 10);
+    const todayBills = bills.filter(b => b.createdAt.startsWith(today));
+    const totalAmount = todayBills.reduce((acc, c) => acc + c.amount, 0);
+
+    const badge = document.getElementById('cashierTotalStatsBadge');
+    if (badge) {
+      badge.textContent = `今日入账：¥${totalAmount.toFixed(2)} (共 ${todayBills.length} 笔)`;
+    }
+
+    if (bills.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 2.5rem;">暂无结账流水数据</td></tr>`;
+      return;
+    }
+
+    bills.forEach(b => {
+      const tr = document.createElement('tr');
+
+      let payMethodText = '微信扫码';
+      if (b.payMethod === 'balance') payMethodText = '💳 储值卡扣除';
+      else if (b.payMethod === 'card') payMethodText = '🎟️ 次卡核销';
+      else if (b.payMethod === 'alipay') payMethodText = '🔷 支付宝';
+      else if (b.payMethod === 'cash') payMethodText = '💵 现金';
+
+      tr.innerHTML = `
+        <td style="font-family: monospace; font-size: 0.8rem;">${b.billNo}</td>
+        <td><b>${b.customerName}</b></td>
+        <td><span class="station-status-pill status-busy" style="font-size: 0.72rem;">${payMethodText}</span></td>
+        <td><b style="color: var(--rose-primary); font-size: 0.95rem;">¥${Number(b.amount).toFixed(2)}</b></td>
+        <td style="font-size: 0.8rem;">${b.items}</td>
+        <td>${b.staffName || '--'}</td>
+        <td style="color: #2E7D32; font-weight: 600;">+¥${Number(b.commissionAmount || 0).toFixed(2)}</td>
+        <td style="font-size: 0.8rem; color: var(--text-muted);">${b.createdAt}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ================= 6. 耗材与胶水安全质保渲染 =================
+  renderInventory() {
+    const tbody = document.getElementById('inventoryTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    const inv = window.beautyStore.data.inventory || [];
+    const today = new Date();
+
+    if (inv.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 2.5rem;">暂无耗材与胶水记录</td></tr>`;
+      return;
+    }
+
+    inv.forEach(item => {
+      const tr = document.createElement('tr');
+      const opened = new Date(item.openedAt);
+      const diffDays = Math.floor((today - opened) / (1000 * 3600 * 24));
+      const remainingDays = item.shelfLifeDays - diffDays;
+
+      let statusPill = '';
+      if (item.category === 'glue') {
+        if (remainingDays <= 0) {
+          statusPill = `<span class="station-status-pill status-danger">⚠️ 已过期 ${Math.abs(remainingDays)} 天 (严禁使用)</span>`;
+        } else if (remainingDays <= 5) {
+          statusPill = `<span class="station-status-pill status-warn">⚡ 临期预警 (仅剩 ${remainingDays} 天)</span>`;
+        } else {
+          statusPill = `<span class="station-status-pill status-idle">✅ 质保充足 (余 ${remainingDays} 天)</span>`;
+        }
+      } else {
+        statusPill = `<span class="station-status-pill status-idle">良好 (${item.shelfLifeDays}天质保)</span>`;
+      }
+
+      let categoryName = '美睫胶水';
+      if (item.category === 'nail_gel') categoryName = '甲油色胶';
+      else if (item.category === 'lash_pack') categoryName = '排睫耗材';
+      else if (item.category === 'accessory') categoryName = '钻饰配件';
+
+      tr.innerHTML = `
+        <td>
+          <b>${item.name}</b>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">${item.note || ''}</div>
+        </td>
+        <td><span class="station-type-tag station-type-nail">${categoryName}</span></td>
+        <td style="font-size: 0.82rem;">${item.openedAt}</td>
+        <td>${item.shelfLifeDays} 天</td>
+        <td><b>${diffDays}</b> 天</td>
+        <td>${statusPill}</td>
+        <td><b>${item.stockCount}</b> ${item.unit}</td>
+        <td>
+          <div style="display: flex; gap: 4px;">
+            <button class="btn btn-secondary btn-sm" onclick="app.addStock('${item.id}')">+1 补仓</button>
+            ${item.category === 'glue' && remainingDays <= 5 ? `
+              <button class="btn btn-secondary btn-sm" style="color: var(--status-danger-text);" onclick="app.discardGlue('${item.id}')">报废</button>
+            ` : ''}
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ================= 7. AI 私域助手渲染 =================
+  renderCopilot() {
+    // 渲染手艺人下拉与默认值
+    const staffSelect = document.getElementById('aiStaffSelect');
+    if (staffSelect && staffSelect.options.length === 0) {
+      window.beautyStore.data.staff.forEach(st => {
+        const opt = document.createElement('option');
+        opt.value = st.name;
+        opt.textContent = `${st.name} (${st.title})`;
+        staffSelect.appendChild(opt);
+      });
+    }
+  }
+
+  generateAICopy() {
+    const mode = document.getElementById('aiModeSelect').value;
+    const serviceType = document.getElementById('aiServiceType').value;
+    const artistName = document.getElementById('aiStaffSelect').value;
+    const serviceName = document.getElementById('aiServiceName').value;
+    const customerName = document.getElementById('aiCustomerName').value;
+    const styleDetails = document.getElementById('aiStyleDetails').value;
+
+    const result = window.beautyAICopilot.generate(mode, {
+      serviceType,
+      artistName,
+      serviceName,
+      customerName,
+      styleDetails,
+      memberLevel: 'platinum',
+      lastService: serviceName,
+      daysAgo: 23
+    });
+
+    const box = document.getElementById('aiOutputContent');
+    if (box) {
+      box.textContent = result.content;
+      this.showToast('✨ AI 美业私域文案已生成！', 'success');
+    }
+  }
+
+  copyAICopy() {
+    const box = document.getElementById('aiOutputContent');
+    if (!box) return;
+    const text = box.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      this.showToast('📋 文案已复制到剪贴板，可直接发微信或小红书！', 'success');
+    }).catch(() => {
+      this.showToast('复制失败，请手动选择复制', 'warning');
+    });
+  }
+
+  onAIModeChange() {
+    const mode = document.getElementById('aiModeSelect').value;
+    if (mode === 'cycleRecall') {
+      document.getElementById('aiCustomerName').value = '赵梦琪';
+      document.getElementById('aiServiceName').value = '爆款极光猫眼美甲';
+    } else if (mode === 'aftercare') {
+      document.getElementById('aiCustomerName').value = '林芷晴';
+      document.getElementById('aiServiceName').value = '日式空气山茶花美睫';
+    }
+  }
+
+  openCareCopilot(customerName, level, daysAgo) {
+    this.switchTab('copilot');
+    document.getElementById('aiModeSelect').value = 'cycleRecall';
+    document.getElementById('aiCustomerName').value = customerName;
+    this.generateAICopy();
+  }
+
+  // ================= 弹窗控制与数据交互 =================
+  openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add('active');
+      this.populateDropdowns();
+    }
+  }
+
+  closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.remove('active');
+  }
+
+  populateDropdowns() {
+    // 填充会员下拉
+    const memSelect = document.getElementById('orderMemberSelect');
+    if (memSelect) {
+      memSelect.innerHTML = '<option value="">-- 散客 / 暂不关联 --</option>';
+      window.beautyStore.data.members.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.id;
+        opt.textContent = `${m.name} (${m.phone}) - 余额:¥${m.balance}`;
+        memSelect.appendChild(opt);
+      });
+    }
+
+    // 填充项目方案下拉
+    this.onServiceTypeChanged();
+
+    // 填充可用工位下拉
+    const stationSelect = document.getElementById('orderStationSelect');
+    if (stationSelect) {
+      stationSelect.innerHTML = '';
+      window.beautyStore.data.stations.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        const statusText = s.status === 'idle' ? '【空闲】' : (s.status === 'busy' ? '【在席】' : '【消毒中】');
+        opt.textContent = `${statusText} ${s.name}`;
+        stationSelect.appendChild(opt);
+      });
+    }
+
+    // 填充技师下拉
+    const staffSelect = document.getElementById('orderStaffSelect');
+    const rechargeStaff = document.getElementById('rechargeStaffSelect');
+    [staffSelect, rechargeStaff].forEach(sel => {
+      if (sel) {
+        sel.innerHTML = '';
+        window.beautyStore.data.staff.forEach(st => {
+          const opt = document.createElement('option');
+          opt.value = st.id;
+          opt.textContent = `${st.avatar} ${st.name} (${st.title})`;
+          sel.appendChild(opt);
+        });
+      }
+    });
+  }
+
+  onServiceTypeChanged() {
+    const type = document.getElementById('orderServiceType')?.value || 'nail';
+    const srvSelect = document.getElementById('orderServiceSelect');
+    if (!srvSelect) return;
+    srvSelect.innerHTML = '';
+
+    const matching = window.beautyStore.data.services.filter(s => s.category === type);
+    matching.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.id;
+      opt.textContent = `${s.name} - ¥${s.price} (${s.duration}分钟)`;
+      srvSelect.appendChild(opt);
+    });
+
+    this.onPresetServiceSelected();
+  }
+
+  onPresetServiceSelected() {
+    const srvId = document.getElementById('orderServiceSelect')?.value;
+    const srv = window.beautyStore.data.services.find(s => s.id === srvId);
+    if (srv) {
+      document.getElementById('orderPrice').value = srv.price;
+      document.getElementById('orderDuration').value = srv.duration;
+      document.getElementById('orderStyleDetails').value = srv.desc;
+    }
+  }
+
+  onOrderMemberSelected() {
+    const memId = document.getElementById('orderMemberSelect')?.value;
+    if (!memId) return;
+    const member = window.beautyStore.data.members.find(m => m.id === memId);
+    if (member) {
+      document.getElementById('orderCustomerName').value = member.name;
+      document.getElementById('orderCustomerPhone').value = member.phone;
+    }
+  }
+
+  quickOrderForStation(stationId) {
+    this.openModal('quickOrderModal');
+    const select = document.getElementById('orderStationSelect');
+    if (select) select.value = stationId;
+  }
+
+  openOrderForMember(memberId) {
+    this.openModal('quickOrderModal');
+    const select = document.getElementById('orderMemberSelect');
+    if (select) {
+      select.value = memberId;
+      this.onOrderMemberSelected();
+    }
+  }
+
+  submitQuickOrder() {
+    const customerName = document.getElementById('orderCustomerName').value.trim();
+    const customerPhone = document.getElementById('orderCustomerPhone').value.trim();
+    const memberId = document.getElementById('orderMemberSelect').value || null;
+    const serviceType = document.getElementById('orderServiceType').value;
+    const srvId = document.getElementById('orderServiceSelect').value;
+    const srv = window.beautyStore.data.services.find(s => s.id === srvId);
+    const serviceName = srv ? srv.name : '美学定制项目';
+    const styleDetails = document.getElementById('orderStyleDetails').value.trim();
+    const stationId = document.getElementById('orderStationSelect').value;
+    const station = window.beautyStore.data.stations.find(s => s.id === stationId);
+    const staffId = document.getElementById('orderStaffSelect').value;
+    const staff = window.beautyStore.data.staff.find(s => s.id === staffId);
+    const price = Number(document.getElementById('orderPrice').value) || 298;
+    const estimatedDuration = Number(document.getElementById('orderDuration').value) || 90;
+
+    const newOrder = window.beautyStore.addOrder({
+      customerName,
+      customerPhone,
+      memberId,
+      serviceType,
+      serviceName,
+      styleDetails,
+      stationId,
+      stationName: station ? station.name : '工位',
+      staffId,
+      staffName: staff ? staff.name : '手艺人',
+      price,
+      estimatedDuration,
+      startTime: new Date().toISOString().slice(0, 16).replace('T', ' ')
+    });
+
+    this.closeModal('quickOrderModal');
+    this.showToast(`✨ 开单成功！顾客【${customerName}】已在 ${station?.name || '工位'} 入座`, 'success');
+  }
+
+  advanceOrderStatus(orderId, newStatus) {
+    const updated = window.beautyStore.updateOrderStatus(orderId, newStatus);
+    if (updated) {
+      this.showToast(`工单状态已更新为【${newStatus === 'completed' ? '完工待结账' : '服务中'}】`, 'success');
+    }
+  }
+
+  deleteOrder(orderId) {
+    if (confirm('确定要删除此工单记录吗？如果工位正在占用将被自动释放。')) {
+      window.beautyStore.deleteOrder(orderId);
+      this.showToast('工单已安全删除', 'success');
+    }
+  }
+
+  finishCleaning(stationId) {
+    const st = window.beautyStore.data.stations.find(s => s.id === stationId);
+    if (st) {
+      st.status = 'idle';
+      window.beautyStore.saveData();
+      this.showToast(`${st.name} 消毒清洁完毕，已恢复空闲就绪`, 'success');
+    }
+  }
+
+  // ================= 快捷结账弹窗流程 =================
+  quickCheckout(orderId) {
+    const order = window.beautyStore.data.orders.find(o => o.id === orderId);
+    if (!order) return;
+
+    document.getElementById('checkoutOrderId').value = order.id;
+    document.getElementById('checkoutCustomerName').textContent = order.customerName;
+    document.getElementById('checkoutAmountDisplay').textContent = Number(order.price).toFixed(2);
+    document.getElementById('checkoutRealAmount').value = order.price;
+    document.getElementById('checkoutOrderDetails').textContent = `${order.serviceName} | ${order.stationName} | 手艺人: ${order.staffName}`;
+
+    // 处理会员次卡选择
+    const cardGroup = document.getElementById('checkoutMemberCardGroup');
+    const cardSelect = document.getElementById('checkoutCardName');
+    cardSelect.innerHTML = '';
+
+    if (order.memberId) {
+      const member = window.beautyStore.data.members.find(m => m.id === order.memberId);
+      if (member && member.cards && member.cards.length > 0) {
+        member.cards.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.name;
+          opt.textContent = `${c.name} (剩余 ${c.remainingTimes} 次)`;
+          cardSelect.appendChild(opt);
+        });
+      }
+    }
+
+    this.onPayMethodChange();
+    this.openModal('checkoutModal');
+  }
+
+  onPayMethodChange() {
+    const method = document.getElementById('checkoutPayMethod').value;
+    const cardGroup = document.getElementById('checkoutMemberCardGroup');
+    if (method === 'card') {
+      cardGroup.style.display = 'block';
+    } else {
+      cardGroup.style.display = 'none';
+    }
+  }
+
+  submitCheckout() {
+    const orderId = document.getElementById('checkoutOrderId').value;
+    const payMethod = document.getElementById('checkoutPayMethod').value;
+    const amount = Number(document.getElementById('checkoutRealAmount').value);
+    const cardName = document.getElementById('checkoutCardName')?.value;
+
+    try {
+      const bill = window.beautyStore.checkoutOrder(orderId, {
+        payMethod,
+        amount,
+        cardName
+      });
+
+      this.closeModal('checkoutModal');
+      this.showToast(`🎉 结单成功！实收 ¥${bill.amount}，流水号: ${bill.billNo}`, 'success');
+    } catch (err) {
+      alert(`结账失败: ${err.message}`);
+    }
+  }
+
+  // ================= 新增会员 =================
+  submitNewMember() {
+    const name = document.getElementById('newMemName').value.trim();
+    const phone = document.getElementById('newMemPhone').value.trim();
+    const level = document.getElementById('newMemLevel').value;
+    const balance = Number(document.getElementById('newMemBalance').value) || 0;
+    const nailBed = document.getElementById('newMemNailBed').value.trim();
+    const eyeShape = document.getElementById('newMemEyeShape').value.trim();
+    const allergies = document.getElementById('newMemAllergies').value.trim();
+    const preferredColors = document.getElementById('newMemColors').value.trim();
+
+    window.beautyStore.addMember({
+      name,
+      phone,
+      level,
+      balance,
+      aestheticProfile: {
+        nailBed: nailBed || '标准方圆甲床',
+        eyeShape: eyeShape || '自然双眼皮',
+        preferredColors: preferredColors || '裸透白开水色',
+        allergies: allergies || '无特殊过敏史',
+        lastVisitDate: new Date().toISOString().slice(0, 10),
+        serviceCycleDays: 0
+      }
+    });
+
+    this.closeModal('newMemberModal');
+    this.showToast(`👑 恭喜！新会员【${name}】档案已登记成功`, 'success');
+  }
+
+  // ================= 会员充值 =================
+  openRechargeModal(memberId) {
+    const member = window.beautyStore.data.members.find(m => m.id === memberId);
+    if (!member) return;
+
+    document.getElementById('rechargeMemberId').value = member.id;
+    document.getElementById('rechargeMemberInfo').textContent = `会员：${member.name} (${member.phone})`;
+    document.getElementById('rechargeMemberCurrentBalance').textContent = `当前储值余额：¥${member.balance.toFixed(2)}`;
+
+    this.openModal('rechargeModal');
+  }
+
+  submitRecharge() {
+    const memberId = document.getElementById('rechargeMemberId').value;
+    const amount = Number(document.getElementById('rechargeAmount').value);
+    const payMethod = document.getElementById('rechargePayMethod').value;
+    const staffId = document.getElementById('rechargeStaffSelect').value;
+
+    try {
+      const member = window.beautyStore.rechargeMember(memberId, amount, payMethod, staffId);
+      this.closeModal('rechargeModal');
+      this.showToast(`💳 充值成功！【${member.name}】当前余额已达 ¥${member.balance}`, 'success');
+    } catch (e) {
+      alert(`充值失败: ${e.message}`);
+    }
+  }
+
+  // ================= 耗材与胶水安全 =================
+  submitNewInventory() {
+    const name = document.getElementById('invName').value.trim();
+    const category = document.getElementById('invCategory').value;
+    const openedAt = document.getElementById('invOpenedAt').value;
+    const stockCount = Number(document.getElementById('invStockCount').value) || 1;
+    const warningThreshold = Number(document.getElementById('invWarningThreshold').value) || 2;
+    const note = document.getElementById('invNote').value.trim();
+
+    window.beautyStore.addInventory({
+      name,
+      category,
+      openedAt,
+      stockCount,
+      warningThreshold,
+      note
+    });
+
+    this.closeModal('addInventoryModal');
+    this.showToast(`🧴 耗材【${name}】登记成功！已启动质保监控`, 'success');
+  }
+
+  addStock(itemId) {
+    const item = window.beautyStore.data.inventory.find(i => i.id === itemId);
+    if (item) {
+      item.stockCount += 1;
+      window.beautyStore.saveData();
+      this.showToast(`${item.name} 库存 +1 (现存 ${item.stockCount} ${item.unit})`, 'success');
+    }
+  }
+
+  discardGlue(itemId) {
+    if (confirm('确认报废此瓶美睫胶水吗？超过质保期的胶水严禁用于眼部以防过敏。')) {
+      window.beautyStore.discardGlue(itemId);
+      this.showToast('胶水已作废注销', 'success');
+    }
+  }
+
+  // ================= 数据备份与还原 =================
+  resetDemoData() {
+    if (confirm('确定要载入杭州示范店标准演示数据吗？当前若有未导出的新增数据将被重置。')) {
+      window.beautyStore.resetToDemo();
+      this.showToast('📦 杭州示范店演示数据已成功载入！', 'success');
+    }
+  }
+
+  handleImportFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const res = window.beautyStore.importJSON(e.target.result);
+      if (res.success) {
+        this.showToast('📥 备份数据恢复成功！', 'success');
+      } else {
+        alert('导入失败: ' + res.error);
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  // ================= Toast 提示 =================
+  showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 250);
+    }, 2800);
+  }
+}
+
+// 页面加载完成后实例化应用
+window.addEventListener('DOMContentLoaded', () => {
+  window.app = new YueJiApp();
+});
+
+</script>
+
+  <script>
+  (function() {
+    function initMobileNav() {
+      document.querySelectorAll('.nav-tab-btn').forEach(function(item) {
+        item.style.touchAction = 'manipulation';
+        item.style.webkitTapHighlightColor = 'transparent';
+        item.style.cursor = 'pointer';
+
+        // 统一监听 pointerup，彻底消除点击延迟和滚动卡死
+        item.addEventListener('pointerup', function(e) {
+          var targetVal = item.getAttribute('data-tab') || item.dataset.tab;
+          if (targetVal && window.app && typeof window.app.switchTab === 'function') {
+            window.app.switchTab(targetVal);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }, { passive: true });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileNav);
+    } else {
+      initMobileNav();
+    }
+  })();
+  </script>
+  
+</body>
+</html>

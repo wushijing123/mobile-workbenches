@@ -1,0 +1,5070 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>铁律智练 · 私人健身教练数字化运营工作台 (IronCoach Pro)</title>
+  <style>
+/* ==========================================================================
+   铁律智练 · 私人健身教练数字化运营工作台 (IronCoach Pro)
+   现代暗黑高能美学设计系统 · 响应式组件库与微动效
+   ========================================================================== */
+
+:root {
+  /* 基础底色系统 - 曜石深邃与赛博微光 */
+  --bg-app: #080C14;
+  --bg-sidebar: #0D121F;
+  --bg-header: rgba(13, 18, 31, 0.85);
+  --bg-card: #131B2E;
+  --bg-card-hover: #18233C;
+  --bg-card-active: #1D2A48;
+  --bg-elevated: #1E2B47;
+  --bg-input: #0B101D;
+
+  /* 边框与微光 */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-card: rgba(255, 255, 255, 0.09);
+  --border-active: rgba(16, 185, 129, 0.4);
+  --border-highlight: rgba(255, 255, 255, 0.15);
+
+  /* 主题色彩 - 活力荧光翡翠绿 + 动力琥珀橙 + 极客青 */
+  --primary: #10B981;
+  --primary-hover: #059669;
+  --primary-glow: rgba(16, 185, 129, 0.25);
+  --primary-subtle: rgba(16, 185, 129, 0.12);
+
+  --accent-cyan: #06B6D4;
+  --accent-cyan-subtle: rgba(6, 182, 212, 0.12);
+
+  --warning: #F59E0B;
+  --warning-hover: #D97706;
+  --warning-glow: rgba(245, 158, 11, 0.25);
+  --warning-subtle: rgba(245, 158, 11, 0.12);
+
+  --danger: #EF4444;
+  --danger-hover: #DC2626;
+  --danger-glow: rgba(239, 68, 68, 0.25);
+  --danger-subtle: rgba(239, 68, 68, 0.12);
+
+  --purple: #8B5CF6;
+  --purple-subtle: rgba(139, 92, 246, 0.12);
+
+  /* 文字阶梯 */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-disabled: #475569;
+
+  /* 阴影与微光 */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 36px -6px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 25px rgba(16, 185, 129, 0.2);
+
+  /* 尺寸圆角 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 9999px;
+
+  /* 动画缓动 */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 全局重置 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* 数字等宽排版 */
+.num-font {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* 页面主布局 (Sidebar + Main) */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.04) 0%, transparent 40%),
+              var(--bg-app);
+}
+
+/* 侧边导航栏 */
+.sidebar {
+  width: 260px;
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 100;
+  flex-shrink: 0;
+  user-select: none;
+  transition: width var(--transition-base);
+}
+
+.brand-box {
+  padding: 24px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-cyan) 100%);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-glow);
+  color: #052e16;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.brand-text h1 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #FFFFFF 0%, #CBD5E1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-text p {
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* 导航项目列表 */
+.nav-menu {
+  padding: 16px 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  transform: translateX(3px);
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, var(--primary-subtle) 0%, rgba(16, 185, 129, 0.03) 100%);
+  color: var(--primary);
+  border-color: rgba(16, 185, 129, 0.25);
+  font-weight: 600;
+}
+
+.nav-item .nav-icon {
+  font-size: 18px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item .nav-badge {
+  margin-left: auto;
+  padding: 2px 7px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* 侧边栏底部教练信息卡 */
+.coach-profile-card {
+  padding: 16px;
+  margin: 12px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.coach-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--primary);
+  object-fit: cover;
+}
+
+.coach-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.coach-name {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.coach-level {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.badge-online {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--primary);
+}
+
+/* 主内容视窗 */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* 顶部工作台状态条 */
+.top-header {
+  height: 68px;
+  padding: 0 32px;
+  background: var(--bg-header);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-title-area h2 {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.header-date-badge {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 按钮规范 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  outline: none;
+  user-select: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+  color: #062215;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #34D399 0%, var(--primary) 100%);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border-color: var(--border-card);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-highlight);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-subtle);
+}
+
+.btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  border-color: var(--border-highlight);
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-warning {
+  background: var(--warning-subtle);
+  color: var(--warning);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.btn-warning:hover {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+.btn-danger {
+  background: var(--danger-subtle);
+  color: #F87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* 核心内容视图区域 */
+.view-container {
+  padding: 28px 32px 64px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.view-section {
+  display: none;
+}
+
+.view-section.active {
+  display: block;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 概览驾驶舱网格 */
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 指标卡行 */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-md);
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  transition: background var(--transition-fast);
+}
+
+.metric-card.primary::before { background: linear-gradient(90deg, var(--primary), var(--accent-cyan)); }
+.metric-card.warning::before { background: linear-gradient(90deg, var(--warning), #F97316); }
+.metric-card.danger::before { background: linear-gradient(90deg, var(--danger), #FB7185); }
+.metric-card.info::before { background: linear-gradient(90deg, var(--accent-cyan), #38BDF8); }
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.metric-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.metric-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.metric-card.primary .metric-icon-wrap { background: var(--primary-subtle); color: var(--primary); }
+.metric-card.warning .metric-icon-wrap { background: var(--warning-subtle); color: var(--warning); }
+.metric-card.danger .metric-icon-wrap { background: var(--danger-subtle); color: var(--danger); }
+.metric-card.info .metric-icon-wrap { background: var(--accent-cyan-subtle); color: var(--accent-cyan); }
+
+.metric-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.metric-unit {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.metric-subtext {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metric-subtext.highlight {
+  color: var(--warning);
+}
+
+/* 核心两列栅格：左日程看板，右预警与雷达 */
+.dashboard-main-cols {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+/* 模块卡片容器 */
+.dash-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* 今日时间轴管道 Schedule Timeline Pipeline */
+.timeline-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.schedule-slot {
+  display: flex;
+  align-items: center;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  gap: 16px;
+  transition: all var(--transition-fast);
+}
+
+.schedule-slot:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.schedule-slot.active {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(22, 31, 48, 0.5) 100%);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.12);
+}
+
+.slot-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 68px;
+  border-right: 1px solid var(--border-subtle);
+  padding-right: 14px;
+}
+
+.slot-start {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.slot-end {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.slot-trainee-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  object-fit: cover;
+}
+
+.slot-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.slot-trainee-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.slot-trainee-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.slot-goal-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+}
+
+.slot-focus-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.slot-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 状态徽章 */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pill.pending {
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--text-secondary);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.status-pill.active {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--primary);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-pill.active::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  animation: pulseDot 1.5s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 8px var(--primary); }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+.status-pill.completed {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60A5FA;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.status-pill.warning {
+  background: var(--warning-subtle);
+  color: var(--warning);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-pill.danger {
+  background: var(--danger-subtle);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* 右侧预警看板列表 */
+.alert-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alert-item {
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: all var(--transition-fast);
+}
+
+.alert-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.alert-item.warning {
+  border-left: 3px solid var(--warning);
+}
+
+.alert-item.danger {
+  border-left: 3px solid var(--danger);
+}
+
+.alert-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.alert-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+.alert-action-btn {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.alert-action-btn:hover {
+  text-decoration: underline;
+}
+
+/* 目标分布与雷达可视化 */
+.chart-container {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.svg-chart {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* ==========================================================================
+   学员管理模块 (Trainees CRM)
+   ========================================================================== */
+.trainees-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.search-input-wrap {
+  position: relative;
+  min-width: 280px;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 9px 14px 9px 36px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+.filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill-tab {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
+}
+
+.pill-tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.pill-tab.active {
+  background: var(--primary-subtle);
+  color: var(--primary);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+/* 学员网格卡片 */
+.trainee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.trainee-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all var(--transition-base);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.trainee-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: var(--shadow-md);
+}
+
+.trainee-card-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.trainee-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 2px solid var(--border-highlight);
+}
+
+.trainee-main-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.trainee-name-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trainee-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.trainee-gender-age {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.trainee-goal-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--primary);
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.trainee-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.body-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.body-row .label {
+  color: var(--text-muted);
+}
+
+.body-row .val {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* 课时进度条 */
+.sessions-bar-wrap {
+  margin-top: 4px;
+}
+
+.sessions-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+.progress-fill.green { background: linear-gradient(90deg, #10B981, #34D399); }
+.progress-fill.yellow { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+.progress-fill.red { background: linear-gradient(90deg, #EF4444, #F87171); }
+
+.trainee-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 12px;
+}
+
+/* ==========================================================================
+   排课日程模块 (Schedule View)
+   ========================================================================== */
+.schedule-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.date-stepper {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  gap: 8px;
+}
+
+.current-date-display {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 0 12px;
+  color: var(--text-primary);
+}
+
+.schedule-day-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.day-tab-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 68px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.day-tab-btn:hover {
+  background: var(--bg-card-hover);
+}
+
+.day-tab-btn.active {
+  background: var(--primary-subtle);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.day-tab-week {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.day-tab-btn.active .day-tab-week {
+  color: var(--primary);
+}
+
+.day-tab-date {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   动作库模块 (Exercise Library & Plan Builder)
+   ========================================================================== */
+.exercise-library-container {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+}
+
+.muscle-category-nav {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: fit-content;
+}
+
+.category-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.category-nav-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+}
+
+.category-nav-item.active {
+  background: var(--primary-subtle);
+  color: var(--primary);
+}
+
+.exercise-cards-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.exercise-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all var(--transition-fast);
+}
+
+.exercise-card:hover {
+  border-color: var(--border-highlight);
+  transform: translateY(-2px);
+}
+
+.exercise-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exercise-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.exercise-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(6, 182, 212, 0.12);
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.exercise-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.exercise-tips-box {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  border-left: 2px solid var(--primary);
+}
+
+/* ==========================================================================
+   财务与课消模块 (Finance & Ledger)
+   ========================================================================== */
+.finance-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.ledger-table-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.data-table th {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  font-weight: 600;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-card);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.data-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   AI 智练私教助手模块 (AI Coach)
+   ========================================================================== */
+.ai-coach-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.ai-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ai-output-box {
+  background: rgba(11, 16, 29, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  min-height: 200px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #E2E8F0;
+  white-space: pre-wrap;
+  position: relative;
+  overflow-y: auto;
+  max-height: 480px;
+}
+
+/* ==========================================================================
+   弹窗与抽屉 (Modals & Drawers)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 8, 15, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-overlay.active {
+  display: flex;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-highlight);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.modal-card.modal-lg {
+  max-width: 840px;
+}
+
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* 表单组件 */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+
+select.form-control {
+  padding-left: 12px;
+}
+
+textarea.form-control {
+  padding-left: 12px;
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* 详情抽屉 (Detail Drawer) */
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 8, 15, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 990;
+  display: none;
+}
+
+.drawer-overlay.active {
+  display: block;
+}
+
+.drawer-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 580px;
+  max-width: 95vw;
+  height: 100vh;
+  background: var(--bg-sidebar);
+  border-left: 1px solid var(--border-highlight);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-overlay.active .drawer-panel {
+  transform: translateX(0);
+}
+
+/* 烤面包吐司 Toast */
+.toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast-item {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 380px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-highlight);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-item.success { border-left: 4px solid var(--primary); }
+.toast-item.warning { border-left: 4px solid var(--warning); }
+.toast-item.error { border-left: 4px solid var(--danger); }
+
+/* 空状态 */
+.empty-state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.empty-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.empty-subtext {
+  font-size: 13px;
+  color: var(--text-muted);
+  max-width: 360px;
+  margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   移动端与响应式断点 (Mobile & Responsive)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .dashboard-main-cols {
+    grid-template-columns: 1fr;
+  }
+  .exercise-library-container {
+    grid-template-columns: 1fr;
+  }
+  .ai-coach-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100vw;
+    height: auto;
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    border-right: none;
+    border-top: 1px solid var(--border-subtle);
+    flex-direction: row;
+    z-index: 900;
+    background: rgba(13, 18, 31, 0.95);
+    backdrop-filter: blur(16px);
+  }
+  .brand-box, .coach-profile-card {
+    display: none;
+  }
+  .nav-menu {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 8px;
+    width: 100%;
+  }
+  .nav-item {
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+  .nav-item .nav-icon {
+    font-size: 18px;
+  }
+  .nav-item.active {
+    transform: none;
+  }
+  .main-wrapper {
+    margin-bottom: 64px;
+    height: calc(100vh - 64px);
+  }
+  .top-header {
+    padding: 0 16px;
+    height: 60px;
+  }
+  .view-container {
+    padding: 16px;
+  }
+  .form-row-2, .form-row-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ================= 移动端专项极致优化补丁 ================= */
+@media (max-width: 768px) {
+  html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .app-layout {
+    display: block !important;
+    width: 100vw !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+  }
+  .sidebar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    height: auto !important;
+    z-index: 9999 !important;
+    padding: 6px 4px max(8px, env(safe-area-inset-bottom)) !important;
+    background: rgba(13, 18, 31, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4) !important;
+    display: flex !important;
+  }
+  .brand-box, .coach-profile-card {
+    display: none !important;
+  }
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    padding: 6px 4px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    flex: 1 !important;
+    max-width: 68px !important;
+  }
+  .nav-item * {
+    pointer-events: none !important;
+  }
+  .nav-item .nav-icon {
+    font-size: 18px !important;
+  }
+  .nav-item span:not(.nav-icon) {
+    font-size: 10px !important;
+    white-space: nowrap !important;
+  }
+  .main-wrapper {
+    display: block !important;
+    width: 100vw !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+    margin-bottom: 0 !important;
+    padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
+  }
+  .top-header {
+    padding: 8px 12px !important;
+    height: auto !important;
+    min-height: 52px !important;
+    position: sticky !important;
+    top: 0 !important;
+    background: rgba(13, 18, 31, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    z-index: 50 !important;
+  }
+  .view-container {
+    padding: 12px !important;
+    overflow: visible !important;
+  }
+  .modal-container {
+    width: 94vw !important;
+    max-width: 94vw !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    margin: 12px auto !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- 侧边栏导航 -->
+    <aside class="sidebar">
+      <div class="brand-box">
+        <div class="brand-icon">⚡️</div>
+        <div class="brand-text">
+          <h1>铁律智练</h1>
+          <p>IRONCOACH PRO</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a class="nav-item active" data-view="dashboard">
+          <span class="nav-icon">📊</span>
+          <span>智练驾驶舱</span>
+        </a>
+        <a class="nav-item" data-view="schedule">
+          <span class="nav-icon">📅</span>
+          <span>排课日程</span>
+          <span class="nav-badge" id="badge-today-pending">2</span>
+        </a>
+        <a class="nav-item" data-view="trainees">
+          <span class="nav-icon">👥</span>
+          <span>学员与体测</span>
+        </a>
+        <a class="nav-item" data-view="plans">
+          <span class="nav-icon">🏋️</span>
+          <span>动作与计划库</span>
+        </a>
+        <a class="nav-item" data-view="finance">
+          <span class="nav-icon">💳</span>
+          <span>课包与财务</span>
+        </a>
+        <a class="nav-item" data-view="ai-coach">
+          <span class="nav-icon">🤖</span>
+          <span>AI 智练大脑</span>
+        </a>
+      </nav>
+
+      <!-- 教练身份卡 -->
+      <div class="coach-profile-card">
+        <img class="coach-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" alt="教练头像" id="coach-avatar-img">
+        <div class="coach-info">
+          <div class="coach-name" id="coach-display-name">Alex 张教练</div>
+          <div class="coach-level">ACE-CPT 资深主练</div>
+        </div>
+        <div class="badge-online" title="系统正常在线"></div>
+      </div>
+    </aside>
+
+    <!-- 主视窗 -->
+    <main class="main-wrapper">
+      <!-- 顶部状态栏 -->
+      <header class="top-header">
+        <div class="header-left">
+          <div class="header-title-area">
+            <h2 id="view-title">智练驾驶舱</h2>
+          </div>
+          <div class="header-date-badge" id="current-date-text">
+            2026年9月20日 星期日
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn btn-primary btn-sm" id="btn-quick-appointment">
+            <span>⚡️</span> 快速排课
+          </button>
+          <button class="btn btn-secondary btn-sm" id="btn-quick-add-trainee">
+            <span>👤</span> 新增学员
+          </button>
+          <button class="btn btn-outline btn-sm" id="btn-export-backup" title="导出本地JSON备份">
+            <span>💾</span> 备份
+          </button>
+          <label class="btn btn-outline btn-sm" style="cursor: pointer;" title="从JSON文件恢复">
+            <span>📥</span> 恢复
+            <input type="file" id="file-import-backup" accept=".json" style="display: none;">
+          </label>
+          <button class="btn btn-outline btn-sm" id="btn-reset-demo" title="重置高保真演示数据">
+            <span>📦</span> 重置数据
+          </button>
+        </div>
+      </header>
+
+      <!-- 内容视窗容器 -->
+      <div class="view-container">
+
+        <!-- ================================================================= -->
+        <!-- 视图 1：智练驾驶舱 (Dashboard)                                     -->
+        <!-- ================================================================= -->
+        <section class="view-section active" id="view-dashboard">
+          <div class="dashboard-grid">
+            <!-- 顶部指标卡行 -->
+            <div class="metrics-row">
+              <div class="metric-card primary">
+                <div class="metric-header">
+                  <span class="metric-label">今日排课 / 已消课</span>
+                  <div class="metric-icon-wrap">📅</div>
+                </div>
+                <div class="metric-value-row">
+                  <span class="metric-value num-font" id="stat-today-sessions">0 / 0</span>
+                  <span class="metric-unit">节</span>
+                </div>
+                <div class="metric-subtext" id="stat-today-progress-text">已完成 0% 课时目标</div>
+              </div>
+
+              <div class="metric-card info">
+                <div class="metric-header">
+                  <span class="metric-label">今日课消产值</span>
+                  <div class="metric-icon-wrap">⚡️</div>
+                </div>
+                <div class="metric-value-row">
+                  <span class="metric-value num-font" id="stat-today-income">¥0</span>
+                </div>
+                <div class="metric-subtext">基于今日实际结课划扣</div>
+              </div>
+
+              <div class="metric-card warning">
+                <div class="metric-header">
+                  <span class="metric-label">本月累计课消</span>
+                  <div class="metric-icon-wrap">📈</div>
+                </div>
+                <div class="metric-value-row">
+                  <span class="metric-value num-font" id="stat-month-income">¥0</span>
+                </div>
+                <div class="metric-subtext">当月课消总产值</div>
+              </div>
+
+              <div class="metric-card danger">
+                <div class="metric-header">
+                  <span class="metric-label">续课预警 (≤3节)</span>
+                  <div class="metric-icon-wrap">🚨</div>
+                </div>
+                <div class="metric-value-row">
+                  <span class="metric-value num-font" id="stat-warning-trainees">0</span>
+                  <span class="metric-unit">人</span>
+                </div>
+                <div class="metric-subtext highlight" id="stat-warning-subtext">课时见底，需抓紧跟进</div>
+              </div>
+            </div>
+
+            <!-- 主面板栅格：左日程管道，右预警雷达 -->
+            <div class="dashboard-main-cols">
+              <!-- 左列：今日课程排期管道 -->
+              <div class="dash-panel">
+                <div class="panel-header">
+                  <div class="panel-title">
+                    <span>⚡️</span> 今日全天课程流
+                  </div>
+                  <span class="panel-subtitle" id="dashboard-timeline-count">共 0 节课安排</span>
+                </div>
+
+                <div class="timeline-pipeline" id="dashboard-timeline-list">
+                  <!-- 动态渲染今日课程卡片 -->
+                </div>
+              </div>
+
+              <!-- 右列：预警与图表 -->
+              <div style="display: flex; flex-direction: column; gap: 24px;">
+                <!-- 续课急救与流失预警看板 -->
+                <div class="dash-panel">
+                  <div class="panel-header">
+                    <div class="panel-title">
+                      <span>🚨</span> 核心待办与预警雷达
+                    </div>
+                  </div>
+
+                  <div class="alert-card-list" id="dashboard-alerts-list">
+                    <!-- 动态生成预警事项 -->
+                  </div>
+                </div>
+
+                <!-- 学员健身目标分布雷达 -->
+                <div class="dash-panel">
+                  <div class="panel-header">
+                    <div class="panel-title">
+                      <span>🎯</span> 在训学员目标分布
+                    </div>
+                  </div>
+                  <div class="chart-container" id="dashboard-goals-chart">
+                    <!-- 动态 SVG 图表 -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 视图 2：排课日程 (Schedule)                                        -->
+        <!-- ================================================================= -->
+        <section class="view-section" id="view-schedule">
+          <div class="schedule-header-bar">
+            <div class="date-stepper">
+              <button class="btn btn-outline btn-sm" id="btn-schedule-prev-day">◀ 前一天</button>
+              <span class="current-date-display" id="schedule-selected-date-text">2026-09-20</span>
+              <button class="btn btn-outline btn-sm" id="btn-schedule-next-day">后一天 ▶</button>
+              <button class="btn btn-secondary btn-sm" id="btn-schedule-today">今天</button>
+            </div>
+
+            <div class="filter-pills" id="schedule-status-filter">
+              <span class="pill-tab active" data-filter="all">全部日程</span>
+              <span class="pill-tab" data-filter="pending">待上课</span>
+              <span class="pill-tab" data-filter="active">训练中</span>
+              <span class="pill-tab" data-filter="completed">已结课</span>
+            </div>
+
+            <button class="btn btn-primary btn-sm" id="btn-schedule-add-btn">
+              <span>+</span> 新增排课预约
+            </button>
+          </div>
+
+          <!-- 日程卡片管道列表 -->
+          <div class="timeline-pipeline" id="schedule-full-list">
+            <!-- 动态生成 -->
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 视图 3：学员CRM与体测中心 (Trainees)                               -->
+        <!-- ================================================================= -->
+        <section class="view-section" id="view-trainees">
+          <div class="trainees-toolbar">
+            <div class="search-input-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="form-control" id="input-search-trainee" placeholder="搜索学员姓名、手机号、健身目标...">
+            </div>
+
+            <div class="filter-pills" id="trainee-goal-filter">
+              <span class="pill-tab active" data-goal="all">全部学员</span>
+              <span class="pill-tab" data-goal="减脂塑形">减脂塑形</span>
+              <span class="pill-tab" data-goal="力量增肌">力量增肌</span>
+              <span class="pill-tab" data-goal="体态雕塑">体态雕塑</span>
+              <span class="pill-tab" data-goal="产后康复">产后康复</span>
+              <span class="pill-tab" data-goal="warning">课时告警 (≤3节)</span>
+            </div>
+
+            <button class="btn btn-primary btn-sm" id="btn-add-trainee-main">
+              <span>+</span> 录入新学员
+            </button>
+          </div>
+
+          <!-- 学员网格 -->
+          <div class="trainee-grid" id="trainees-cards-grid">
+            <!-- 动态渲染学员卡片 -->
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 视图 4：计划与动作库 (Plans & Exercises)                           -->
+        <!-- ================================================================= -->
+        <section class="view-section" id="view-plans">
+          <div class="exercise-library-container">
+            <!-- 左侧肌肉群分类菜单 -->
+            <div class="muscle-category-nav" id="exercise-category-menu">
+              <div class="category-nav-item active" data-category="all">
+                <span>🔥 全部经典动作</span>
+                <span class="num-font" id="count-ex-all">26</span>
+              </div>
+              <div class="category-nav-item" data-category="胸部">
+                <span>⚡️ 胸部推力专项</span>
+                <span class="num-font">5</span>
+              </div>
+              <div class="category-nav-item" data-category="背部">
+                <span>🦅 背部拉力专项</span>
+                <span class="num-font">5</span>
+              </div>
+              <div class="category-nav-item" data-category="腿臀">
+                <span>🦵 腿臀下肢后链</span>
+                <span class="num-font">6</span>
+              </div>
+              <div class="category-nav-item" data-category="肩部">
+                <span>🛡️ 三角肌肩部雕刻</span>
+                <span class="num-font">5</span>
+              </div>
+              <div class="category-nav-item" data-category="手臂">
+                <span>💪 肱二三头手臂</span>
+                <span class="num-font">4</span>
+              </div>
+              <div class="category-nav-item" data-category="核心康复">
+                <span>🧘 核心深层与康复</span>
+                <span class="num-font">5</span>
+              </div>
+            </div>
+
+            <!-- 右侧动作卡片列表与模版推荐 -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <!-- 快捷专业训练计划模版横幅 -->
+              <div class="dash-panel" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%); border-color: rgba(16, 185, 129, 0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                  <div>
+                    <h3 style="font-size: 16px; font-weight: 700; color: #F8FAFC;">📋 私教大师课经典分化训练库</h3>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">支持在 AI 智练助手或单次课程记录中一键直接引用动作组合</p>
+                  </div>
+                  <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-outline btn-sm" onclick="App.applyPlanPreset('ppl')">三分化 PPL 增肌模版</button>
+                    <button class="btn btn-outline btn-sm" onclick="App.applyPlanPreset('posture')">圆肩驼背体态矫正模版</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 动作卡片列表 -->
+              <div class="exercise-cards-list" id="exercise-items-grid">
+                <!-- 动态渲染动作 -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 视图 5：课包与财务流水 (Finance)                                   -->
+        <!-- ================================================================= -->
+        <section class="view-section" id="view-finance">
+          <!-- 财务概览指标卡 -->
+          <div class="finance-summary-grid">
+            <div class="metric-card primary">
+              <div class="metric-header">
+                <span class="metric-label">本月售课总入账</span>
+                <div class="metric-icon-wrap">💰</div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value num-font" id="fin-month-sales">¥0</span>
+              </div>
+              <div class="metric-subtext">新开卡包与续课充值</div>
+            </div>
+
+            <div class="metric-card info">
+              <div class="metric-header">
+                <span class="metric-label">本月实际课消总值</span>
+                <div class="metric-icon-wrap">⚡️</div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value num-font" id="fin-month-consumed">¥0</span>
+              </div>
+              <div class="metric-subtext">已上课划扣完成产值</div>
+            </div>
+
+            <div class="metric-card warning">
+              <div class="metric-header">
+                <span class="metric-label">学员在手未消课时资产</span>
+                <div class="metric-icon-wrap">📦</div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value num-font" id="fin-unconsumed-sessions">0 节</span>
+              </div>
+              <div class="metric-subtext" id="fin-unconsumed-amount">估值约 ¥0</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-label">平均私教课单价</span>
+                <div class="metric-icon-wrap">🏷️</div>
+              </div>
+              <div class="metric-value-row">
+                <span class="metric-value num-font" id="fin-avg-price">¥400</span>
+                <span class="metric-unit">/节</span>
+              </div>
+              <div class="metric-subtext">单节课交付价值</div>
+            </div>
+          </div>
+
+          <!-- 流水表格操作栏 -->
+          <div class="trainees-toolbar">
+            <h3 style="font-size: 16px; font-weight: 700;">收支与课消对账明细</h3>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn btn-primary btn-sm" id="btn-open-purchase-modal">
+                <span>+</span> 办理购课充值
+              </button>
+              <button class="btn btn-outline btn-sm" id="btn-export-finance-csv">
+                <span>📊</span> 导出 CSV 财务对账单
+              </button>
+            </div>
+          </div>
+
+          <!-- 流水明细表格 -->
+          <div class="ledger-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>时间</th>
+                  <th>类型</th>
+                  <th>学员姓名</th>
+                  <th>课包/项目</th>
+                  <th>变动课时</th>
+                  <th>金额</th>
+                  <th>支付/结算方式</th>
+                  <th>备注说明</th>
+                  <th>凭证</th>
+                </tr>
+              </thead>
+              <tbody id="finance-ledger-tbody">
+                <!-- 动态填充 -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 视图 6：AI 智练大脑 (AI Coach Copilot)                             -->
+        <!-- ================================================================= -->
+        <section class="view-section" id="view-ai-coach">
+          <div class="ai-coach-grid">
+            <!-- 左侧：参数与模版选择 -->
+            <div class="ai-card">
+              <div class="panel-title">
+                <span>🤖</span> 智练大脑·个性化训练与私域助手
+              </div>
+              <p style="font-size: 13px; color: var(--text-secondary);">
+                基于学员身体数据、体测指标、伤病史与训练目标，快速生成高水准分化课表、营养配比与微信私域关怀话术。
+              </p>
+
+              <div class="form-group">
+                <label class="form-label">选择目标学员</label>
+                <select class="form-control" id="ai-select-trainee">
+                  <!-- 动态载入学员 -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">生成类型</label>
+                <select class="form-control" id="ai-select-task">
+                  <option value="split_plan">📋 4 周个性化分化训练计划表 (PPL/上下肢)</option>
+                  <option value="nutrition">🥗 BMR 基础代谢与三大营养素热量缺口计算</option>
+                  <option value="recovery">🧘 训练后深层筋膜拉伸与酸痛缓解恢复医嘱</option>
+                  <option value="followup_renew">💬 续课关怀与温和私聊话术 (课时≤3节)</option>
+                  <option value="followup_dormant">💤 超过7天未训练学员激活与问候话术</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">本次重点关注 / 补充要求</label>
+                <textarea class="form-control" id="ai-custom-prompt" placeholder="例如：重点雕塑腰腹马甲线；左膝有轻微弹响，需规避大重量深蹲；下班较晚需简短高效..."></textarea>
+              </div>
+
+              <button class="btn btn-primary" id="btn-run-ai-generate">
+                <span>⚡️</span> 立即一键生成专业方案
+              </button>
+            </div>
+
+            <!-- 右侧：生成结果与复制 -->
+            <div class="ai-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="panel-title">
+                  <span>📄</span> 专业交付成果
+                </div>
+                <button class="btn btn-secondary btn-sm" id="btn-copy-ai-result">
+                  <span>📋</span> 复制方案
+                </button>
+              </div>
+
+              <div class="ai-output-box" id="ai-output-content">
+请在左侧选择学员与生成任务，点击「立即一键生成专业方案」。
+系统将综合该学员的历史体测围度、力量水平、伤病禁忌及当前卡包剩余情况，输出专业私教维度的指导方案。
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- 弹窗：快速排课预约                                                        -->
+  <!-- ======================================================================= -->
+  <div class="modal-overlay" id="modal-appointment">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-apt-title">⚡️ 新增私教排课预约</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('modal-appointment')">&times;</button>
+      </div>
+      <form id="form-appointment">
+        <input type="hidden" id="apt-input-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">预约学员 *</label>
+            <select class="form-control" id="apt-input-trainee" required>
+              <!-- 动态学员列表 -->
+            </select>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">排课日期 *</label>
+              <input type="date" class="form-control" id="apt-input-date" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">扣课卡包 *</label>
+              <select class="form-control" id="apt-input-card" required>
+                <!-- 动态卡包 -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">开始时间 *</label>
+              <input type="time" class="form-control" id="apt-input-start" value="10:00" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">结束时间 *</label>
+              <input type="time" class="form-control" id="apt-input-end" value="11:00" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">本次训练焦点 / 部位 *</label>
+            <input type="text" class="form-control" id="apt-input-focus" placeholder="例如：臀腿塑形与后链发力强化" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">课前备课备注</label>
+            <textarea class="form-control" id="apt-input-notes" placeholder="器械准备、热身要点或学员特殊状况提醒..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('modal-appointment')">取消</button>
+          <button type="submit" class="btn btn-primary">确认排课</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- 弹窗：结课打卡与自动消课                                                  -->
+  <!-- ======================================================================= -->
+  <div class="modal-overlay" id="modal-complete-session">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">🏋️ 课程完成打卡 & 自动消课结算</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('modal-complete-session')">&times;</button>
+      </div>
+      <form id="form-complete-session">
+        <input type="hidden" id="complete-apt-id">
+        <div class="modal-body">
+          <div class="dash-panel" style="margin-bottom: 20px; background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <h4 style="font-size: 15px; font-weight: 700;" id="complete-trainee-name">学员：张若曦</h4>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;" id="complete-course-info">精英一对一私教定制课 · 当前剩余 3 节</p>
+              </div>
+              <div style="text-align: right;">
+                <span class="status-pill active" style="font-size: 13px;">打卡后自动划扣 1 节</span>
+              </div>
+            </div>
+          </div>
+
+          <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px;">本次训练实操动作记录 (选填)</h4>
+          <div id="complete-exercise-rows" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px;">
+            <!-- 动作录入行 -->
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-add-exercise-row" style="margin-bottom: 20px;">
+            + 添加训练动作与组数
+          </button>
+
+          <div class="form-group">
+            <label class="form-label">教练专业课后点评与恢复医嘱</label>
+            <textarea class="form-control" id="complete-coach-summary" placeholder="例如：今日高位下拉发力明显改善，下课后及时补充20g乳清蛋白与300ml温水，明天注意拉伸背阔肌..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('modal-complete-session')">取消</button>
+          <button type="submit" class="btn btn-primary">确认结课并自动扣减课时</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- 弹窗：录入 / 编辑学员档案                                                 -->
+  <!-- ======================================================================= -->
+  <div class="modal-overlay" id="modal-trainee">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-trainee-title">👤 录入新学员档案</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('modal-trainee')">&times;</button>
+      </div>
+      <form id="form-trainee">
+        <input type="hidden" id="trainee-input-id">
+        <div class="modal-body">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">学员姓名 *</label>
+              <input type="text" class="form-control" id="trainee-input-name" required placeholder="如：李晓琳">
+            </div>
+            <div class="form-group">
+              <label class="form-label">性别 *</label>
+              <select class="form-control" id="trainee-input-gender">
+                <option value="女">女</option>
+                <option value="男">男</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">年龄</label>
+              <input type="number" class="form-control" id="trainee-input-age" value="28">
+            </div>
+            <div class="form-group">
+              <label class="form-label">联系电话 *</label>
+              <input type="tel" class="form-control" id="trainee-input-phone" required placeholder="如：13800000000">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">核心健身目标 *</label>
+              <select class="form-control" id="trainee-input-goal">
+                <option value="减脂塑形">减脂塑形</option>
+                <option value="力量增肌">力量增肌</option>
+                <option value="体态雕塑">体态雕塑</option>
+                <option value="产后康复">产后康复</option>
+                <option value="体能与降脂">体能与降脂</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">训练基础</label>
+              <select class="form-control" id="trainee-input-level">
+                <option value="初学者">初学者 (0基础小白)</option>
+                <option value="初中级">初中级 (有散练经验)</option>
+                <option value="进阶">进阶 (规律训练1年以上)</option>
+                <option value="康复期">康复期 (需特殊保护)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">目标细节描述</label>
+            <input type="text" class="form-control" id="trainee-input-target-detail" placeholder="如：3个月内减脂4kg，腰围减至65cm">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">伤病史与动作禁忌 (重点标记)</label>
+            <textarea class="form-control" id="trainee-input-injuries" placeholder="如：腰椎间盘膨出，严禁大重量硬拉；膝盖内扣深屈膝弹响..."></textarea>
+          </div>
+
+          <!-- 若为新增学员，可同步为其开通初始课包 -->
+          <div id="new-trainee-card-box" class="dash-panel" style="margin-top: 14px; padding: 14px; background: rgba(255, 255, 255, 0.02);">
+            <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">🎁 同步开通初始私教课包 (选填)</h4>
+            <div class="form-row-2">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">课时数 (节)</label>
+                <input type="number" class="form-control" id="new-card-sessions" value="20">
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">单节课单价 (元)</label>
+                <input type="number" class="form-control" id="new-card-price" value="400">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('modal-trainee')">取消</button>
+          <button type="submit" class="btn btn-primary">保存学员档案</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- 弹窗：录入阶段体测数据                                                    -->
+  <!-- ======================================================================= -->
+  <div class="modal-overlay" id="modal-metric">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">📐 记录最新阶段体测</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('modal-metric')">&times;</button>
+      </div>
+      <form id="form-metric">
+        <input type="hidden" id="metric-input-trainee-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">测量日期 *</label>
+            <input type="date" class="form-control" id="metric-input-date" required>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">体重 (kg) *</label>
+              <input type="number" step="0.1" class="form-control" id="metric-input-weight" required placeholder="如 55.2">
+            </div>
+            <div class="form-group">
+              <label class="form-label">体脂率 (%)</label>
+              <input type="number" step="0.1" class="form-control" id="metric-input-fat" placeholder="如 22.5">
+            </div>
+            <div class="form-group">
+              <label class="form-label">骨骼肌 (kg)</label>
+              <input type="number" step="0.1" class="form-control" id="metric-input-muscle" placeholder="如 22.0">
+            </div>
+          </div>
+
+          <h4 style="font-size: 13px; font-weight: 700; margin: 12px 0 8px;">身体各围度 (cm)</h4>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">胸围</label>
+              <input type="number" step="0.5" class="form-control" id="metric-input-chest" placeholder="如 84">
+            </div>
+            <div class="form-group">
+              <label class="form-label">腰围</label>
+              <input type="number" step="0.5" class="form-control" id="metric-input-waist" placeholder="如 66">
+            </div>
+            <div class="form-group">
+              <label class="form-label">臀围</label>
+              <input type="number" step="0.5" class="form-control" id="metric-input-hips" placeholder="如 92">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">大臂围</label>
+              <input type="number" step="0.5" class="form-control" id="metric-input-arms" placeholder="如 25">
+            </div>
+            <div class="form-group">
+              <label class="form-label">大腿围</label>
+              <input type="number" step="0.5" class="form-control" id="metric-input-thighs" placeholder="如 51">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">体态评估与对比备注</label>
+            <textarea class="form-control" id="metric-input-notes" placeholder="如：体态对比前倾明显改善，骨盆回正，腹部紧实度提升..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('modal-metric')">取消</button>
+          <button type="submit" class="btn btn-primary">保存体测数据</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- 弹窗：办理购课充值                                                        -->
+  <!-- ======================================================================= -->
+  <div class="modal-overlay" id="modal-purchase-card">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">💰 办理私教购课与续课充值</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('modal-purchase-card')">&times;</button>
+      </div>
+      <form id="form-purchase-card">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">选择学员 *</label>
+            <select class="form-control" id="purchase-input-trainee" required>
+              <!-- 动态填充 -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">课包类型名称 *</label>
+            <input type="text" class="form-control" id="purchase-input-name" value="精英一对一私教定制课" required>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">购买总课时 (节) *</label>
+              <input type="number" class="form-control" id="purchase-input-sessions" value="20" min="1" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">单节课折算单价 (元) *</label>
+              <input type="number" class="form-control" id="purchase-input-price" value="400" min="0" required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">支付入账总金额 (元) *</label>
+              <input type="number" class="form-control" id="purchase-input-total" value="8000" readonly style="background: rgba(255,255,255,0.03);">
+            </div>
+            <div class="form-group">
+              <label class="form-label">支付结算渠道 *</label>
+              <select class="form-control" id="purchase-input-method">
+                <option value="微信支付">微信支付</option>
+                <option value="支付宝">支付宝</option>
+                <option value="银行卡转账">银行卡转账</option>
+                <option value="现金支付">现金支付</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">课包有效期截止日</label>
+            <input type="date" class="form-control" id="purchase-input-expire" value="2027-12-31">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('modal-purchase-card')">取消</button>
+          <button type="submit" class="btn btn-primary">确认收款入账</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- 抽屉：学员完整档案与体测对比大屏                                           -->
+  <!-- ======================================================================= -->
+  <div class="drawer-overlay" id="drawer-trainee-detail">
+    <div class="drawer-panel">
+      <div class="modal-header">
+        <h3 class="modal-title" id="drawer-trainee-title">学员全景档案</h3>
+        <button class="modal-close-btn" onclick="App.closeDrawer()">&times;</button>
+      </div>
+
+      <div class="modal-body" id="drawer-trainee-content">
+        <!-- 动态渲染学员体测与卡包完整档案 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- 弹窗：电子凭证小票打印                                                    -->
+  <!-- ======================================================================= -->
+  <div class="modal-overlay" id="modal-receipt">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">🧾 电子消课与收费凭单</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('modal-receipt')">&times;</button>
+      </div>
+      <div class="modal-body" id="receipt-content-area" style="font-family: monospace; background: #fff; color: #111; padding: 20px; border-radius: 8px;">
+        <!-- 动态生成小票样式 -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="App.closeModal('modal-receipt')">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="window.print()">🖨️ 打印凭证</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast 消息容器 -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- 脚本引入 -->
+  <script>
+/**
+ * 铁律智练 · 私人健身教练数字化运营工作台 (IronCoach Pro)
+ * 持久化存储引擎 (IndexedDB + LocalStorage 双模容灾适配器)
+ * 数据 100% 留存在教练本地电脑，支持 JSON 快照导出备份与恢复
+ */
+
+const DB_NAME = 'IronCoachProDB';
+const DB_VERSION = 1;
+const STORAGE_PREFIX = 'ironcoach_';
+
+// 初始高保真私教真实演示数据包
+const DEMO_TRAINEES = [
+  {
+    id: 't_001',
+    name: '张若曦',
+    gender: '女',
+    age: 28,
+    phone: '13812345678',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    goal: '减脂塑形',
+    targetDetail: '腰围减至64cm，雕塑马甲线与臀线，改善体能',
+    level: '初学者',
+    injuries: '久坐轻度骨盆前倾，左膝深蹲到底有轻微弹响（避免大重量深屈膝）',
+    joinDate: '2026-06-15',
+    status: 'active',
+    notes: '性格自律认真，饮食偏好清淡，但下班后容易晚睡。'
+  },
+  {
+    id: 't_002',
+    name: '陈浩峰',
+    gender: '男',
+    age: 33,
+    phone: '13987654321',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    goal: '力量增肌',
+    targetDetail: '三大项总成绩突破400kg，胸肌上束与背部厚度强化',
+    level: '中高级',
+    injuries: '右肩袖肌群曾拉伤，推胸前必须彻底热身外旋肌群',
+    joinDate: '2026-03-10',
+    status: 'active',
+    notes: '大厂架构师，训练极其专注，每周固定晚间3次。'
+  },
+  {
+    id: 't_003',
+    name: '林子涵',
+    gender: '女',
+    age: 25,
+    phone: '13766668888',
+    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80',
+    goal: '体态雕塑',
+    targetDetail: '改善圆肩驼背与头前引，提升下肢臀部肌力与稳定',
+    level: '初中级',
+    injuries: '轻微腰肌劳损，禁止重负荷直腿硬拉与久站反弓',
+    joinDate: '2026-07-01',
+    status: 'active',
+    notes: '瑜伽舞蹈老师转器械，柔韧极好但力量不足。'
+  },
+  {
+    id: 't_004',
+    name: '王博文',
+    gender: '男',
+    age: 46,
+    phone: '13611223344',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+    goal: '体能与降脂',
+    targetDetail: '内脏脂肪等级降至7以下，改善重度脂肪肝与腰围',
+    level: '初学者',
+    injuries: '轻度高血压，严格控制组间歇心率，禁止瓦式大憋气',
+    joinDate: '2026-05-12',
+    status: 'active',
+    notes: '企业高管，应酬较多，重点抓课上代谢训练与课外控酒控油。'
+  },
+  {
+    id: 't_005',
+    name: '周雅婷',
+    gender: '女',
+    age: 31,
+    phone: '13599887766',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
+    goal: '产后康复',
+    targetDetail: '腹直肌分离闭合（从2指恢复至正常），骨盆底肌与核心稳固',
+    level: '康复期',
+    injuries: '产后6个月，禁用传统仰卧起坐及大负重躯干扭转动作',
+    joinDate: '2026-08-01',
+    status: 'active',
+    notes: '非常注重训练呼吸节律与发力感受，每次课后做深层筋膜放松。'
+  },
+  {
+    id: 't_006',
+    name: '李铭阳',
+    gender: '男',
+    age: 22,
+    phone: '13344556677',
+    avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
+    goal: '健美增肌',
+    targetDetail: '手臂围度突破40cm，体脂控制在13%以下',
+    level: '进阶',
+    injuries: '无明显运动伤病',
+    joinDate: '2026-04-18',
+    status: 'dormant', // 超过8天未排课，触发流失预警
+    notes: '大学生，最近考研忙碌，需主动私信跟进鼓励保持基础训练。'
+  }
+];
+
+const DEMO_CARDS = [
+  {
+    id: 'card_001',
+    traineeId: 't_001',
+    cardName: '精英一对一私教定制课 (20节)',
+    category: '常规私教',
+    totalSessions: 20,
+    remainingSessions: 2, // 触发续课告警！
+    pricePerSession: 400.00,
+    totalAmount: 8000.00,
+    expireDate: '2026-12-31',
+    status: 'warning',
+    createdAt: '2026-06-15'
+  },
+  {
+    id: 'card_002',
+    traineeId: 't_002',
+    cardName: '高阶增肌与力量强化包 (30节)',
+    category: '常规私教',
+    totalSessions: 30,
+    remainingSessions: 16,
+    pricePerSession: 380.00,
+    totalAmount: 11400.00,
+    expireDate: '2027-03-31',
+    status: 'normal',
+    createdAt: '2026-03-10'
+  },
+  {
+    id: 'card_003',
+    traineeId: 't_003',
+    cardName: '体态矫正与姿态雕塑专项 (12节)',
+    category: '专项体态',
+    totalSessions: 12,
+    remainingSessions: 1, // 紧急续课告警！
+    pricePerSession: 450.00,
+    totalAmount: 5400.00,
+    expireDate: '2026-11-30',
+    status: 'warning',
+    createdAt: '2026-07-01'
+  },
+  {
+    id: 'card_004',
+    traineeId: 't_004',
+    cardName: '心肺体能与健康减脂包 (24节)',
+    category: '常规私教',
+    totalSessions: 24,
+    remainingSessions: 21,
+    pricePerSession: 360.00,
+    totalAmount: 8640.00,
+    expireDate: '2027-05-15',
+    status: 'normal',
+    createdAt: '2026-05-12'
+  },
+  {
+    id: 'card_005',
+    traineeId: 't_005',
+    cardName: '产后核心重塑与骨盆康复 (16节)',
+    category: '运动康复',
+    totalSessions: 16,
+    remainingSessions: 7,
+    pricePerSession: 480.00,
+    totalAmount: 7680.00,
+    expireDate: '2027-01-20',
+    status: 'normal',
+    createdAt: '2026-08-01'
+  },
+  {
+    id: 'card_006',
+    traineeId: 't_006',
+    cardName: '手臂与胸背塑形特训 (10节)',
+    category: '常规私教',
+    totalSessions: 10,
+    remainingSessions: 4,
+    pricePerSession: 350.00,
+    totalAmount: 3500.00,
+    expireDate: '2026-10-31',
+    status: 'normal',
+    createdAt: '2026-04-18'
+  }
+];
+
+// 获取今天的 YYYY-MM-DD
+function getTodayString(offsetDays = 0) {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+const DEMO_APPOINTMENTS = [
+  {
+    id: 'apt_001',
+    traineeId: 't_001',
+    cardId: 'card_001',
+    date: getTodayString(0),
+    startTime: '09:30',
+    endTime: '10:30',
+    focus: '臀腿塑形与后链发力强化',
+    status: 'completed', // 已结课打卡
+    notes: '臀中肌激活良好，单腿罗马尼亚硬拉动作标准',
+    rating: 5,
+    actualFinishedAt: `${getTodayString(0)} 10:35`
+  },
+  {
+    id: 'apt_002',
+    traineeId: 't_002',
+    cardId: 'card_002',
+    date: getTodayString(0),
+    startTime: '14:00',
+    endTime: '15:00',
+    focus: '大重量胸肌与三头推力日',
+    status: 'active', // 正在进行中
+    notes: '杠铃卧推冲击110kg 4x5，强化肩袖热身',
+    rating: 0
+  },
+  {
+    id: 'apt_003',
+    traineeId: 't_005',
+    cardId: 'card_005',
+    date: getTodayString(0),
+    startTime: '16:30',
+    endTime: '17:30',
+    focus: '盆底肌激活与深层腹横肌唤醒',
+    status: 'pending', // 待开课
+    notes: '重点配合呼吸节律，不可过快提速',
+    rating: 0
+  },
+  {
+    id: 'apt_004',
+    traineeId: 't_004',
+    cardId: 'card_004',
+    date: getTodayString(0),
+    startTime: '19:00',
+    endTime: '20:00',
+    focus: '心肺间歇与低冲击全身循环',
+    status: 'pending', // 待开课
+    notes: '监控心率区间控制在120-135bpm之间',
+    rating: 0
+  },
+  // 明天排课
+  {
+    id: 'apt_005',
+    traineeId: 't_003',
+    cardId: 'card_003',
+    date: getTodayString(1),
+    startTime: '10:00',
+    endTime: '11:00',
+    focus: '胸椎灵活度释放与肩胛上回旋',
+    status: 'pending',
+    notes: '课后提示续卡事宜（仅剩最后1节）',
+    rating: 0
+  },
+  {
+    id: 'apt_006',
+    traineeId: 't_002',
+    cardId: 'card_002',
+    date: getTodayString(1),
+    startTime: '15:00',
+    endTime: '16:00',
+    focus: '背阔肌主导与下背核心稳定',
+    status: 'pending',
+    notes: '引体向上负重递增组',
+    rating: 0
+  },
+  // 昨天已完成
+  {
+    id: 'apt_007',
+    traineeId: 't_001',
+    cardId: 'card_001',
+    date: getTodayString(-2),
+    startTime: '10:00',
+    endTime: '11:00',
+    focus: '核心抗扭转与上肢推拉平衡',
+    status: 'completed',
+    notes: '平板支撑交替抬腿完成度极高',
+    rating: 5,
+    actualFinishedAt: `${getTodayString(-2)} 11:02`
+  }
+];
+
+const DEMO_BODY_METRICS = [
+  // 张若曦的阶段体测
+  {
+    id: 'bm_001',
+    traineeId: 't_001',
+    date: '2026-06-15',
+    weight: 56.8,
+    bodyFat: 26.5,
+    muscleMass: 21.2,
+    chest: 84.0,
+    waist: 71.5,
+    hips: 93.0,
+    arms: 25.5,
+    thighs: 53.5,
+    notes: '初始体测。体态评估见明显假胯宽，下腹轻微隆起。'
+  },
+  {
+    id: 'bm_002',
+    traineeId: 't_001',
+    date: '2026-07-20',
+    weight: 54.5,
+    bodyFat: 24.2,
+    muscleMass: 21.8,
+    chest: 83.5,
+    waist: 68.0,
+    hips: 92.5,
+    arms: 24.8,
+    thighs: 52.0,
+    notes: '第1个月复测。腰围明显缩减3.5cm，体能进步显著！'
+  },
+  {
+    id: 'bm_003',
+    traineeId: 't_001',
+    date: getTodayString(-5),
+    weight: 52.9,
+    bodyFat: 21.8,
+    muscleMass: 22.4,
+    chest: 83.0,
+    waist: 64.5,
+    hips: 93.5,
+    arms: 24.2,
+    thighs: 50.8,
+    notes: '近期体测。马甲线初显，臀腿比例大幅提升，累计减脂近4kg！'
+  },
+  // 陈浩峰的体测
+  {
+    id: 'bm_004',
+    traineeId: 't_002',
+    date: '2026-03-10',
+    weight: 76.5,
+    bodyFat: 17.8,
+    muscleMass: 35.8,
+    chest: 101.0,
+    waist: 82.0,
+    hips: 98.0,
+    arms: 36.0,
+    thighs: 58.0,
+    notes: '初始体测，目标增肌期。'
+  },
+  {
+    id: 'bm_005',
+    traineeId: 't_002',
+    date: getTodayString(-7),
+    weight: 80.2,
+    bodyFat: 15.6,
+    muscleMass: 39.4,
+    chest: 107.5,
+    waist: 80.5,
+    hips: 100.0,
+    arms: 38.8,
+    thighs: 61.5,
+    notes: '纯增肌进展良好，臂围增长近3cm，背部倒三角形态明显。'
+  },
+  // 王博文的体测
+  {
+    id: 'bm_006',
+    traineeId: 't_004',
+    date: '2026-05-12',
+    weight: 88.5,
+    bodyFat: 28.5,
+    muscleMass: 32.5,
+    chest: 105.0,
+    waist: 98.0,
+    hips: 104.0,
+    arms: 33.0,
+    thighs: 59.0,
+    notes: '入营体测，内脏脂肪等级13，轻度脂肪肝。'
+  },
+  {
+    id: 'bm_007',
+    traineeId: 't_004',
+    date: getTodayString(-3),
+    weight: 83.2,
+    bodyFat: 24.1,
+    muscleMass: 33.1,
+    chest: 103.0,
+    waist: 91.5,
+    hips: 101.0,
+    arms: 33.5,
+    thighs: 57.5,
+    notes: '体重下降5.3kg，腰围缩水6.5cm，体检转氨酶指标趋于正常。'
+  }
+];
+
+const DEMO_TRAINING_LOGS = [
+  {
+    id: 'log_001',
+    appointmentId: 'apt_001',
+    traineeId: 't_001',
+    date: getTodayString(0),
+    title: '下肢臀腿后链塑形日',
+    items: [
+      { exercise: '臀桥激活与弹力带外展', sets: 3, reps: '20次', weight: '自重+红带', rpe: 6 },
+      { exercise: '哑铃罗马尼亚硬拉 (RDL)', sets: 4, reps: '12次', weight: '24kg', rpe: 8 },
+      { exercise: '杠铃相扑箱式深蹲', sets: 4, reps: '10次', weight: '35kg', rpe: 8.5 },
+      { exercise: '器械倒蹬分腿后蹬', sets: 3, reps: '12次/侧', weight: '40kg', rpe: 8 },
+      { exercise: '泡沫轴大腿前侧与臀大肌拉伸', sets: 2, reps: '60秒', weight: '-', rpe: 4 }
+    ],
+    totalVolume: 2480,
+    coachSummary: '今日发力非常聚焦在臀大肌与腘绳肌，动作全程未代偿借力，下课后交代补充优质碳水及300ml温水。'
+  }
+];
+
+const DEMO_FINANCIAL_RECORDS = [
+  {
+    id: 'fin_001',
+    type: 'purchase',
+    traineeId: 't_001',
+    cardId: 'card_001',
+    amount: 8000.00,
+    sessions: 20,
+    method: '微信支付',
+    timestamp: '2026-06-15 14:30',
+    notes: '首期私教课充值入账 (20节)'
+  },
+  {
+    id: 'fin_002',
+    type: 'purchase',
+    traineeId: 't_002',
+    cardId: 'card_002',
+    amount: 11400.00,
+    sessions: 30,
+    method: '银行卡转账',
+    timestamp: '2026-03-10 18:20',
+    notes: '增肌强化课包充值入账 (30节)'
+  },
+  {
+    id: 'fin_003',
+    type: 'purchase',
+    traineeId: 't_003',
+    cardId: 'card_003',
+    amount: 5400.00,
+    sessions: 12,
+    method: '支付宝',
+    timestamp: '2026-07-01 11:15',
+    notes: '体态雕塑专项充值入账 (12节)'
+  },
+  {
+    id: 'fin_004',
+    type: 'consume',
+    traineeId: 't_001',
+    cardId: 'card_001',
+    amount: 400.00,
+    sessions: 1,
+    method: '课时划扣',
+    timestamp: `${getTodayString(0)} 10:35`,
+    notes: '【已消课】张若曦 · 臀腿塑形与后链发力强化'
+  },
+  {
+    id: 'fin_005',
+    type: 'consume',
+    traineeId: 't_001',
+    cardId: 'card_001',
+    amount: 400.00,
+    sessions: 1,
+    method: '课时划扣',
+    timestamp: `${getTodayString(-2)} 11:02`,
+    notes: '【已消课】张若曦 · 核心抗扭转与上肢推拉平衡'
+  }
+];
+
+// 常见动作动作库 (40+ 经典动作及要领指导)
+const EXERCISE_LIBRARY = [
+  // 胸部
+  { id: 'ex_c1', category: '胸部', name: '平板杠铃卧推', equipment: '杠铃/卧推架', level: '中级', tips: '肩胛骨后缩下沉，下落至胸骨中下段，小臂垂直地面，手腕中立不折腕。' },
+  { id: 'ex_c2', category: '胸部', name: '上斜哑铃卧推', equipment: '可调卧推凳/哑铃', level: '初中级', tips: '靠背调节30度角，锁死肩胛，肘关节与躯干夹角约60度，针对上胸肌纤维。' },
+  { id: 'ex_c3', category: '胸部', name: '双杠臂屈伸 (胸肌强化)', equipment: '双杠', level: '高级', tips: '身体前倾30度，下落时肘向外张开，下落至大臂平行于地面即可推起。' },
+  { id: 'ex_c4', category: '胸部', name: '龙门架绳索高位夹胸', equipment: '绳索滑轮机', level: '初级', tips: '双臂微屈，肘窝相对，向内下方环抱合拢，顶峰收缩停顿1秒。' },
+  { id: 'ex_c5', category: '胸部', name: '器械坐姿推胸', equipment: '坐姿推胸机', level: '初学者', tips: '安全固定轨迹，适合新手建立胸部发力神经募集与力量基础。' },
+
+  // 背部
+  { id: 'ex_b1', category: '背部', name: '标准高位下拉', equipment: '下拉器械', level: '初中级', tips: '宽握微前倾，手腕放松靠肘部向后下方沉拉至锁骨位置，避免后仰代偿。' },
+  { id: 'ex_b2', category: '背部', name: '俯身杠铃划船 (潘德雷/常规)', equipment: '杠铃', level: '中高级', tips: '屈髋俯身45度，腰背挺直，将杠铃贴着大腿拉向肚脐下方，挤压背阔肌。' },
+  { id: 'ex_b3', category: '背部', name: '单臂哑铃划船', equipment: '哑铃/平凳', level: '初中级', tips: '单膝与单手支撑，肘关节贴身向后上方提起，感受单侧背阔肌充分拉伸与收紧。' },
+  { id: 'ex_b4', category: '背部', name: '坐姿绳索划船', equipment: '绳索机/V字把手', level: '初级', tips: '挺胸沉肩，双膝微屈，拉动把手贴近腹部，重点强化菱形肌与斜方肌中下束。' },
+  { id: 'ex_b5', category: '背部', name: '正手自重引体向上', equipment: '引体单杠', level: '高级', tips: '黄金复合动作，核心收紧避免摆荡，利用背部力量拉动身体下巴过杠。' },
+
+  // 腿臀部
+  { id: 'ex_l1', category: '腿臀', name: '杠铃深蹲 (高杆/低杆)', equipment: '深蹲架/杠铃', level: '中高级', tips: '双脚微外八略宽于肩，屈髋屈膝同步，膝盖追踪脚尖方向，背部挺直核心瓦式加压。' },
+  { id: 'ex_l2', category: '腿臀', name: '罗马尼亚硬拉 (RDL)', equipment: '杠铃/哑铃', level: '初中级', tips: '微屈膝锁死膝关节角度，主导屈髋向后推臀，充分拉伸腘绳肌与激活臀大肌。' },
+  { id: 'ex_l3', category: '腿臀', name: '保加利亚分腿蹲', equipment: '平凳/哑铃', level: '中高级', tips: '单腿后搭凳，重心放前脚脚跟，下蹲至前大腿平行地面，单侧雕刻臀腿王牌。' },
+  { id: 'ex_l4', category: '腿臀', name: '杠铃臀桥 (Hip Thrust)', equipment: '平凳/杠铃/垫肩', level: '初中级', tips: '肩胛下缘贴凳，下巴微收，用臀部向上顶起杠铃至躯干大腿一条直线，顶峰夹紧。' },
+  { id: 'ex_l5', category: '腿臀', name: '器械倒蹬 (45度腿举)', equipment: '倒蹬机', level: '初中级', tips: '双脚踩踏板中部，下落至膝角90度，推起时膝盖切勿超伸锁死！' },
+  { id: 'ex_l6', category: '腿臀', name: '坐姿器械腿屈伸', equipment: '腿屈伸机', level: '初学者', tips: '孤立股四头肌，小腿前侧受力，顶峰收缩暂停1秒，缓慢离心放回。' },
+
+  // 肩部
+  { id: 'ex_s1', category: '肩部', name: '站姿/坐姿哑铃推举', equipment: '哑铃', level: '初中级', tips: '大臂平行地面呈90度起，向上推举至头顶微聚拢，避免耸肩借力。' },
+  { id: 'ex_s2', category: '肩部', name: '哑铃侧平举', equipment: '轻重量哑铃', level: '初学者', tips: '肘微屈固定角度，向两侧抬起至大臂平行地面，手腕不可高于肘部，刻画中束。' },
+  { id: 'ex_s3', category: '肩部', name: '绳索面拉 (Face Pull)', equipment: '绳索机/三头绳', level: '初级', tips: '滑轮调至面部高度，向外向后拉开绳索至耳侧，强化三角肌后束与外旋肌群。' },
+  { id: 'ex_s4', category: '肩部', name: '俯身哑铃飞鸟', equipment: '轻量哑铃', level: '中级', tips: '屈髋俯身，双臂像翅膀向两侧展开，肘尖朝天花板，孤立三角肌后束。' },
+  { id: 'ex_s5', category: '肩部', name: '杠铃站姿推举 (OHP)', equipment: '杠铃', level: '高级', tips: '全身力量与肩部前束核心复合动作，臀腹夹紧，垂直轨迹推至头顶锁死。' },
+
+  // 手臂
+  { id: 'ex_a1', category: '手臂', name: '站姿杠铃弯举 (EZ曲杆)', equipment: '曲杆杠铃', level: '初中级', tips: '上臂夹紧躯干，肘关节固定，依靠肱二头肌收缩带动前臂弯举，严禁借腰甩动。' },
+  { id: 'ex_a2', category: '手臂', name: '绳索下压 (下推)', equipment: '龙门架/三头绳', level: '初级', tips: '大臂贴紧肋骨，小臂向下伸展锁死手臂，底端绳索向两侧微拉开，孤立三头肌。' },
+  { id: 'ex_a3', category: '手臂', name: '哑铃交替锤式弯举', equipment: '哑铃', level: '初学者', tips: '掌心相对，垂直向上弯举，兼顾肱肌与肱桡肌，打造厚实手臂外侧。' },
+  { id: 'ex_a4', category: '手臂', name: '仰卧曲杆臂屈伸 (碎颅者)', equipment: '平凳/EZ杆', level: '中级', tips: '仰卧，大臂保持垂直稍向后仰，小臂下落至额头上方，充分拉长肱三头肌长头。' },
+
+  // 核心与康复拉伸
+  { id: 'ex_k1', category: '核心康复', name: '死虫子 (Dead Bug)', equipment: '瑜伽垫/自重', level: '初级', tips: '腰椎贴紧地面骨盆后倾，对侧手脚缓慢下放，激活深层腹横肌，保护腰椎极品动作。' },
+  { id: 'ex_k2', category: '核心康复', name: '鸟狗式 (Bird Dog)', equipment: '瑜伽垫', level: '初学者', tips: '四足跪姿，对侧手脚伸展与身体成一条直线，强化后侧交叉筋膜链与骨盆稳定。' },
+  { id: 'ex_k3', category: '核心康复', name: '平板支撑变式 (前臂/侧撑)', equipment: '瑜伽垫', level: '初中级', tips: '脚跟、臀部、后脑勺三点一线，腹肌深层紧绷，禁止塌腰反弓与耸肩。' },
+  { id: 'ex_k4', category: '核心康复', name: '悬垂举腿 (收腹提膝)', equipment: '引体架', level: '中高级', tips: '双手悬垂，骨盆卷起后旋带动双腿向上提，重点雕刻下腹部线条。' },
+  { id: 'ex_k5', category: '核心康复', name: '泡沫轴放松与胸椎伸展', equipment: '泡沫轴/花生球', level: '全阶段', tips: '仰卧将泡沫轴放胸椎中段，深呼吸向后伸展，释放久坐低头的胸椎僵硬。' }
+];
+
+/**
+ * Storage 核心控制类
+ */
+class IronCoachStorage {
+  constructor() {
+    this.db = null;
+    this.isReady = false;
+  }
+
+  async init() {
+    return new Promise((resolve) => {
+      if (!window.indexedDB) {
+        console.warn('当前浏览器不支持 IndexedDB，自动降级为 LocalStorage');
+        this._initFallback();
+        this.isReady = true;
+        resolve(true);
+        return;
+      }
+
+      const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+      request.onupgradeneeded = (event) => {
+        const db = event.target.result;
+        const stores = [
+          'trainees',
+          'cards',
+          'appointments',
+          'body_metrics',
+          'training_logs',
+          'financial_records',
+          'exercise_library',
+          'app_settings'
+        ];
+
+        stores.forEach(storeName => {
+          if (!db.objectStoreNames.contains(storeName)) {
+            db.createObjectStore(storeName, { keyPath: 'id' });
+          }
+        });
+      };
+
+      request.onsuccess = async (event) => {
+        this.db = event.target.result;
+        this.isReady = true;
+        // 检查是否有数据，若没有则初始化 Demo 数据
+        await this._checkAndLoadInitialData();
+        resolve(true);
+      };
+
+      request.onerror = (err) => {
+        console.error('IndexedDB 打开失败，降级为 LocalStorage:', err);
+        this._initFallback();
+        this.isReady = true;
+        resolve(true);
+      };
+    });
+  }
+
+  _initFallback() {
+    if (!localStorage.getItem(STORAGE_PREFIX + 'initialized')) {
+      this._saveFallbackData('trainees', DEMO_TRAINEES);
+      this._saveFallbackData('cards', DEMO_CARDS);
+      this._saveFallbackData('appointments', DEMO_APPOINTMENTS);
+      this._saveFallbackData('body_metrics', DEMO_BODY_METRICS);
+      this._saveFallbackData('training_logs', DEMO_TRAINING_LOGS);
+      this._saveFallbackData('financial_records', DEMO_FINANCIAL_RECORDS);
+      this._saveFallbackData('exercise_library', EXERCISE_LIBRARY);
+      localStorage.setItem(STORAGE_PREFIX + 'initialized', 'true');
+    }
+  }
+
+  _saveFallbackData(collection, data) {
+    localStorage.setItem(STORAGE_PREFIX + collection, JSON.stringify(data));
+  }
+
+  _getFallbackData(collection) {
+    const val = localStorage.getItem(STORAGE_PREFIX + collection);
+    return val ? JSON.parse(val) : [];
+  }
+
+  async _checkAndLoadInitialData() {
+    const trainees = await this.getAll('trainees');
+    if (!trainees || trainees.length === 0) {
+      await this.loadDemoData(true);
+    }
+  }
+
+  // 通用 IndexedDB 获取全部
+  async getAll(storeName) {
+    if (!this.db) {
+      return this._getFallbackData(storeName);
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        const tx = this.db.transaction([storeName], 'readonly');
+        const store = tx.objectStore(storeName);
+        const req = store.getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => resolve(this._getFallbackData(storeName));
+      } catch (e) {
+        resolve(this._getFallbackData(storeName));
+      }
+    });
+  }
+
+  // 通用保存/新增
+  async save(storeName, item) {
+    if (!item.id) {
+      item.id = `${storeName.slice(0, 3)}_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`;
+    }
+    if (!this.db) {
+      const list = this._getFallbackData(storeName);
+      const idx = list.findIndex(x => x.id === item.id);
+      if (idx >= 0) list[idx] = item;
+      else list.unshift(item);
+      this._saveFallbackData(storeName, list);
+      return item;
+    }
+    return new Promise((resolve, reject) => {
+      const tx = this.db.transaction([storeName], 'readwrite');
+      const store = tx.objectStore(storeName);
+      const req = store.put(item);
+      req.onsuccess = () => {
+        // 同步缓存
+        const list = this._getFallbackData(storeName);
+        const idx = list.findIndex(x => x.id === item.id);
+        if (idx >= 0) list[idx] = item;
+        else list.unshift(item);
+        this._saveFallbackData(storeName, list);
+        resolve(item);
+      };
+      req.onerror = (e) => reject(e);
+    });
+  }
+
+  // 通用删除
+  async delete(storeName, id) {
+    if (!this.db) {
+      const list = this._getFallbackData(storeName).filter(x => x.id !== id);
+      this._saveFallbackData(storeName, list);
+      return true;
+    }
+    return new Promise((resolve, reject) => {
+      const tx = this.db.transaction([storeName], 'readwrite');
+      const store = tx.objectStore(storeName);
+      const req = store.delete(id);
+      req.onsuccess = () => {
+        const list = this._getFallbackData(storeName).filter(x => x.id !== id);
+        this._saveFallbackData(storeName, list);
+        resolve(true);
+      };
+      req.onerror = (e) => reject(e);
+    });
+  }
+
+  // 批量保存
+  async batchPut(storeName, items) {
+    for (const item of items) {
+      await this.save(storeName, item);
+    }
+  }
+
+  // 载入 Demo 演示数据
+  async loadDemoData(force = false) {
+    if (!force) {
+      const confirmed = confirm('确定要重新载入演示数据吗？已保存的自定义记录将被合并或覆盖！');
+      if (!confirmed) return false;
+    }
+
+    await this.clearAllData();
+
+    await this.batchPut('trainees', DEMO_TRAINEES);
+    await this.batchPut('cards', DEMO_CARDS);
+    await this.batchPut('appointments', DEMO_APPOINTMENTS);
+    await this.batchPut('body_metrics', DEMO_BODY_METRICS);
+    await this.batchPut('training_logs', DEMO_TRAINING_LOGS);
+    await this.batchPut('financial_records', DEMO_FINANCIAL_RECORDS);
+    await this.batchPut('exercise_library', EXERCISE_LIBRARY);
+
+    localStorage.setItem(STORAGE_PREFIX + 'initialized', 'true');
+    return true;
+  }
+
+  // 清空全部数据
+  async clearAllData() {
+    const stores = [
+      'trainees',
+      'cards',
+      'appointments',
+      'body_metrics',
+      'training_logs',
+      'financial_records',
+      'exercise_library'
+    ];
+
+    for (const s of stores) {
+      if (this.db) {
+        await new Promise((res) => {
+          try {
+            const tx = this.db.transaction([s], 'readwrite');
+            tx.objectStore(s).clear().onsuccess = () => res(true);
+          } catch(e) { res(true); }
+        });
+      }
+      localStorage.removeItem(STORAGE_PREFIX + s);
+    }
+  }
+
+  // 导出全站 JSON 备份
+  async exportBackupJSON() {
+    const data = {
+      version: '1.0.0',
+      exportedAt: new Date().toISOString(),
+      generator: 'IronCoach Pro Workbench',
+      trainees: await this.getAll('trainees'),
+      cards: await this.getAll('cards'),
+      appointments: await this.getAll('appointments'),
+      body_metrics: await this.getAll('body_metrics'),
+      training_logs: await this.getAll('training_logs'),
+      financial_records: await this.getAll('financial_records'),
+      exercise_library: await this.getAll('exercise_library')
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `IronCoach_Backup_${getTodayString(0)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    return true;
+  }
+
+  // 导入 JSON 备份
+  async importBackupJSON(jsonString) {
+    try {
+      const data = JSON.parse(jsonString);
+      if (!data.trainees || !data.appointments) {
+        throw new Error('无效的 IronCoach 备份文件格式');
+      }
+
+      await this.clearAllData();
+
+      if (data.trainees) await this.batchPut('trainees', data.trainees);
+      if (data.cards) await this.batchPut('cards', data.cards);
+      if (data.appointments) await this.batchPut('appointments', data.appointments);
+      if (data.body_metrics) await this.batchPut('body_metrics', data.body_metrics);
+      if (data.training_logs) await this.batchPut('training_logs', data.training_logs);
+      if (data.financial_records) await this.batchPut('financial_records', data.financial_records);
+      if (data.exercise_library) await this.batchPut('exercise_library', data.exercise_library);
+
+      return { success: true };
+    } catch (e) {
+      console.error('备份恢复失败:', e);
+      return { success: false, error: e.message };
+    }
+  }
+}
+
+// 挂载全局单例
+window.storage = new IronCoachStorage();
+
+</script>
+  <script>
+/**
+ * 铁律智练 · 私人健身教练数字化运营工作台 (IronCoach Pro)
+ * 核心交互控制层、业务状态机与全端响应驱动
+ */
+
+const App = {
+  // 当前运行状态
+  state: {
+    currentView: 'dashboard',
+    selectedScheduleDate: '',
+    selectedCategory: 'all',
+    selectedGoal: 'all',
+    currentTraineeDrawerId: null,
+    searchKeyword: '',
+
+    // 内存数据缓存
+    trainees: [],
+    cards: [],
+    appointments: [],
+    bodyMetrics: [],
+    trainingLogs: [],
+    financialRecords: [],
+    exerciseLibrary: []
+  },
+
+  // 初始化入口
+  async init() {
+    this.state.selectedScheduleDate = this.getTodayString(0);
+    this.updateHeaderDateDisplay();
+
+    // 初始化持久化存储
+    await window.storage.init();
+    await this.reloadData();
+
+    // 绑定事件
+    this.bindEvents();
+
+    // 渲染初始页面
+    this.switchView('dashboard');
+  },
+
+  // 格式化当前日期为中文
+  updateHeaderDateDisplay() {
+    const now = new Date();
+    const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const text = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ${weekDays[now.getDay()]}`;
+    const el = document.getElementById('current-date-text');
+    if (el) el.textContent = text;
+  },
+
+  // 日期辅助
+  getTodayString(offset = 0) {
+    const d = new Date();
+    d.setDate(d.getDate() + offset);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  },
+
+  // 从本地存储重载全部实体
+  async reloadData() {
+    this.state.trainees = await window.storage.getAll('trainees');
+    this.state.cards = await window.storage.getAll('cards');
+    this.state.appointments = await window.storage.getAll('appointments');
+    this.state.bodyMetrics = await window.storage.getAll('body_metrics');
+    this.state.trainingLogs = await window.storage.getAll('training_logs');
+    this.state.financialRecords = await window.storage.getAll('financial_records');
+    this.state.exerciseLibrary = await window.storage.getAll('exercise_library');
+
+    this.updateScheduleBadge();
+  },
+
+  // 更新排课未完成 Badge
+  updateScheduleBadge() {
+    const today = this.getTodayString(0);
+    const todayPending = this.state.appointments.filter(a => a.date === today && a.status !== 'completed').length;
+    const badge = document.getElementById('badge-today-pending');
+    if (badge) {
+      badge.textContent = todayPending;
+      badge.style.display = todayPending > 0 ? 'inline-block' : 'none';
+    }
+  },
+
+  // 绑定界面全局事件
+  bindEvents() {
+    // 侧边栏与底部菜单切换
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const view = item.getAttribute('data-view');
+        this.switchView(view);
+      });
+    });
+
+    // 顶部快捷动作按钮
+    document.getElementById('btn-quick-appointment').addEventListener('click', () => {
+      this.openAppointmentModal();
+    });
+
+    document.getElementById('btn-quick-add-trainee').addEventListener('click', () => {
+      this.openTraineeModal();
+    });
+
+    document.getElementById('btn-export-backup').addEventListener('click', async () => {
+      await window.storage.exportBackupJSON();
+      this.showToast('success', '全站数据备份已成功导出为本地 JSON 文件！');
+    });
+
+    // 导入备份
+    const importInput = document.getElementById('file-import-backup');
+    importInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        const res = await window.storage.importBackupJSON(event.target.result);
+        if (res.success) {
+          await this.reloadData();
+          this.switchView(this.state.currentView);
+          this.showToast('success', '数据备份已成功导入并还原！');
+        } else {
+          this.showToast('error', '导入失败：' + res.error);
+        }
+      };
+      reader.readAsText(file);
+      importInput.value = '';
+    });
+
+    // 重置演示数据
+    document.getElementById('btn-reset-demo').addEventListener('click', async () => {
+      const ok = await window.storage.loadDemoData(false);
+      if (ok) {
+        await this.reloadData();
+        this.switchView(this.state.currentView);
+        this.showToast('success', '已重新载入高保真私教示例数据！');
+      }
+    });
+
+    // 排课视图按钮
+    document.getElementById('btn-schedule-add-btn').addEventListener('click', () => {
+      this.openAppointmentModal(null, this.state.selectedScheduleDate);
+    });
+
+    document.getElementById('btn-schedule-prev-day').addEventListener('click', () => {
+      this.changeScheduleDate(-1);
+    });
+
+    document.getElementById('btn-schedule-next-day').addEventListener('click', () => {
+      this.changeScheduleDate(1);
+    });
+
+    document.getElementById('btn-schedule-today').addEventListener('click', () => {
+      this.state.selectedScheduleDate = this.getTodayString(0);
+      this.renderSchedule();
+    });
+
+    // 排课过滤器
+    document.querySelectorAll('#schedule-status-filter .pill-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('#schedule-status-filter .pill-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        this.renderSchedule();
+      });
+    });
+
+    // 学员视图事件
+    document.getElementById('btn-add-trainee-main').addEventListener('click', () => {
+      this.openTraineeModal();
+    });
+
+    const searchInput = document.getElementById('input-search-trainee');
+    searchInput.addEventListener('input', (e) => {
+      this.state.searchKeyword = e.target.value.trim().toLowerCase();
+      this.renderTrainees();
+    });
+
+    document.querySelectorAll('#trainee-goal-filter .pill-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('#trainee-goal-filter .pill-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        this.state.selectedGoal = tab.getAttribute('data-goal');
+        this.renderTrainees();
+      });
+    });
+
+    // 动作库分类选择
+    document.querySelectorAll('#exercise-category-menu .category-nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('#exercise-category-menu .category-nav-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        this.state.selectedCategory = item.getAttribute('data-category');
+        this.renderPlans();
+      });
+    });
+
+    // 财务视图充值与导出
+    document.getElementById('btn-open-purchase-modal').addEventListener('click', () => {
+      this.openPurchaseModal();
+    });
+
+    document.getElementById('btn-export-finance-csv').addEventListener('click', () => {
+      this.exportFinanceCSV();
+    });
+
+    // 购课金额联动计算
+    const sessionInput = document.getElementById('purchase-input-sessions');
+    const priceInput = document.getElementById('purchase-input-price');
+    const totalInput = document.getElementById('purchase-input-total');
+    const calcTotal = () => {
+      const s = parseInt(sessionInput.value) || 0;
+      const p = parseFloat(priceInput.value) || 0;
+      totalInput.value = (s * p).toFixed(2);
+    };
+    sessionInput.addEventListener('input', calcTotal);
+    priceInput.addEventListener('input', calcTotal);
+
+    // AI 助手生成与复制
+    document.getElementById('btn-run-ai-generate').addEventListener('click', () => {
+      this.runAIGenerate();
+    });
+
+    document.getElementById('btn-copy-ai-result').addEventListener('click', () => {
+      const text = document.getElementById('ai-output-content').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        this.showToast('success', '方案已复制到剪贴板，可直接发送给学员！');
+      });
+    });
+
+    // 绑定表单提交
+    this.bindForms();
+  },
+
+  // 绑定所有弹窗表单提交
+  bindForms() {
+    // 1. 排课预约表单
+    document.getElementById('form-appointment').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('apt-input-id').value;
+      const traineeId = document.getElementById('apt-input-trainee').value;
+      const cardId = document.getElementById('apt-input-card').value;
+      const date = document.getElementById('apt-input-date').value;
+      const startTime = document.getElementById('apt-input-start').value;
+      const endTime = document.getElementById('apt-input-end').value;
+      const focus = document.getElementById('apt-input-focus').value;
+      const notes = document.getElementById('apt-input-notes').value;
+
+      // 防冲突排课校验
+      const conflict = this.state.appointments.find(a => 
+        a.id !== id &&
+        a.date === date &&
+        a.status !== 'cancelled' &&
+        ((startTime >= a.startTime && startTime < a.endTime) ||
+         (endTime > a.startTime && endTime <= a.endTime) ||
+         (startTime <= a.startTime && endTime >= a.endTime))
+      );
+
+      if (conflict) {
+        const trainee = this.state.trainees.find(t => t.id === conflict.traineeId);
+        const name = trainee ? trainee.name : '其他学员';
+        alert(`⚠️ 排课冲突！该时间段 (${conflict.startTime}-${conflict.endTime}) 已为【${name}】安排了课程，请调整时间！`);
+        return;
+      }
+
+      const item = {
+        id: id || undefined,
+        traineeId,
+        cardId,
+        date,
+        startTime,
+        endTime,
+        focus,
+        notes,
+        status: id ? (this.state.appointments.find(a => a.id === id)?.status || 'pending') : 'pending'
+      };
+
+      await window.storage.save('appointments', item);
+      await this.reloadData();
+      this.closeModal('modal-appointment');
+      this.showToast('success', '排课预约已成功保存！');
+      this.refreshCurrentView();
+    });
+
+    // 2. 结课打卡表单 (核心自动扣课)
+    document.getElementById('form-complete-session').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const aptId = document.getElementById('complete-apt-id').value;
+      const apt = this.state.appointments.find(a => a.id === aptId);
+      if (!apt) return;
+
+      const trainee = this.state.trainees.find(t => t.id === apt.traineeId);
+      const card = this.state.cards.find(c => c.id === apt.cardId);
+
+      if (!card || card.remainingSessions <= 0) {
+        alert('⚠️ 该学员对应卡包课时已耗尽，请先办理续课充值！');
+        return;
+      }
+
+      // 扣减课时
+      card.remainingSessions -= 1;
+      if (card.remainingSessions <= 3) {
+        card.status = 'warning';
+      }
+      await window.storage.save('cards', card);
+
+      // 变更预约状态
+      apt.status = 'completed';
+      apt.actualFinishedAt = `${this.getTodayString(0)} ${new Date().toTimeString().slice(0, 5)}`;
+      await window.storage.save('appointments', apt);
+
+      // 收集本次实操动作
+      const exerciseRows = document.querySelectorAll('.comp-ex-row');
+      const items = [];
+      exerciseRows.forEach(row => {
+        const name = row.querySelector('.ex-name')?.value;
+        const sets = row.querySelector('.ex-sets')?.value;
+        const reps = row.querySelector('.ex-reps')?.value;
+        const weight = row.querySelector('.ex-weight')?.value;
+        if (name) {
+          items.push({ exercise: name, sets: parseInt(sets) || 3, reps: reps || '10-12次', weight: weight || '-' });
+        }
+      });
+
+      const summary = document.getElementById('complete-coach-summary').value;
+
+      // 保存训练日志
+      const log = {
+        appointmentId: apt.id,
+        traineeId: apt.traineeId,
+        date: apt.date,
+        items,
+        coachSummary: summary
+      };
+      await window.storage.save('training_logs', log);
+
+      // 新增一条课消财务记录
+      const fin = {
+        type: 'consume',
+        traineeId: apt.traineeId,
+        cardId: card.id,
+        amount: card.pricePerSession || 400.00,
+        sessions: 1,
+        method: '课时划扣',
+        timestamp: apt.actualFinishedAt,
+        notes: `【已消课】${trainee ? trainee.name : '学员'} · ${apt.focus}`
+      };
+      await window.storage.save('financial_records', fin);
+
+      await this.reloadData();
+      this.closeModal('modal-complete-session');
+      this.showToast('success', `🎉 结课成功！已自动划扣 1 节课时，剩余 ${card.remainingSessions} 节，生成产值 ¥${card.pricePerSession}`);
+      this.refreshCurrentView();
+    });
+
+    // 3. 学员档案录入表单
+    document.getElementById('form-trainee').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('trainee-input-id').value;
+      const name = document.getElementById('trainee-input-name').value;
+      const gender = document.getElementById('trainee-input-gender').value;
+      const age = parseInt(document.getElementById('trainee-input-age').value) || 25;
+      const phone = document.getElementById('trainee-input-phone').value;
+      const goal = document.getElementById('trainee-input-goal').value;
+      const level = document.getElementById('trainee-input-level').value;
+      const targetDetail = document.getElementById('trainee-input-target-detail').value;
+      const injuries = document.getElementById('trainee-input-injuries').value;
+
+      const isNew = !id;
+      const trainee = {
+        id: id || undefined,
+        name,
+        gender,
+        age,
+        phone,
+        goal,
+        level,
+        targetDetail,
+        injuries,
+        avatar: gender === '女' 
+          ? 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80'
+          : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+        joinDate: id ? (this.state.trainees.find(t => t.id === id)?.joinDate || this.getTodayString(0)) : this.getTodayString(0),
+        status: 'active'
+      };
+
+      const savedTrainee = await window.storage.save('trainees', trainee);
+
+      // 若为新开学员且填写了课包
+      if (isNew) {
+        const sCount = parseInt(document.getElementById('new-card-sessions').value) || 0;
+        const sPrice = parseFloat(document.getElementById('new-card-price').value) || 400;
+        if (sCount > 0) {
+          const card = {
+            traineeId: savedTrainee.id,
+            cardName: '精英一对一私教定制课',
+            category: '常规私教',
+            totalSessions: sCount,
+            remainingSessions: sCount,
+            pricePerSession: sPrice,
+            totalAmount: sCount * sPrice,
+            expireDate: '2027-12-31',
+            status: sCount <= 3 ? 'warning' : 'normal',
+            createdAt: this.getTodayString(0)
+          };
+          const savedCard = await window.storage.save('cards', card);
+
+          // 记录购课流水
+          await window.storage.save('financial_records', {
+            type: 'purchase',
+            traineeId: savedTrainee.id,
+            cardId: savedCard.id,
+            amount: card.totalAmount,
+            sessions: sCount,
+            method: '微信支付',
+            timestamp: `${this.getTodayString(0)} ${new Date().toTimeString().slice(0, 5)}`,
+            notes: `新学员开课入账 (${sCount}节)`
+          });
+        }
+      }
+
+      await this.reloadData();
+      this.closeModal('modal-trainee');
+      this.showToast('success', `学员【${name}】档案已保存！`);
+      this.refreshCurrentView();
+    });
+
+    // 4. 体测录入表单
+    document.getElementById('form-metric').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const traineeId = document.getElementById('metric-input-trainee-id').value;
+      const date = document.getElementById('metric-input-date').value;
+      const weight = parseFloat(document.getElementById('metric-input-weight').value) || 0;
+      const bodyFat = parseFloat(document.getElementById('metric-input-fat').value) || 0;
+      const muscleMass = parseFloat(document.getElementById('metric-input-muscle').value) || 0;
+      const chest = parseFloat(document.getElementById('metric-input-chest').value) || 0;
+      const waist = parseFloat(document.getElementById('metric-input-waist').value) || 0;
+      const hips = parseFloat(document.getElementById('metric-input-hips').value) || 0;
+      const arms = parseFloat(document.getElementById('metric-input-arms').value) || 0;
+      const thighs = parseFloat(document.getElementById('metric-input-thighs').value) || 0;
+      const notes = document.getElementById('metric-input-notes').value;
+
+      const metric = {
+        traineeId,
+        date,
+        weight,
+        bodyFat,
+        muscleMass,
+        chest,
+        waist,
+        hips,
+        arms,
+        thighs,
+        notes
+      };
+
+      await window.storage.save('body_metrics', metric);
+      await this.reloadData();
+      this.closeModal('modal-metric');
+      this.showToast('success', '阶段体测记录已成功保存！');
+      if (this.state.currentTraineeDrawerId === traineeId) {
+        this.openTraineeDrawer(traineeId);
+      }
+      this.refreshCurrentView();
+    });
+
+    // 5. 购课充值表单
+    document.getElementById('form-purchase-card').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const traineeId = document.getElementById('purchase-input-trainee').value;
+      const cardName = document.getElementById('purchase-input-name').value;
+      const sessions = parseInt(document.getElementById('purchase-input-sessions').value) || 10;
+      const price = parseFloat(document.getElementById('purchase-input-price').value) || 400;
+      const totalAmount = parseFloat(document.getElementById('purchase-input-total').value) || (sessions * price);
+      const method = document.getElementById('purchase-input-method').value;
+      const expireDate = document.getElementById('purchase-input-expire').value;
+
+      const card = {
+        traineeId,
+        cardName,
+        category: '常规私教',
+        totalSessions: sessions,
+        remainingSessions: sessions,
+        pricePerSession: price,
+        totalAmount,
+        expireDate,
+        status: sessions <= 3 ? 'warning' : 'normal',
+        createdAt: this.getTodayString(0)
+      };
+
+      const savedCard = await window.storage.save('cards', card);
+
+      // 增加充值流水
+      const trainee = this.state.trainees.find(t => t.id === traineeId);
+      await window.storage.save('financial_records', {
+        type: 'purchase',
+        traineeId,
+        cardId: savedCard.id,
+        amount: totalAmount,
+        sessions,
+        method,
+        timestamp: `${this.getTodayString(0)} ${new Date().toTimeString().slice(0, 5)}`,
+        notes: `私教课包充值入账 (${sessions}节)`
+      });
+
+      await this.reloadData();
+      this.closeModal('modal-purchase-card');
+      this.showToast('success', `为【${trainee ? trainee.name : '学员'}】充值 ${sessions} 节私教课成功，入账 ¥${totalAmount.toFixed(2)}！`);
+      this.refreshCurrentView();
+    });
+
+    // 动态添加动作行按钮
+    document.getElementById('btn-add-exercise-row').addEventListener('click', () => {
+      this.addExerciseRow();
+    });
+  },
+
+  // 添加结课动作行
+  addExerciseRow(name = '', sets = 4, reps = '10-12次', weight = '') {
+    const container = document.getElementById('complete-exercise-rows');
+    const div = document.createElement('div');
+    div.className = 'comp-ex-row form-row-3';
+    div.style.alignItems = 'center';
+    div.innerHTML = `
+      <input type="text" class="form-control ex-name" placeholder="动作名称 (如: 上斜哑铃卧推)" value="${name}">
+      <div style="display: flex; gap: 6px;">
+        <input type="number" class="form-control ex-sets" placeholder="组数" value="${sets}" style="width: 70px;">
+        <input type="text" class="form-control ex-reps" placeholder="次数" value="${reps}">
+      </div>
+      <div style="display: flex; gap: 6px; align-items: center;">
+        <input type="text" class="form-control ex-weight" placeholder="重量 (如: 24kg)" value="${weight}">
+        <button type="button" class="btn btn-outline btn-sm" onclick="this.parentElement.parentElement.remove()" style="color:#F87171;">✕</button>
+      </div>
+    `;
+    container.appendChild(div);
+  },
+
+  // 视图切换
+  switchView(viewName) {
+    this.state.currentView = viewName;
+
+    // 更新菜单高亮
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.classList.toggle('active', item.getAttribute('data-view') === viewName);
+    });
+
+    // 更新视图展示
+    document.querySelectorAll('.view-section').forEach(sec => {
+      sec.classList.remove('active');
+    });
+
+    const activeSec = document.getElementById(`view-${viewName}`);
+    if (activeSec) {
+      activeSec.classList.add('active');
+    }
+
+    // 更新顶部标题
+    const titles = {
+      dashboard: '智练驾驶舱',
+      schedule: '排课日程管理',
+      trainees: '学员CRM与体测中心',
+      plans: '动作库与定制计划',
+      finance: '课时资产与财务对账',
+      'ai-coach': 'AI 智练私教大脑'
+    };
+    document.getElementById('view-title').textContent = titles[viewName] || '铁律智练';
+
+    // 触发对应视图渲染
+    this.refreshCurrentView();
+  },
+
+  // 刷新当前视图数据
+  refreshCurrentView() {
+    switch (this.state.currentView) {
+      case 'dashboard':
+        this.renderDashboard();
+        break;
+      case 'schedule':
+        this.renderSchedule();
+        break;
+      case 'trainees':
+        this.renderTrainees();
+        break;
+      case 'plans':
+        this.renderPlans();
+        break;
+      case 'finance':
+        this.renderFinance();
+        break;
+      case 'ai-coach':
+        this.renderAICoachView();
+        break;
+    }
+  },
+
+  // =========================================================================
+  // 1. 智练驾驶舱渲染 (Dashboard)
+  // =========================================================================
+  renderDashboard() {
+    const today = this.getTodayString(0);
+    const todayApts = this.state.appointments.filter(a => a.date === today);
+    const completedApts = todayApts.filter(a => a.status === 'completed');
+
+    // 今日排课数 / 已消课
+    document.getElementById('stat-today-sessions').textContent = `${todayApts.length} / ${completedApts.length}`;
+    const pct = todayApts.length > 0 ? Math.round((completedApts.length / todayApts.length) * 100) : 0;
+    document.getElementById('stat-today-progress-text').textContent = `已完成 ${pct}% 今日课程安排`;
+
+    // 今日课消产值
+    let todayIncome = 0;
+    completedApts.forEach(apt => {
+      const card = this.state.cards.find(c => c.id === apt.cardId);
+      todayIncome += card ? card.pricePerSession : 400;
+    });
+    document.getElementById('stat-today-income').textContent = `¥${todayIncome.toLocaleString()}`;
+
+    // 本月累计课消
+    const currentMonth = today.slice(0, 7);
+    const monthConsumes = this.state.financialRecords.filter(f => f.type === 'consume' && f.timestamp && f.timestamp.startsWith(currentMonth));
+    const monthIncome = monthConsumes.reduce((acc, cur) => acc + (cur.amount || 0), 0);
+    document.getElementById('stat-month-income').textContent = `¥${monthIncome.toLocaleString()}`;
+
+    // 续课预警学员数 (剩余课时 <= 3 节)
+    const warningTrainees = this.getRenewalWarningTrainees();
+    document.getElementById('stat-warning-trainees').textContent = warningTrainees.length;
+    document.getElementById('stat-warning-subtext').textContent = warningTrainees.length > 0 
+      ? `其中 ${warningTrainees.filter(x => x.remaining <= 1).length} 人仅剩最后 1 节` 
+      : '全体在训学员课时充裕';
+
+    // 渲染今日全天课程流 (Timeline Pipeline)
+    const timelineContainer = document.getElementById('dashboard-timeline-list');
+    document.getElementById('dashboard-timeline-count').textContent = `今日共 ${todayApts.length} 节排课`;
+
+    if (todayApts.length === 0) {
+      timelineContainer.innerHTML = `
+        <div class="empty-state-box">
+          <div class="empty-icon">☕️</div>
+          <div class="empty-text">今日暂无排课安排</div>
+          <div class="empty-subtext">享受教练专属休息日，或点击下方按钮快速为学员添加预约</div>
+          <button class="btn btn-primary btn-sm" onclick="App.openAppointmentModal(null, '${today}')">+ 预约今日课程</button>
+        </div>
+      `;
+    } else {
+      // 按开始时间排序
+      const sortedApts = [...todayApts].sort((a, b) => a.startTime.localeCompare(b.startTime));
+      timelineContainer.innerHTML = sortedApts.map(apt => {
+        const trainee = this.state.trainees.find(t => t.id === apt.traineeId) || { name: '未知学员', avatar: '', goal: '训练' };
+        const card = this.state.cards.find(c => c.id === apt.cardId);
+        const remaining = card ? card.remainingSessions : 0;
+
+        let statusClass = 'pending';
+        let statusText = '待开课';
+        if (apt.status === 'active') {
+          statusClass = 'active';
+          statusText = '训练中';
+        } else if (apt.status === 'completed') {
+          statusClass = 'completed';
+          statusText = '已结课';
+        }
+
+        return `
+          <div class="schedule-slot ${apt.status === 'active' ? 'active' : ''}">
+            <div class="slot-time">
+              <span class="slot-start num-font">${apt.startTime}</span>
+              <span class="slot-end num-font">${apt.endTime}</span>
+            </div>
+
+            <img class="slot-trainee-avatar" src="${trainee.avatar}" alt="${trainee.name}">
+
+            <div class="slot-info">
+              <div class="slot-trainee-name-row">
+                <span class="slot-trainee-name">${trainee.name}</span>
+                <span class="slot-goal-tag">${trainee.goal}</span>
+                <span class="status-pill ${statusClass}">${statusText}</span>
+              </div>
+              <div class="slot-focus-text">
+                <span>🎯</span> ${apt.focus} · <span style="color: var(--text-muted);">剩余课时: <strong style="color: ${remaining <= 3 ? '#F59E0B' : '#10B981'};">${remaining}</strong> 节</span>
+              </div>
+            </div>
+
+            <div class="slot-actions">
+              ${apt.status === 'pending' ? `
+                <button class="btn btn-primary btn-sm" onclick="App.startSession('${apt.id}')">▶ 开始上课</button>
+              ` : ''}
+
+              ${apt.status === 'active' ? `
+                <button class="btn btn-warning btn-sm" onclick="App.openCompleteSessionModal('${apt.id}')">🏋️ 结课打卡</button>
+              ` : ''}
+
+              ${apt.status === 'completed' ? `
+                <button class="btn btn-outline btn-sm" onclick="App.openReceiptModal('${apt.id}')">🧾 电子凭证</button>
+              ` : ''}
+
+              <button class="btn btn-outline btn-sm" onclick="App.openTraineeDrawer('${apt.traineeId}')">学员档案</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 渲染右侧预警看板
+    this.renderDashboardAlerts(warningTrainees);
+
+    // 渲染学员目标分布 SVG 图表
+    this.renderDashboardGoalsChart();
+  },
+
+  // 获取续课预警学员 (剩余 <= 3 节)
+  getRenewalWarningTrainees() {
+    const map = new Map();
+    this.state.cards.forEach(card => {
+      if (card.remainingSessions <= 3) {
+        const trainee = this.state.trainees.find(t => t.id === card.traineeId);
+        if (trainee && !map.has(trainee.id)) {
+          map.set(trainee.id, {
+            trainee,
+            card,
+            remaining: card.remainingSessions
+          });
+        }
+      }
+    });
+    return Array.from(map.values()).sort((a, b) => a.remaining - b.remaining);
+  },
+
+  // 渲染右侧预警看板
+  renderDashboardAlerts(warningTrainees) {
+    const container = document.getElementById('dashboard-alerts-list');
+    const alerts = [];
+
+    // 1. 续约预警
+    warningTrainees.forEach(item => {
+      alerts.push(`
+        <div class="alert-item ${item.remaining <= 1 ? 'danger' : 'warning'}">
+          <div class="alert-icon">${item.remaining <= 1 ? '🚨' : '⚠️'}</div>
+          <div class="alert-content">
+            <div class="alert-title">
+              <span>【${item.trainee.name}】课时仅剩 ${item.remaining} 节</span>
+              <span class="status-pill ${item.remaining <= 1 ? 'danger' : 'warning'}">${item.remaining <= 1 ? '极度紧迫' : '需续约'}</span>
+            </div>
+            <div class="alert-desc">${item.card.cardName}即将耗尽，当前训练成效显著，建议课后沟通续期规划。</div>
+            <button class="alert-action-btn" onclick="App.copyRenewalPitch('${item.trainee.name}', ${item.remaining})">
+              💬 一键复制私域续课跟进话术
+            </button>
+          </div>
+        </div>
+      `);
+    });
+
+    // 2. 超过7天未约课休眠预警
+    const dormantTrainees = this.getDormantTrainees();
+    dormantTrainees.forEach(item => {
+      alerts.push(`
+        <div class="alert-item" style="border-left: 3px solid #38BDF8;">
+          <div class="alert-icon">💤</div>
+          <div class="alert-content">
+            <div class="alert-title">
+              <span>【${item.trainee.name}】已 ${item.daysInactive} 天未上课</span>
+              <span class="status-pill" style="background: rgba(56,189,248,0.15); color: #38BDF8;">断练流失风险</span>
+            </div>
+            <div class="alert-desc">卡内尚余 ${item.remaining} 节课时，近期活跃度下降，需主动关心训练节奏。</div>
+            <button class="alert-action-btn" onclick="App.copyDormantPitch('${item.trainee.name}')">
+              💌 一键复制私聊关心督促话术
+            </button>
+          </div>
+        </div>
+      `);
+    });
+
+    if (alerts.length === 0) {
+      container.innerHTML = `
+        <div style="padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px;">
+          ✅ 当前所有学员课时充足，训练活跃无风险！
+        </div>
+      `;
+    } else {
+      container.innerHTML = alerts.join('');
+    }
+  },
+
+  // 获取超过 7 天未上课的在训学员
+  getDormantTrainees() {
+    const list = [];
+    const today = new Date();
+
+    this.state.trainees.forEach(trainee => {
+      // 检查其有效卡包
+      const traineeCards = this.state.cards.filter(c => c.traineeId === trainee.id && c.remainingSessions > 0);
+      if (traineeCards.length === 0) return;
+
+      // 查找最近一次已结课的预约
+      const completed = this.state.appointments
+        .filter(a => a.traineeId === trainee.id && a.status === 'completed')
+        .sort((a, b) => b.date.localeCompare(a.date));
+
+      let daysInactive = 8;
+      if (completed.length > 0) {
+        const lastDate = new Date(completed[0].date);
+        daysInactive = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+      }
+
+      if (daysInactive >= 7) {
+        list.push({
+          trainee,
+          daysInactive,
+          remaining: traineeCards.reduce((acc, c) => acc + c.remainingSessions, 0)
+        });
+      }
+    });
+
+    return list;
+  },
+
+  // 渲染学员目标分布 SVG 环形条形图
+  renderDashboardGoalsChart() {
+    const container = document.getElementById('dashboard-goals-chart');
+    const goalsCount = {};
+    this.state.trainees.forEach(t => {
+      const g = t.goal || '其他';
+      goalsCount[g] = (goalsCount[g] || 0) + 1;
+    });
+
+    const total = this.state.trainees.length || 1;
+    const colors = {
+      '减脂塑形': '#10B981',
+      '力量增肌': '#06B6D4',
+      '体态雕塑': '#F59E0B',
+      '产后康复': '#8B5CF6',
+      '体能与降脂': '#EC4899',
+      '其他': '#94A3B8'
+    };
+
+    const rows = Object.entries(goalsCount).map(([goal, count]) => {
+      const pct = Math.round((count / total) * 100);
+      const color = colors[goal] || '#10B981';
+      return `
+        <div style="margin-bottom: 10px;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+            <span style="color: var(--text-primary); font-weight: 600;">${goal}</span>
+            <span class="num-font" style="color: var(--text-muted);">${count} 人 (${pct}%)</span>
+          </div>
+          <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden;">
+            <div style="width: ${pct}%; height: 100%; background: ${color}; border-radius: 999px;"></div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = rows;
+  },
+
+  // =========================================================================
+  // 2. 排课日程渲染 (Schedule)
+  // =========================================================================
+  renderSchedule() {
+    const dateText = this.state.selectedScheduleDate;
+    document.getElementById('schedule-selected-date-text').textContent = dateText;
+
+    const activeFilter = document.querySelector('#schedule-status-filter .pill-tab.active')?.getAttribute('data-filter') || 'all';
+
+    let apts = this.state.appointments.filter(a => a.date === dateText);
+    if (activeFilter !== 'all') {
+      apts = apts.filter(a => a.status === activeFilter);
+    }
+
+    const container = document.getElementById('schedule-full-list');
+    if (apts.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state-box">
+          <div class="empty-icon">📅</div>
+          <div class="empty-text">${dateText} 暂无排课记录</div>
+          <div class="empty-subtext">当天时间段充裕，点击下方按钮即可安排学员上课</div>
+          <button class="btn btn-primary btn-sm" onclick="App.openAppointmentModal(null, '${dateText}')">+ 为此日期排课</button>
+        </div>
+      `;
+      return;
+    }
+
+    const sorted = [...apts].sort((a, b) => a.startTime.localeCompare(b.startTime));
+    container.innerHTML = sorted.map(apt => {
+      const trainee = this.state.trainees.find(t => t.id === apt.traineeId) || { name: '未知学员', avatar: '', goal: '训练' };
+      const card = this.state.cards.find(c => c.id === apt.cardId);
+
+      let statusClass = 'pending';
+      let statusText = '待开课';
+      if (apt.status === 'active') {
+        statusClass = 'active';
+        statusText = '训练中';
+      } else if (apt.status === 'completed') {
+        statusClass = 'completed';
+        statusText = '已结课';
+      }
+
+      return `
+        <div class="schedule-slot ${apt.status === 'active' ? 'active' : ''}">
+          <div class="slot-time">
+            <span class="slot-start num-font">${apt.startTime}</span>
+            <span class="slot-end num-font">${apt.endTime}</span>
+          </div>
+
+          <img class="slot-trainee-avatar" src="${trainee.avatar}" alt="${trainee.name}">
+
+          <div class="slot-info">
+            <div class="slot-trainee-name-row">
+              <span class="slot-trainee-name">${trainee.name}</span>
+              <span class="slot-goal-tag">${trainee.goal}</span>
+              <span class="status-pill ${statusClass}">${statusText}</span>
+            </div>
+            <div class="slot-focus-text">
+              <span>🎯</span> ${apt.focus} ${apt.notes ? ` · <span style="color:var(--text-muted);">${apt.notes}</span>` : ''}
+            </div>
+          </div>
+
+          <div class="slot-actions">
+            ${apt.status === 'pending' ? `
+              <button class="btn btn-primary btn-sm" onclick="App.startSession('${apt.id}')">▶ 开始上课</button>
+              <button class="btn btn-outline btn-sm" onclick="App.openAppointmentModal('${apt.id}')">编辑</button>
+              <button class="btn btn-outline btn-sm" style="color:#F87171;" onclick="App.deleteAppointment('${apt.id}')">取消</button>
+            ` : ''}
+
+            ${apt.status === 'active' ? `
+              <button class="btn btn-warning btn-sm" onclick="App.openCompleteSessionModal('${apt.id}')">🏋️ 结课打卡</button>
+            ` : ''}
+
+            ${apt.status === 'completed' ? `
+              <button class="btn btn-outline btn-sm" onclick="App.openReceiptModal('${apt.id}')">🧾 电子凭证</button>
+            ` : ''}
+
+            <button class="btn btn-outline btn-sm" onclick="App.openTraineeDrawer('${apt.traineeId}')">查看档案</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  },
+
+  changeScheduleDate(offset) {
+    const cur = new Date(this.state.selectedScheduleDate);
+    cur.setDate(cur.getDate() + offset);
+    const y = cur.getFullYear();
+    const m = String(cur.getMonth() + 1).padStart(2, '0');
+    const d = String(cur.getDate()).padStart(2, '0');
+    this.state.selectedScheduleDate = `${y}-${m}-${d}`;
+    this.renderSchedule();
+  },
+
+  // 开始上课
+  async startSession(aptId) {
+    const apt = this.state.appointments.find(a => a.id === aptId);
+    if (!apt) return;
+    apt.status = 'active';
+    await window.storage.save('appointments', apt);
+    await this.reloadData();
+    this.showToast('success', `课程已开始，当前正在授课状态！`);
+    this.refreshCurrentView();
+  },
+
+  // 取消/删除排课
+  async deleteAppointment(aptId) {
+    if (!confirm('确定要取消该节排课预约吗？')) return;
+    await window.storage.delete('appointments', aptId);
+    await this.reloadData();
+    this.showToast('info', '排课已取消');
+    this.refreshCurrentView();
+  },
+
+  // =========================================================================
+  // 3. 学员CRM与体测中心渲染 (Trainees)
+  // =========================================================================
+  renderTrainees() {
+    const container = document.getElementById('trainees-cards-grid');
+    const kw = this.state.searchKeyword;
+    const goalFilter = this.state.selectedGoal;
+
+    let list = this.state.trainees.filter(t => {
+      const matchKw = !kw || t.name.toLowerCase().includes(kw) || t.phone.includes(kw) || (t.goal && t.goal.toLowerCase().includes(kw));
+      if (!matchKw) return false;
+
+      if (goalFilter === 'all') return true;
+      if (goalFilter === 'warning') {
+        const card = this.state.cards.find(c => c.traineeId === t.id && c.remainingSessions <= 3 && c.remainingSessions > 0);
+        return !!card;
+      }
+      return t.goal === goalFilter;
+    });
+
+    if (list.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state-box" style="grid-column: 1 / -1;">
+          <div class="empty-icon">👥</div>
+          <div class="empty-text">未找到匹配的学员档案</div>
+          <div class="empty-subtext">您可以点击右上角「录入新学员」或清空搜索条件</div>
+          <button class="btn btn-primary btn-sm" onclick="App.openTraineeModal()">+ 录入新学员</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = list.map(trainee => {
+      // 查找卡包
+      const card = this.state.cards.find(c => c.traineeId === trainee.id) || {
+        cardName: '暂无有效卡包',
+        totalSessions: 0,
+        remainingSessions: 0
+      };
+
+      const totalS = card.totalSessions || 1;
+      const remS = card.remainingSessions || 0;
+      const pct = Math.min(100, Math.round((remS / totalS) * 100));
+
+      let fillClass = 'green';
+      if (remS <= 1) fillClass = 'red';
+      else if (remS <= 3) fillClass = 'yellow';
+
+      // 查找最新与最早体测对比
+      const metrics = this.state.bodyMetrics.filter(m => m.traineeId === trainee.id).sort((a, b) => a.date.localeCompare(b.date));
+      let metricsSummary = '尚未录入体测';
+      if (metrics.length > 0) {
+        const latest = metrics[metrics.length - 1];
+        if (metrics.length >= 2) {
+          const first = metrics[0];
+          const diffW = (latest.weight - first.weight).toFixed(1);
+          const diffWText = diffW <= 0 ? `减重 ${Math.abs(diffW)}kg` : `增重 +${diffW}kg`;
+          metricsSummary = `最新体重 ${latest.weight}kg (${diffWText}) · 体脂率 ${latest.bodyFat || '-'}%`;
+        } else {
+          metricsSummary = `初始体重 ${latest.weight}kg · 体脂率 ${latest.bodyFat || '-'}%`;
+        }
+      }
+
+      return `
+        <div class="trainee-card" onclick="App.openTraineeDrawer('${trainee.id}')">
+          <div class="trainee-card-top">
+            <img class="trainee-avatar" src="${trainee.avatar}" alt="${trainee.name}">
+            <div class="trainee-main-meta">
+              <div class="trainee-name-line">
+                <span class="trainee-name">${trainee.name}</span>
+                <span class="trainee-gender-age">${trainee.gender} · ${trainee.age}岁</span>
+              </div>
+              <span class="trainee-goal-badge">${trainee.goal}</span>
+            </div>
+            ${remS <= 3 ? `
+              <span class="status-pill ${remS <= 1 ? 'danger' : 'warning'}" style="font-size: 11px;">
+                ${remS <= 1 ? '仅剩1节' : '续课预警'}
+              </span>
+            ` : ''}
+          </div>
+
+          <div class="trainee-card-body">
+            <div class="body-row">
+              <span class="label">当前课包</span>
+              <span class="val">${card.cardName}</span>
+            </div>
+
+            <div class="sessions-bar-wrap">
+              <div class="sessions-meta">
+                <span style="color:var(--text-muted);">剩余课时</span>
+                <span class="num-font"><strong style="color: ${remS <= 3 ? '#F59E0B' : '#10B981'};">${remS}</strong> / ${totalS} 节</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill ${fillClass}" style="width: ${pct}%;"></div>
+              </div>
+            </div>
+
+            <div class="body-row" style="margin-top: 4px;">
+              <span class="label">身体指标</span>
+              <span class="val" style="color: var(--accent-cyan); font-size: 11px;">${metricsSummary}</span>
+            </div>
+
+            ${trainee.injuries ? `
+              <div style="font-size: 11px; color: #F87171; background: rgba(239,68,68,0.08); padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(239,68,68,0.2);">
+                ⚠️ 伤病注意: ${trainee.injuries}
+              </div>
+            ` : ''}
+          </div>
+
+          <div class="trainee-card-footer">
+            <span style="font-size: 11px; color: var(--text-muted);">加入时间: ${trainee.joinDate}</span>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); App.openAppointmentModal(null, null, '${trainee.id}')">约课</button>
+              <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); App.openTraineeDrawer('${trainee.id}')">体测全景</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  },
+
+  // =========================================================================
+  // 打开学员全景抽屉 (Drawer)
+  // =========================================================================
+  openTraineeDrawer(traineeId) {
+    const trainee = this.state.trainees.find(t => t.id === traineeId);
+    if (!trainee) return;
+    this.state.currentTraineeDrawerId = traineeId;
+
+    document.getElementById('drawer-trainee-title').textContent = `${trainee.name} · 全景档案与体测大屏`;
+    const container = document.getElementById('drawer-trainee-content');
+
+    const card = this.state.cards.find(c => c.traineeId === trainee.id) || {
+      cardName: '无有效课包',
+      totalSessions: 0,
+      remainingSessions: 0,
+      pricePerSession: 400
+    };
+
+    const metrics = this.state.bodyMetrics.filter(m => m.traineeId === trainee.id).sort((a, b) => b.date.localeCompare(a.date));
+    const logs = this.state.trainingLogs.filter(l => l.traineeId === trainee.id).sort((a, b) => b.date.localeCompare(a.date));
+
+    container.innerHTML = `
+      <!-- 基础卡包状态 -->
+      <div class="dash-panel" style="margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h4 style="font-size: 16px; font-weight: 700; color: #F8FAFC;">${card.cardName}</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">联系电话: ${trainee.phone} · 基础水平: ${trainee.level || '初学者'}</p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="App.openPurchaseModal('${trainee.id}')">+ 续课充值</button>
+        </div>
+
+        <div style="margin-top: 16px; display: flex; gap: 24px;">
+          <div>
+            <div style="font-size: 12px; color: var(--text-muted);">剩余课时</div>
+            <div class="num-font" style="font-size: 24px; font-weight: 800; color: ${card.remainingSessions <= 3 ? '#F59E0B' : '#10B981'};">
+              ${card.remainingSessions} <span style="font-size: 13px; font-weight: 500; color: var(--text-muted);">/ ${card.totalSessions} 节</span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 12px; color: var(--text-muted);">课单价</div>
+            <div class="num-font" style="font-size: 24px; font-weight: 800; color: var(--text-primary);">
+              ¥${card.pricePerSession}
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 12px; color: var(--text-muted);">有效期至</div>
+            <div style="font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-top: 6px;">
+              ${card.expireDate || '长期有效'}
+            </div>
+          </div>
+        </div>
+
+        ${trainee.injuries ? `
+          <div style="margin-top: 14px; font-size: 12px; color: #F87171; background: rgba(239,68,68,0.08); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(239,68,68,0.2);">
+            <strong>⚠️ 动作禁忌与伤病史：</strong>${trainee.injuries}
+          </div>
+        ` : ''}
+      </div>
+
+      <!-- 体测对比历史 -->
+      <div class="dash-panel" style="margin-bottom: 20px;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>📐</span> 阶段体测与围度走势
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="App.openMetricModal('${trainee.id}')">+ 录入最新体测</button>
+        </div>
+
+        ${metrics.length === 0 ? `
+          <div style="text-align: center; color: var(--text-muted); padding: 24px 0; font-size: 13px;">暂无体测数据，建议课前录入初始身体指标</div>
+        ` : `
+          <div style="overflow-x: auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>测量日期</th>
+                  <th>体重</th>
+                  <th>体脂率</th>
+                  <th>骨骼肌</th>
+                  <th>腰围</th>
+                  <th>臀围</th>
+                  <th>大臂围</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${metrics.map(m => `
+                  <tr>
+                    <td class="num-font">${m.date}</td>
+                    <td class="num-font" style="font-weight: 700; color: #F8FAFC;">${m.weight} kg</td>
+                    <td class="num-font">${m.bodyFat ? m.bodyFat + '%' : '-'}</td>
+                    <td class="num-font">${m.muscleMass ? m.muscleMass + ' kg' : '-'}</td>
+                    <td class="num-font">${m.waist ? m.waist + ' cm' : '-'}</td>
+                    <td class="num-font">${m.hips ? m.hips + ' cm' : '-'}</td>
+                    <td class="num-font">${m.arms ? m.arms + ' cm' : '-'}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `}
+      </div>
+
+      <!-- 课后训练与打卡记录 -->
+      <div class="dash-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>🏋️</span> 训练打卡记录与动作负荷
+          </div>
+        </div>
+
+        ${logs.length === 0 ? `
+          <div style="text-align: center; color: var(--text-muted); padding: 24px 0; font-size: 13px;">暂无训练日志，结课打卡后将自动在此汇总</div>
+        ` : `
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            ${logs.map(log => `
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                  <span style="font-weight: 700; color: var(--primary); font-size: 13px;">📅 ${log.date} 训练日</span>
+                  <span style="font-size: 11px; color: var(--text-muted);">完成 ${log.items ? log.items.length : 0} 个核心动作</span>
+                </div>
+                ${log.items && log.items.length > 0 ? `
+                  <ul style="padding-left: 18px; font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">
+                    ${log.items.map(it => `
+                      <li><strong>${it.exercise}</strong>: ${it.sets}组 × ${it.reps} (${it.weight})</li>
+                    `).join('')}
+                  </ul>
+                ` : ''}
+                ${log.coachSummary ? `
+                  <div style="font-size: 12px; color: #CBD5E1; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 4px; border-left: 2px solid var(--accent-cyan);">
+                    <strong>教练点评:</strong> ${log.coachSummary}
+                  </div>
+                ` : ''}
+              </div>
+            `).join('')}
+          </div>
+        `}
+      </div>
+    `;
+
+    document.getElementById('drawer-trainee-detail').classList.add('active');
+  },
+
+  closeDrawer() {
+    document.getElementById('drawer-trainee-detail').classList.remove('active');
+  },
+
+  // =========================================================================
+  // 4. 动作库与定制计划 (Plans)
+  // =========================================================================
+  renderPlans() {
+    const container = document.getElementById('exercise-items-grid');
+    const category = this.state.selectedCategory;
+
+    let list = this.state.exerciseLibrary;
+    if (category !== 'all') {
+      list = list.filter(e => e.category === category);
+    }
+
+    container.innerHTML = list.map(ex => `
+      <div class="exercise-card">
+        <div class="exercise-card-header">
+          <span class="exercise-title">${ex.name}</span>
+          <span class="exercise-badge">${ex.level}</span>
+        </div>
+        <div class="exercise-meta">
+          <span>器械: ${ex.equipment}</span> · <span>部位: ${ex.category}</span>
+        </div>
+        <div class="exercise-tips-box">
+          <strong>动作要领: </strong>${ex.tips}
+        </div>
+      </div>
+    `).join('');
+  },
+
+  // 应用经典训练计划模版至 AI 助手
+  applyPlanPreset(type) {
+    this.switchView('ai-coach');
+    const taskSelect = document.getElementById('ai-select-task');
+    const promptInput = document.getElementById('ai-custom-prompt');
+
+    if (type === 'ppl') {
+      taskSelect.value = 'split_plan';
+      promptInput.value = '请为学员生成高标准的经典三分化 (Push 推力日 / Pull 拉力日 / Legs 腿部日) 4周进阶计划，包含递增组与力竭RPE控制。';
+    } else if (type === 'posture') {
+      taskSelect.value = 'split_plan';
+      promptInput.value = '请针对久坐导致的圆肩驼背与头前引，生成专注于强化菱形肌、斜方肌中下束、激活深层颈屈肌与释放胸小肌的4周体态矫正计划。';
+    }
+    this.showToast('info', '已为您自动填入预设计划要求，可点击「立即生成」！');
+  },
+
+  // =========================================================================
+  // 5. 课包与财务流水 (Finance)
+  // =========================================================================
+  renderFinance() {
+    const today = this.getTodayString(0);
+    const curMonth = today.slice(0, 7);
+
+    // 本月售课总入账
+    const monthPurchases = this.state.financialRecords.filter(f => f.type === 'purchase' && f.timestamp && f.timestamp.startsWith(curMonth));
+    const monthSales = monthPurchases.reduce((acc, c) => acc + (c.amount || 0), 0);
+    document.getElementById('fin-month-sales').textContent = `¥${monthSales.toLocaleString()}`;
+
+    // 本月实际课消总值
+    const monthConsumes = this.state.financialRecords.filter(f => f.type === 'consume' && f.timestamp && f.timestamp.startsWith(curMonth));
+    const monthConsumed = monthConsumes.reduce((acc, c) => acc + (c.amount || 0), 0);
+    document.getElementById('fin-month-consumed').textContent = `¥${monthConsumed.toLocaleString()}`;
+
+    // 学员在手未消总课时资产
+    let unconsumedSessions = 0;
+    let unconsumedAmount = 0;
+    this.state.cards.forEach(c => {
+      const rem = c.remainingSessions || 0;
+      unconsumedSessions += rem;
+      unconsumedAmount += rem * (c.pricePerSession || 400);
+    });
+    document.getElementById('fin-unconsumed-sessions').textContent = `${unconsumedSessions} 节`;
+    document.getElementById('fin-unconsumed-amount').textContent = `资产估值约 ¥${unconsumedAmount.toLocaleString()}`;
+
+    // 流水明细表格
+    const tbody = document.getElementById('finance-ledger-tbody');
+    const sorted = [...this.state.financialRecords].sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+
+    if (sorted.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 24px; color:var(--text-muted);">暂无财务收支与课消流水记录</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = sorted.map(f => {
+      const trainee = this.state.trainees.find(t => t.id === f.traineeId) || { name: '散客/未知' };
+      const card = this.state.cards.find(c => c.id === f.cardId);
+
+      const isPurchase = f.type === 'purchase';
+      return `
+        <tr>
+          <td class="num-font" style="font-size: 12px;">${f.timestamp}</td>
+          <td>
+            <span class="status-pill ${isPurchase ? 'active' : 'pending'}" style="font-size: 11px;">
+              ${isPurchase ? '💰 售课入账' : '⚡️ 结课消课'}
+            </span>
+          </td>
+          <td style="font-weight: 700; color: #F8FAFC;">${trainee.name}</td>
+          <td>${card ? card.cardName : '常规私教课'}</td>
+          <td class="num-font" style="font-weight: 700; color: ${isPurchase ? '#10B981' : '#F59E0B'};">
+            ${isPurchase ? '+' + f.sessions : '-' + f.sessions} 节
+          </td>
+          <td class="num-font" style="font-weight: 700; color: ${isPurchase ? '#10B981' : '#CBD5E1'};">
+            ${isPurchase ? '+' : ''}¥${(f.amount || 0).toFixed(2)}
+          </td>
+          <td>${f.method || '课时划扣'}</td>
+          <td style="font-size: 12px; color: var(--text-muted); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            ${f.notes || '-'}
+          </td>
+          <td>
+            <button class="btn btn-outline btn-sm" onclick="App.openFinanceReceiptModal('${f.id}')">🧾 凭单</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  },
+
+  // 导出财务 CSV
+  exportFinanceCSV() {
+    let csv = '\uFEFF时间,类型,学员姓名,变动课时,金额,支付方式,备注说明\n';
+    this.state.financialRecords.forEach(f => {
+      const trainee = this.state.trainees.find(t => t.id === f.traineeId);
+      const name = trainee ? trainee.name : '未知';
+      const typeStr = f.type === 'purchase' ? '购课充值' : '上课划扣';
+      csv += `"${f.timestamp}","${typeStr}","${name}","${f.sessions}","${f.amount}","${f.method}","${f.notes || ''}"\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `IronCoach_Finance_${this.getTodayString(0)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    this.showToast('success', '财务对账 CSV 表格已成功导出！');
+  },
+
+  // =========================================================================
+  // 6. AI 智练私教大脑 (AI Coach)
+  // =========================================================================
+  renderAICoachView() {
+    const select = document.getElementById('ai-select-trainee');
+    select.innerHTML = this.state.trainees.map(t => `
+      <option value="${t.id}">${t.name} (${t.gender} · ${t.goal} · 基础:${t.level || '初级'})</option>
+    `).join('');
+  },
+
+  runAIGenerate() {
+    const traineeId = document.getElementById('ai-select-trainee').value;
+    const task = document.getElementById('ai-select-task').value;
+    const customPrompt = document.getElementById('ai-custom-prompt').value;
+
+    const trainee = this.state.trainees.find(t => t.id === traineeId);
+    if (!trainee) return;
+
+    const card = this.state.cards.find(c => c.traineeId === trainee.id);
+    const metrics = this.state.bodyMetrics.filter(m => m.traineeId === trainee.id).sort((a, b) => b.date.localeCompare(a.date));
+    const latestMetric = metrics[0] || { weight: 60, bodyFat: 24, waist: 70 };
+
+    const outputBox = document.getElementById('ai-output-content');
+    outputBox.innerHTML = '<span style="color:var(--primary);">⚡️ 智练大脑正在检索学员档案、计算身体代谢与生成专属方案...</span>';
+
+    setTimeout(() => {
+      let result = '';
+
+      if (task === 'split_plan') {
+        result = `【铁律智练 · 4周个性化训练分化方案】
+学员姓名：${trainee.name}  |  健身目标：${trainee.goal}
+身体基准：体重 ${latestMetric.weight}kg · 体脂率 ${latestMetric.bodyFat}%
+安全红线：${trainee.injuries || '无特殊禁忌'}
+
+一、周期目标与分化结构：
+采用「上肢推力 - 下肢臀腿 - 上肢拉力与核心」高效三分化周期，每周训练3次，组间间歇60-90秒。
+
+二、分化日排期与动作库：
+● Day 1【上肢推力胸肩日】：
+  1. 激活：弹力带外旋热身 3组×15次
+  2. 上斜哑铃卧推 (主项): 4组 × 10-12次 (重点上胸肌纤维)
+  3. 器械坐姿推胸: 3组 × 12次 (离心收缩3秒)
+  4. 哑铃侧平举: 4组 × 15次 (中束雕塑)
+  5. 绳索三头下压: 3组 × 12-15次
+
+● Day 2【下肢臀腿后链塑形日】：
+  1. 激活：弹力带臀桥 3组×20次 (避开腰椎代偿)
+  2. 哑铃罗马尼亚硬拉 (RDL): 4组 × 10次 (腘绳肌充分拉长)
+  3. 杠铃臀桥 (Hip Thrust): 4组 × 10-12次 (顶峰夹紧1秒)
+  4. 坐姿器械分腿外展: 3组 × 15次
+
+● Day 3【上肢背部与核心修复日】：
+  1. 高位下拉: 4组 × 10-12次 (沉肩靠肘发力)
+  2. 坐姿绳索划船: 4组 × 12次
+  3. 死虫子深层核心稳定: 3组 × 16次交替
+  4. 泡沫轴胸椎伸展与筋膜放松: 10分钟
+
+三、教练注意事项与备课提示：
+${customPrompt ? '补充执行重点：' + customPrompt : '循序渐进，记录每组实际重量，保持渐进负荷！'}`;
+      } else if (task === 'nutrition') {
+        const isMale = trainee.gender === '男';
+        // Mifflin-St Jeor 公式
+        let bmr = isMale 
+          ? (10 * latestMetric.weight + 6.25 * 175 - 5 * (trainee.age || 30) + 5)
+          : (10 * latestMetric.weight + 6.25 * 162 - 5 * (trainee.age || 28) - 161);
+        bmr = Math.round(bmr);
+        const tdee = Math.round(bmr * 1.45);
+        const targetCal = trainee.goal.includes('减脂') ? Math.round(tdee - 400) : Math.round(tdee + 300);
+
+        const proteinG = Math.round(latestMetric.weight * 1.8);
+        const fatG = Math.round(latestMetric.weight * 0.8);
+        const carbG = Math.round((targetCal - proteinG * 4 - fatG * 9) / 4);
+
+        result = `【铁律智练 · 精准代谢与膳食营养方案】
+学员姓名：${trainee.name}  |  核心目标：${trainee.goal}
+当前体重：${latestMetric.weight} kg
+
+一、能量代谢测算结果：
+● BMR 基础代谢率：${bmr} kcal/天
+● TDEE 每日总能量消耗：${tdee} kcal/天
+● 目标每日摄入热量：${targetCal} kcal/天 (${trainee.goal.includes('减脂') ? '制造400kcal安全热量缺口' : '提供300kcal优质增肌盈余'})
+
+二、三大营养素配比克重：
+1. 优质蛋白质：${proteinG}g/天 (约占 ${Math.round((proteinG * 4 / targetCal) * 100)}%)
+   - 推荐来源：去皮鸡胸肉、牛里脊、三文鱼、鸡蛋、乳清蛋白粉、嫩豆腐
+2. 必需脂肪酸：${fatG}g/天 (约占 ${Math.round((fatG * 9 / targetCal) * 100)}%)
+   - 推荐来源：橄榄油烹饪、原味坚果 (每日一小把)、牛油果
+3. 复合碳水化合物：${carbG}g/天 (约占 ${Math.round((carbG * 4 / targetCal) * 100)}%)
+   - 推荐来源：燕麦、紫薯、糙米饭、南瓜、全麦荞麦面
+
+三、训练日进食节律指南：
+- 课前1.5小时：进食易消化碳水（如半根香蕉+全麦吐司一片）；
+- 课后30分钟黄金窗口：补充20-25g蛋白质+200ml温水；
+- 每日饮水量保障 2200ml-2500ml。`;
+      } else if (task === 'recovery') {
+        result = `【铁律智练 · 课后深层肌肉恢复与酸痛缓解指引】
+尊敬的 ${trainee.name}：
+今天高强度训练完成得非常漂亮！以下是教练为您整理的课后黄金恢复医嘱：
+
+1. 筋膜与肌肉伸展（睡前进行10-15分钟）：
+   - 泡沫轴滚压：重点放松臀大肌外侧与股四头肌，每个痛点停留深呼吸20秒；
+   - 静态拉伸：鸽子式拉伸臀部（每侧45秒），婴儿式拉伸背阔肌（60秒）。
+
+2. 水分与电解质补给：
+   - 训练流汗较多，建议今晚睡前小口慢饮温水；
+   - 明早空腹可冲泡适量淡盐水或柠檬温水，促进乳酸代谢。
+
+3. 睡眠与神经系统恢复：
+   - 肌肉是在睡眠中修复合成的，建议今晚 23:00 前入睡，保证 7.5 小时高质量深度睡眠；
+   - 如后天出现延迟性肌肉酸痛 (DOMS) 属于正常肌纤维微损伤修复现象，切勿久坐，可散步30分钟主动恢复。
+
+有任何身体不适随时微信联系我！💪`;
+      } else if (task === 'followup_renew') {
+        const rem = card ? card.remainingSessions : 1;
+        result = `【私域微信 · 续课温馨沟通与复盘话术】
+可直接复制发送给学员【${trainee.name}】：
+
+“${trainee.name}，回顾这段时间的训练，你的体能和动作控制力真的提升特别明显！上次复测你的围度已经有了肉眼可见的雕刻效果，动作发力也越来越标准自律了🔥
+
+我刚才看了一下课表系统，你当前的这期私教课还剩下最后 ${rem} 节啦。
+为了避免后面的周期训练断档、巩固目前的塑形基础，我这周正在规划下个阶段的进阶强化大纲（重点突破你心心念念的腰臀比）。
+这几天我们碰面课后，顺便花5分钟把下阶段的目标和续课排期锁定一下，你看如何？”`;
+      } else if (task === 'followup_dormant') {
+        result = `【私域微信 · 超过7天断练学员温情关怀话术】
+可直接复制发送给学员【${trainee.name}】：
+
+“哈喽 ${trainee.name}，最近工作忙不忙呀？我看你已经有小一周没来工作室举铁啦，是不是加班比较辛苦？😊
+
+最近温差大，千万注意劳逸结合。好不容易建立起来的心肺肌力和身体神经募集，停太久肌肉可是会‘偷懒’抗议的哦～
+这周我帮你预留了周三或周四晚上的黄金时间，安排一节轻量级的排酸舒展训练，帮你唤醒一下状态，你看哪个时间方便呀？”`;
+      }
+
+      outputBox.innerText = result;
+    }, 400);
+  },
+
+  // 复制续课话术
+  copyRenewalPitch(name, rem) {
+    const text = `哈喽${name}，这段时间你的训练进步非常显著！我看到你卡包的课时仅剩最后 ${rem} 节啦。为了保证训练周期的连续性、不让塑形效果反弹，我们下次上课时顺便把下个周期的训练进阶计划和续约锁定一下，你看周几合适？💪`;
+    navigator.clipboard.writeText(text).then(() => {
+      this.showToast('success', `已复制针对【${name}】的续课私聊话术！`);
+    });
+  },
+
+  // 复制休眠激活话术
+  copyDormantPitch(name) {
+    const text = `哈喽${name}，最近工作忙不忙呀？有一阵子没见你来训练了。好不容易练出来的体能状态别荒废啦，这周给你留了空档，抽空来上一节激活课程，放松一下紧绷的肩颈吧！😊`;
+    navigator.clipboard.writeText(text).then(() => {
+      this.showToast('success', `已复制针对【${name}】的关怀督促话术！`);
+    });
+  },
+
+  // =========================================================================
+  // 弹窗与表单辅助
+  // =========================================================================
+  openModal(modalId) {
+    document.getElementById(modalId).classList.add('active');
+  },
+
+  closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+  },
+
+  // 打开排课弹窗
+  openAppointmentModal(aptId = null, defaultDate = null, defaultTraineeId = null) {
+    const traineeSelect = document.getElementById('apt-input-trainee');
+    traineeSelect.innerHTML = this.state.trainees.map(t => `
+      <option value="${t.id}">${t.name} (${t.goal})</option>
+    `).join('');
+
+    const cardSelect = document.getElementById('apt-input-card');
+    const updateCards = () => {
+      const tid = traineeSelect.value;
+      const cards = this.state.cards.filter(c => c.traineeId === tid);
+      if (cards.length === 0) {
+        cardSelect.innerHTML = `<option value="">⚠️ 该学员暂无有效卡包</option>`;
+      } else {
+        cardSelect.innerHTML = cards.map(c => `
+          <option value="${c.id}">${c.cardName} (剩 ${c.remainingSessions} 节)</option>
+        `).join('');
+      }
+    };
+    traineeSelect.onchange = updateCards;
+
+    if (aptId) {
+      const apt = this.state.appointments.find(a => a.id === aptId);
+      if (apt) {
+        document.getElementById('modal-apt-title').textContent = '⚡️ 编辑私教排课预约';
+        document.getElementById('apt-input-id').value = apt.id;
+        traineeSelect.value = apt.traineeId;
+        updateCards();
+        cardSelect.value = apt.cardId;
+        document.getElementById('apt-input-date').value = apt.date;
+        document.getElementById('apt-input-start').value = apt.startTime;
+        document.getElementById('apt-input-end').value = apt.endTime;
+        document.getElementById('apt-input-focus').value = apt.focus;
+        document.getElementById('apt-input-notes').value = apt.notes || '';
+      }
+    } else {
+      document.getElementById('modal-apt-title').textContent = '⚡️ 新增私教排课预约';
+      document.getElementById('apt-input-id').value = '';
+      if (defaultTraineeId) traineeSelect.value = defaultTraineeId;
+      updateCards();
+      document.getElementById('apt-input-date').value = defaultDate || this.state.selectedScheduleDate || this.getTodayString(0);
+      document.getElementById('apt-input-start').value = '10:00';
+      document.getElementById('apt-input-end').value = '11:00';
+      document.getElementById('apt-input-focus').value = '核心塑形与全身力量协调';
+      document.getElementById('apt-input-notes').value = '';
+    }
+
+    this.openModal('modal-appointment');
+  },
+
+  // 打开结课消课弹窗
+  openCompleteSessionModal(aptId) {
+    const apt = this.state.appointments.find(a => a.id === aptId);
+    if (!apt) return;
+
+    const trainee = this.state.trainees.find(t => t.id === apt.traineeId);
+    const card = this.state.cards.find(c => c.id === apt.cardId);
+
+    document.getElementById('complete-apt-id').value = apt.id;
+    document.getElementById('complete-trainee-name').textContent = `学员：${trainee ? trainee.name : '未知'}`;
+    document.getElementById('complete-course-info').textContent = `${card ? card.cardName : '私教课'} · 当前剩余 ${card ? card.remainingSessions : 0} 节`;
+
+    const container = document.getElementById('complete-exercise-rows');
+    container.innerHTML = '';
+    // 预填常用动作
+    this.addExerciseRow('深蹲/推胸核心动作', 4, '10-12次', '常规负重');
+    this.addExerciseRow('辅助塑形与离心强化', 3, '12-15次', '中等负荷');
+
+    document.getElementById('complete-coach-summary').value = `今日训练状态良好，核心稳定性表现出色。已交代课后补充优质蛋白质与300ml温水，明天注意拉伸放松。`;
+
+    this.openModal('modal-complete-session');
+  },
+
+  // 打开录入学员弹窗
+  openTraineeModal(traineeId = null) {
+    const form = document.getElementById('form-trainee');
+    form.reset();
+
+    if (traineeId) {
+      const trainee = this.state.trainees.find(t => t.id === traineeId);
+      if (trainee) {
+        document.getElementById('modal-trainee-title').textContent = '👤 编辑学员档案';
+        document.getElementById('trainee-input-id').value = trainee.id;
+        document.getElementById('trainee-input-name').value = trainee.name;
+        document.getElementById('trainee-input-gender').value = trainee.gender;
+        document.getElementById('trainee-input-age').value = trainee.age;
+        document.getElementById('trainee-input-phone').value = trainee.phone;
+        document.getElementById('trainee-input-goal').value = trainee.goal;
+        document.getElementById('trainee-input-level').value = trainee.level;
+        document.getElementById('trainee-input-target-detail').value = trainee.targetDetail || '';
+        document.getElementById('trainee-input-injuries').value = trainee.injuries || '';
+        document.getElementById('new-trainee-card-box').style.display = 'none';
+      }
+    } else {
+      document.getElementById('modal-trainee-title').textContent = '👤 录入新学员档案';
+      document.getElementById('trainee-input-id').value = '';
+      document.getElementById('new-trainee-card-box').style.display = 'block';
+    }
+
+    this.openModal('modal-trainee');
+  },
+
+  // 打开录入体测弹窗
+  openMetricModal(traineeId) {
+    document.getElementById('metric-input-trainee-id').value = traineeId;
+    document.getElementById('metric-input-date').value = this.getTodayString(0);
+    document.getElementById('form-metric').reset();
+    document.getElementById('metric-input-date').value = this.getTodayString(0);
+    this.openModal('modal-metric');
+  },
+
+  // 打开充值购课弹窗
+  openPurchaseModal(defaultTraineeId = null) {
+    const select = document.getElementById('purchase-input-trainee');
+    select.innerHTML = this.state.trainees.map(t => `
+      <option value="${t.id}">${t.name} (${t.phone})</option>
+    `).join('');
+
+    if (defaultTraineeId) select.value = defaultTraineeId;
+    document.getElementById('purchase-input-name').value = '精英一对一私教定制课';
+    document.getElementById('purchase-input-sessions').value = '20';
+    document.getElementById('purchase-input-price').value = '400';
+    document.getElementById('purchase-input-total').value = '8000';
+    document.getElementById('purchase-input-expire').value = '2027-12-31';
+
+    this.openModal('modal-purchase-card');
+  },
+
+  // 电子凭单小票弹窗
+  openReceiptModal(aptId) {
+    const apt = this.state.appointments.find(a => a.id === aptId);
+    if (!apt) return;
+    const trainee = this.state.trainees.find(t => t.id === apt.traineeId);
+    const card = this.state.cards.find(c => c.id === apt.cardId);
+
+    const content = document.getElementById('receipt-content-area');
+    content.innerHTML = `
+      <div style="text-align: center; border-bottom: 2px dashed #333; padding-bottom: 12px; margin-bottom: 12px;">
+        <h2 style="font-size: 18px; margin: 0; font-weight: 900;">铁律智练 · 私教消课确认单</h2>
+        <p style="font-size: 11px; color: #666; margin-top: 4px;">IRONCOACH PRO DIGITAL RECEIPT</p>
+      </div>
+
+      <div style="font-size: 12px; line-height: 1.8;">
+        <div><strong>单据编号：</strong> REC_${apt.id}</div>
+        <div><strong>消课时间：</strong> ${apt.actualFinishedAt || (apt.date + ' ' + apt.endTime)}</div>
+        <div><strong>学员姓名：</strong> ${trainee ? trainee.name : '学员'}</div>
+        <div><strong>联系电话：</strong> ${trainee ? trainee.phone : '-'}</div>
+        <div><strong>课程项目：</strong> ${card ? card.cardName : '常规私教课'}</div>
+        <div><strong>训练主题：</strong> ${apt.focus}</div>
+        <div><strong>单节折算：</strong> ¥${card ? card.pricePerSession : 400}</div>
+        <div style="border-top: 1px dashed #999; margin: 8px 0; padding-top: 6px;">
+          <div><strong>本次扣减：</strong> <span style="font-size: 14px; font-weight: 700;">1 节</span></div>
+          <div><strong>卡包剩余：</strong> <span style="font-size: 14px; font-weight: 700; color: #059669;">${card ? card.remainingSessions : 0} 节</span></div>
+        </div>
+        <div><strong>执教教练：</strong> Alex 张教练 (ACE-CPT)</div>
+      </div>
+
+      <div style="text-align: center; border-top: 2px dashed #333; margin-top: 16px; padding-top: 12px; font-size: 11px; color: #555;">
+        感谢您的坚持与自律！每次训练都是对身体最好的投资。
+      </div>
+    `;
+
+    this.openModal('modal-receipt');
+  },
+
+  // 财务流水凭单
+  openFinanceReceiptModal(finId) {
+    const fin = this.state.financialRecords.find(f => f.id === finId);
+    if (!fin) return;
+    const trainee = this.state.trainees.find(t => t.id === fin.traineeId);
+    const card = this.state.cards.find(c => c.id === fin.cardId);
+
+    const isPurchase = fin.type === 'purchase';
+    const content = document.getElementById('receipt-content-area');
+    content.innerHTML = `
+      <div style="text-align: center; border-bottom: 2px dashed #333; padding-bottom: 12px; margin-bottom: 12px;">
+        <h2 style="font-size: 18px; margin: 0; font-weight: 900;">铁律智练 · ${isPurchase ? '购课收费凭单' : '课消结算单'}</h2>
+        <p style="font-size: 11px; color: #666; margin-top: 4px;">FINANCIAL TRANSACTION RECEIPT</p>
+      </div>
+
+      <div style="font-size: 12px; line-height: 1.8;">
+        <div><strong>流水单号：</strong> ${fin.id}</div>
+        <div><strong>交易时间：</strong> ${fin.timestamp}</div>
+        <div><strong>学员姓名：</strong> ${trainee ? trainee.name : '学员'}</div>
+        <div><strong>关联课包：</strong> ${card ? card.cardName : '私教课程'}</div>
+        <div><strong>变动课时：</strong> ${isPurchase ? '+' : '-'}${fin.sessions} 节</div>
+        <div><strong>结算金额：</strong> ¥${fin.amount.toFixed(2)}</div>
+        <div><strong>结算方式：</strong> ${fin.method}</div>
+        <div><strong>业务备注：</strong> ${fin.notes || '-'}</div>
+      </div>
+
+      <div style="text-align: center; border-top: 2px dashed #333; margin-top: 16px; padding-top: 12px; font-size: 11px; color: #555;">
+        铁律智练工作室 · 本单据已记录至本地加密财务台账
+      </div>
+    `;
+
+    this.openModal('modal-receipt');
+  },
+
+  // 吐司通知
+  showToast(type, message) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast-item ${type}`;
+
+    const icons = {
+      success: '✅',
+      warning: '⚠️',
+      error: '❌',
+      info: 'ℹ️'
+    };
+
+    toast.innerHTML = `
+      <span style="font-size: 16px;">${icons[type] || '⚡️'}</span>
+      <span style="font-size: 13px; font-weight: 500; color: #F8FAFC;">${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(30px)';
+      toast.style.transition = 'all 0.3s ease';
+      setTimeout(() => toast.remove(), 300);
+    }, 3200);
+  }
+};
+
+// 页面加载完成后启动
+window.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+
+</script>
+
+  <script>
+  (function() {
+    function initMobileNav() {
+      document.querySelectorAll('.nav-item').forEach(function(item) {
+        item.style.touchAction = 'manipulation';
+        item.style.webkitTapHighlightColor = 'transparent';
+        item.style.cursor = 'pointer';
+
+        // 统一监听 pointerup，彻底消除点击延迟和滚动卡死
+        item.addEventListener('pointerup', function(e) {
+          var targetVal = item.getAttribute('data-tab') || item.dataset.tab;
+          if (targetVal && window.app && typeof window.app.switchTab === 'function') {
+            window.app.switchTab(targetVal);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }, { passive: true });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileNav);
+    } else {
+      initMobileNav();
+    }
+  })();
+  </script>
+  
+</body>
+</html>
