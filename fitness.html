@@ -1561,8 +1561,16 @@ textarea.form-control {
 }
 
 
-/* ================= 移动端专项极致优化补丁 ================= */
+
+
+/* ================= 移动端 2.0 终极像素级精修 ================= */
+.nav-text-short { display: none; }
+.nav-text-full { display: inline; }
+
 @media (max-width: 768px) {
+  .nav-text-short { display: block !important; }
+  .nav-text-full { display: none !important; }
+
   html, body {
     height: auto !important;
     min-height: 100vh !important;
@@ -1582,13 +1590,14 @@ textarea.form-control {
     left: 0 !important;
     right: 0 !important;
     width: 100vw !important;
-    height: auto !important;
+    height: calc(56px + env(safe-area-inset-bottom)) !important;
     z-index: 9999 !important;
-    padding: 6px 4px max(8px, env(safe-area-inset-bottom)) !important;
-    background: rgba(13, 18, 31, 0.96) !important;
+    padding: 4px 6px max(6px, env(safe-area-inset-bottom)) !important;
+    background: rgba(13, 18, 31, 0.98) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5) !important;
     display: flex !important;
   }
   .brand-box, .coach-profile-card {
@@ -1607,24 +1616,32 @@ textarea.form-control {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 3px !important;
-    padding: 6px 4px !important;
+    gap: 2px !important;
+    padding: 4px 2px !important;
     touch-action: manipulation !important;
     -webkit-tap-highlight-color: transparent !important;
     cursor: pointer !important;
     user-select: none !important;
     flex: 1 !important;
-    max-width: 68px !important;
+    max-width: 20% !important;
+    border-radius: 8px !important;
   }
   .nav-item * {
     pointer-events: none !important;
   }
   .nav-item .nav-icon {
-    font-size: 18px !important;
+    font-size: 20px !important;
+    margin-bottom: 1px !important;
   }
-  .nav-item span:not(.nav-icon) {
-    font-size: 10px !important;
+  .nav-item .nav-text-short {
+    font-size: 11px !important;
+    font-weight: 600 !important;
     white-space: nowrap !important;
+    line-height: 1.1 !important;
+  }
+  .nav-item.active .nav-text-short {
+    color: #F59E0B !important;
+    font-weight: 800 !important;
   }
   .main-wrapper {
     display: block !important;
@@ -1645,9 +1662,145 @@ textarea.form-control {
     backdrop-filter: blur(12px) !important;
     z-index: 50 !important;
   }
+  .metrics-grid, .stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
   .view-container {
     padding: 12px !important;
+  }
+  .modal-container {
+    width: 94vw !important;
+    max-width: 94vw !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    margin: 12px auto !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  #toastContainer, .toast-container, .toast {
+    top: 14px !important;
+    bottom: auto !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    z-index: 10000 !important;
+    width: auto !important;
+    max-width: 90vw !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+  }
+}
+
+
+/* ================= 移动端 2.0 终极像素级精修 ================= */
+.nav-text-short { display: none; }
+.nav-text-full { display: inline; }
+
+@media (max-width: 768px) {
+  .nav-text-short { display: block !important; }
+  .nav-text-full { display: none !important; }
+
+  html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .app-layout {
+    display: block !important;
+    width: 100vw !important;
+    min-height: 100vh !important;
     overflow: visible !important;
+  }
+  .sidebar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    height: calc(56px + env(safe-area-inset-bottom)) !important;
+    z-index: 9999 !important;
+    padding: 4px 6px max(6px, env(safe-area-inset-bottom)) !important;
+    background: rgba(13, 18, 31, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5) !important;
+    display: flex !important;
+  }
+  .brand-box, .coach-profile-card {
+    display: none !important;
+  }
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    padding: 4px 2px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    flex: 1 !important;
+    max-width: 20% !important;
+    border-radius: 8px !important;
+  }
+  .nav-item * {
+    pointer-events: none !important;
+  }
+  .nav-item .nav-icon {
+    font-size: 20px !important;
+    margin-bottom: 1px !important;
+  }
+  .nav-item .nav-text-short {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    line-height: 1.1 !important;
+  }
+  .nav-item.active .nav-text-short {
+    color: #F59E0B !important;
+    font-weight: 800 !important;
+  }
+  .main-wrapper {
+    display: block !important;
+    width: 100vw !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+    margin-bottom: 0 !important;
+    padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
+  }
+  .top-header {
+    padding: 8px 12px !important;
+    height: auto !important;
+    min-height: 52px !important;
+    position: sticky !important;
+    top: 0 !important;
+    background: rgba(13, 18, 31, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    z-index: 50 !important;
+  }
+  .metrics-grid, .stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .view-container {
+    padding: 12px !important;
   }
   .modal-container {
     width: 94vw !important;
@@ -1676,7 +1829,7 @@ textarea.form-control {
       <nav class="nav-menu">
         <a class="nav-item active" data-view="dashboard">
           <span class="nav-icon">📊</span>
-          <span>智练驾驶舱</span>
+          <span class="nav-text-full">智练驾驶舱</span><span class="nav-text-short">看板</span>
         </a>
         <a class="nav-item" data-view="schedule">
           <span class="nav-icon">📅</span>
@@ -5041,29 +5194,17 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
   <script>
-  (function() {
-    function initMobileNav() {
-      document.querySelectorAll('.nav-item').forEach(function(item) {
-        item.style.touchAction = 'manipulation';
-        item.style.webkitTapHighlightColor = 'transparent';
-        item.style.cursor = 'pointer';
-
-        // 统一监听 pointerup，彻底消除点击延迟和滚动卡死
-        item.addEventListener('pointerup', function(e) {
-          var targetVal = item.getAttribute('data-tab') || item.dataset.tab;
-          if (targetVal && window.app && typeof window.app.switchTab === 'function') {
-            window.app.switchTab(targetVal);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        }, { passive: true });
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initMobileNav);
-    } else {
-      initMobileNav();
-    }
-  })();
+  document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("click", function(e) {
+      var item = e.target.closest(".nav-item");
+      if (item && item.dataset.tab) {
+        if (window.app && typeof window.app.switchTab === "function") {
+          window.app.switchTab(item.dataset.tab);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+    });
+  });
   </script>
   
 </body>

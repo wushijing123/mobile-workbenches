@@ -1137,8 +1137,16 @@ body {
 }
 
 
-/* ================= 移动端专项极致优化补丁 ================= */
+
+
+/* ================= 移动端 2.0 终极像素级精修 ================= */
+.nav-text-short { display: none; }
+.nav-text-full { display: inline; }
+
 @media (max-width: 768px) {
+  .nav-text-short { display: block !important; }
+  .nav-text-full { display: none !important; }
+
   html, body {
     height: auto !important;
     min-height: 100vh !important;
@@ -1153,22 +1161,22 @@ body {
     min-height: 100vh !important;
     overflow: visible !important;
   }
-  /* 侧边栏重构为现代底部 TabBar */
+  /* 底部 TabBar 规范 */
   .sidebar {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     width: 100vw !important;
-    height: auto !important;
+    height: calc(56px + env(safe-area-inset-bottom)) !important;
     z-index: 9999 !important;
-    background: rgba(255, 255, 255, 0.96) !important;
+    background: rgba(255, 255, 255, 0.98) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
     border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
     border-right: none !important;
     border-bottom: none !important;
-    padding: 6px 4px max(8px, env(safe-area-inset-bottom)) !important;
+    padding: 4px 6px max(6px, env(safe-area-inset-bottom)) !important;
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06) !important;
     display: flex !important;
     flex-direction: row !important;
@@ -1184,45 +1192,65 @@ body {
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
-    overflow-x: auto !important;
-    gap: 2px !important;
+    gap: 0 !important;
   }
   .nav-item {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 3px !important;
-    padding: 6px 4px !important;
-    min-width: 52px !important;
+    gap: 2px !important;
+    padding: 4px 2px !important;
     border-radius: 8px !important;
     touch-action: manipulation !important;
     -webkit-tap-highlight-color: transparent !important;
     cursor: pointer !important;
     user-select: none !important;
-    -webkit-user-select: none !important;
     flex: 1 !important;
-    max-width: 68px !important;
+    min-width: 0 !important;
+    max-width: 16.66% !important;
+    position: relative !important;
   }
   .nav-item * {
     pointer-events: none !important;
   }
   .nav-item .icon {
-    font-size: 18px !important;
+    font-size: 20px !important;
     line-height: 1 !important;
+    margin-bottom: 1px !important;
   }
-  .nav-item span:not(.icon):not(.nav-badge) {
-    font-size: 10px !important;
-    white-space: nowrap !important;
-    line-height: 1 !important;
+  .nav-item .nav-text-short {
+    font-size: 11px !important;
     font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    white-space: nowrap !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.2px !important;
   }
+  .nav-item.active .nav-text-short {
+    color: var(--primary) !important;
+    font-weight: 800 !important;
+  }
+  .nav-item.active .icon {
+    transform: scale(1.1) !important;
+    transition: transform 0.15s ease !important;
+  }
+  /* 角标钉在图标右上角 */
   .nav-badge {
+    position: absolute !important;
     top: 2px !important;
-    right: 8px !important;
-    font-size: 9px !important;
-    padding: 1px 4px !important;
+    right: calc(50% - 18px) !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    line-height: 16px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    padding: 0 4px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    z-index: 5 !important;
   }
+  /* 主体区域留足底部边距 */
   .main-wrapper {
     display: block !important;
     width: 100vw !important;
@@ -1231,39 +1259,347 @@ body {
     overflow: visible !important;
     padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
   }
+  /* 顶部操作区优化 */
   .topbar {
     height: auto !important;
     min-height: 52px !important;
-    padding: 8px 12px !important;
-    flex-wrap: wrap !important;
+    padding: 10px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 8px !important;
     position: sticky !important;
     top: 0 !important;
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(12px) !important;
+    z-index: 50 !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
   }
   .topbar-left {
-    gap: 8px !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  .topbar-left .page-title {
+    font-size: 17px !important;
+    font-weight: 800 !important;
   }
   .topbar-right {
-    flex-wrap: wrap !important;
+    width: 100% !important;
+    display: flex !important;
+    overflow-x: auto !important;
     gap: 6px !important;
+    padding-bottom: 2px !important;
+    scrollbar-width: none !important;
   }
+  .topbar-right::-webkit-scrollbar { display: none !important; }
   .topbar-right .btn {
-    padding: 6px 10px !important;
-    font-size: 12px !important;
+    flex-shrink: 0 !important;
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    border-radius: 20px !important;
   }
+  /* 可视化指标卡片 2x2 方阵布局 */
+  .metrics-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    margin-bottom: 16px !important;
+  }
+  .metric-card {
+    padding: 12px 14px !important;
+    min-height: 96px !important;
+    border-radius: 14px !important;
+  }
+  .metric-header {
+    margin-bottom: 4px !important;
+  }
+  .metric-label {
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+  }
+  .metric-value {
+    font-size: 20px !important;
+    margin: 2px 0 4px 0 !important;
+    font-weight: 800 !important;
+  }
+  .metric-sub {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+  }
+  .metric-icon-wrap {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+  }
+  /* 表格与工单看板自适应 */
   .content-body {
     padding: 12px !important;
-    overflow: visible !important;
+  }
+  .kanban-board {
+    display: flex !important;
+    overflow-x: auto !important;
+    gap: 10px !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: none !important;
+  }
+  .kanban-board::-webkit-scrollbar { display: none !important; }
+  .kanban-col {
+    min-width: 260px !important;
+    flex-shrink: 0 !important;
   }
   .modal-content {
     width: 94vw !important;
     max-width: 94vw !important;
     max-height: 85vh !important;
-    margin: 12px auto !important;
     overflow-y: auto !important;
-    border-radius: 16px !important;
+    margin: 12px auto !important;
+    border-radius: 18px !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  #toastContainer, .toast-container, .toast {
+    top: 14px !important;
+    bottom: auto !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    z-index: 10000 !important;
+    width: auto !important;
+    max-width: 90vw !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+  }
+}
+
+
+/* ================= 移动端 2.0 终极像素级精修 ================= */
+.nav-text-short { display: none; }
+.nav-text-full { display: inline; }
+
+@media (max-width: 768px) {
+  .nav-text-short { display: block !important; }
+  .nav-text-full { display: none !important; }
+
+  html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .app-container {
+    display: block !important;
+    width: 100vw !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+  }
+  /* 底部 TabBar 规范 */
+  .sidebar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    height: calc(56px + env(safe-area-inset-bottom)) !important;
+    z-index: 9999 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    padding: 4px 6px max(6px, env(safe-area-inset-bottom)) !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06) !important;
+    display: flex !important;
+    flex-direction: row !important;
+  }
+  .sidebar .brand, .sidebar .sidebar-footer {
+    display: none !important;
+  }
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+  .nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    padding: 4px 2px !important;
+    border-radius: 8px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    max-width: 16.66% !important;
+    position: relative !important;
+  }
+  .nav-item * {
+    pointer-events: none !important;
+  }
+  .nav-item .icon {
+    font-size: 20px !important;
+    line-height: 1 !important;
+    margin-bottom: 1px !important;
+  }
+  .nav-item .nav-text-short {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    white-space: nowrap !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.2px !important;
+  }
+  .nav-item.active .nav-text-short {
+    color: var(--primary) !important;
+    font-weight: 800 !important;
+  }
+  .nav-item.active .icon {
+    transform: scale(1.1) !important;
+    transition: transform 0.15s ease !important;
+  }
+  /* 角标钉在图标右上角 */
+  .nav-badge {
+    position: absolute !important;
+    top: 2px !important;
+    right: calc(50% - 18px) !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    line-height: 16px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    padding: 0 4px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    z-index: 5 !important;
+  }
+  /* 主体区域留足底部边距 */
+  .main-wrapper {
+    display: block !important;
+    width: 100vw !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+    padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
+  }
+  /* 顶部操作区优化 */
+  .topbar {
+    height: auto !important;
+    min-height: 52px !important;
+    padding: 10px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  }
+  .topbar-left {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  .topbar-left .page-title {
+    font-size: 17px !important;
+    font-weight: 800 !important;
+  }
+  .topbar-right {
+    width: 100% !important;
+    display: flex !important;
+    overflow-x: auto !important;
+    gap: 6px !important;
+    padding-bottom: 2px !important;
+    scrollbar-width: none !important;
+  }
+  .topbar-right::-webkit-scrollbar { display: none !important; }
+  .topbar-right .btn {
+    flex-shrink: 0 !important;
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    border-radius: 20px !important;
+  }
+  /* 可视化指标卡片 2x2 方阵布局 */
+  .metrics-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    margin-bottom: 16px !important;
+  }
+  .metric-card {
+    padding: 12px 14px !important;
+    min-height: 96px !important;
+    border-radius: 14px !important;
+  }
+  .metric-header {
+    margin-bottom: 4px !important;
+  }
+  .metric-label {
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+  }
+  .metric-value {
+    font-size: 20px !important;
+    margin: 2px 0 4px 0 !important;
+    font-weight: 800 !important;
+  }
+  .metric-sub {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+  }
+  .metric-icon-wrap {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+  }
+  /* 表格与工单看板自适应 */
+  .content-body {
+    padding: 12px !important;
+  }
+  .kanban-board {
+    display: flex !important;
+    overflow-x: auto !important;
+    gap: 10px !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: none !important;
+  }
+  .kanban-board::-webkit-scrollbar { display: none !important; }
+  .kanban-col {
+    min-width: 260px !important;
+    flex-shrink: 0 !important;
+  }
+  .modal-content {
+    width: 94vw !important;
+    max-width: 94vw !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    margin: 12px auto !important;
+    border-radius: 18px !important;
   }
 }
 
@@ -1285,29 +1621,29 @@ body {
     <ul class="nav-menu">
       <li class="nav-item active" data-view="dashboard">
         <span class="icon">📊</span>
-        <span>经营驾驶舱</span>
+        <span class="nav-text-full">经营驾驶舱</span><span class="nav-text-short">看板</span>
       </li>
       <li class="nav-item" data-view="tickets">
         <span class="icon">✂️</span>
-        <span>洗美工单流</span>
+        <span class="nav-text-full">洗美工单流</span><span class="nav-text-short">工单</span>
         <span class="nav-badge" id="navTicketBadge">0</span>
       </li>
       <li class="nav-item" data-view="boarding">
         <span class="icon">🏡</span>
-        <span>寄养房态管家</span>
+        <span class="nav-text-full">寄养房态管家</span><span class="nav-text-short">寄养</span>
         <span class="nav-badge" id="navBoardingBadge" style="background:#2D6A4F;">0</span>
       </li>
       <li class="nav-item" data-view="customers">
         <span class="icon">👥</span>
-        <span>宠主与会员CRM</span>
+        <span class="nav-text-full">宠主与会员CRM</span><span class="nav-text-short">会员</span>
       </li>
       <li class="nav-item" data-view="finance">
         <span class="icon">💳</span>
-        <span>收银与财务记账</span>
+        <span class="nav-text-full">收银与财务记账</span><span class="nav-text-short">收银</span>
       </li>
       <li class="nav-item" data-view="ai-assistant">
         <span class="icon">🤖</span>
-        <span>AI 宠护与话术</span>
+        <span class="nav-text-full">AI 宠护与话术</span><span class="nav-text-short">AI</span>
       </li>
     </ul>
 
@@ -4564,29 +4900,17 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
   <script>
-  (function() {
-    function initMobileNav() {
-      document.querySelectorAll('.nav-item').forEach(function(item) {
-        item.style.touchAction = 'manipulation';
-        item.style.webkitTapHighlightColor = 'transparent';
-        item.style.cursor = 'pointer';
-
-        // 统一监听 pointerup，彻底消除点击延迟和滚动卡死
-        item.addEventListener('pointerup', function(e) {
-          var targetVal = item.getAttribute('data-view') || item.dataset.view;
-          if (targetVal && window.app && typeof window.app.switchView === 'function') {
-            window.app.switchView(targetVal);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        }, { passive: true });
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initMobileNav);
-    } else {
-      initMobileNav();
-    }
-  })();
+  document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("click", function(e) {
+      var item = e.target.closest(".nav-item");
+      if (item && item.dataset.view) {
+        if (window.app && typeof window.app.switchView === "function") {
+          window.app.switchView(item.dataset.view);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+    });
+  });
   </script>
   
 </body>

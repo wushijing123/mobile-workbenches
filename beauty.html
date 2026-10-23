@@ -945,8 +945,16 @@ body {
 }
 
 
-/* ================= 移动端专项极致优化补丁 ================= */
+
+
+/* ================= 移动端 2.0 终极像素级精修 ================= */
+.nav-text-short { display: none; }
+.nav-text-full { display: inline; }
+
 @media (max-width: 768px) {
+  .nav-text-short { display: block !important; }
+  .nav-text-full { display: none !important; }
+
   html, body {
     height: auto !important;
     min-height: 100vh !important;
@@ -959,33 +967,29 @@ body {
     padding: 8px 12px !important;
     position: sticky !important;
     top: 0 !important;
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
     backdrop-filter: blur(12px) !important;
     z-index: 50 !important;
   }
-  .brand-sub {
-    display: none !important;
-  }
-  /* 导航选项卡下沉为优雅底部 TabBar */
+  .brand-sub { display: none !important; }
   .nav-tabs {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     width: 100vw !important;
-    height: auto !important;
+    height: calc(56px + env(safe-area-inset-bottom)) !important;
     z-index: 9999 !important;
-    background: rgba(255, 255, 255, 0.96) !important;
+    background: rgba(255, 255, 255, 0.98) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
     border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
-    padding: 6px 4px max(8px, env(safe-area-inset-bottom)) !important;
+    padding: 4px 4px max(6px, env(safe-area-inset-bottom)) !important;
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06) !important;
     display: flex !important;
     flex-direction: row !important;
     justify-content: space-around !important;
     align-items: center !important;
-    overflow-x: auto !important;
     margin: 0 !important;
   }
   .nav-tab-btn {
@@ -993,25 +997,140 @@ body {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 3px !important;
-    padding: 6px 4px !important;
-    min-width: 48px !important;
+    gap: 2px !important;
+    padding: 4px 1px !important;
+    min-width: 0 !important;
+    flex: 1 !important;
+    max-width: 14.28% !important;
     font-size: 10px !important;
     touch-action: manipulation !important;
     -webkit-tap-highlight-color: transparent !important;
     cursor: pointer !important;
     user-select: none !important;
-    flex: 1 !important;
-    max-width: 56px !important;
     border: none !important;
     background: transparent !important;
   }
-  .nav-tab-btn * {
-    pointer-events: none !important;
+  .nav-tab-btn * { pointer-events: none !important; }
+  .nav-tab-btn svg { width: 19px !important; height: 19px !important; margin-bottom: 1px !important; }
+  .nav-tab-btn .nav-text-short {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    line-height: 1.1 !important;
   }
-  .nav-tab-btn svg {
-    width: 18px !important;
-    height: 18px !important;
+  .nav-tab-btn.active .nav-text-short {
+    color: #EC4899 !important;
+    font-weight: 800 !important;
+  }
+  .metrics-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .modal-card {
+    width: 94vw !important;
+    max-width: 94vw !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    margin: 12px auto !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  #toastContainer, .toast-container, .toast {
+    top: 14px !important;
+    bottom: auto !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    z-index: 10000 !important;
+    width: auto !important;
+    max-width: 90vw !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+  }
+}
+
+
+/* ================= 移动端 2.0 终极像素级精修 ================= */
+.nav-text-short { display: none; }
+.nav-text-full { display: inline; }
+
+@media (max-width: 768px) {
+  .nav-text-short { display: block !important; }
+  .nav-text-full { display: none !important; }
+
+  html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
+  }
+  .navbar {
+    padding: 8px 12px !important;
+    position: sticky !important;
+    top: 0 !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(12px) !important;
+    z-index: 50 !important;
+  }
+  .brand-sub { display: none !important; }
+  .nav-tabs {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    height: calc(56px + env(safe-area-inset-bottom)) !important;
+    z-index: 9999 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+    padding: 4px 4px max(6px, env(safe-area-inset-bottom)) !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    margin: 0 !important;
+  }
+  .nav-tab-btn {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    padding: 4px 1px !important;
+    min-width: 0 !important;
+    flex: 1 !important;
+    max-width: 14.28% !important;
+    font-size: 10px !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    border: none !important;
+    background: transparent !important;
+  }
+  .nav-tab-btn * { pointer-events: none !important; }
+  .nav-tab-btn svg { width: 19px !important; height: 19px !important; margin-bottom: 1px !important; }
+  .nav-tab-btn .nav-text-short {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    line-height: 1.1 !important;
+  }
+  .nav-tab-btn.active .nav-text-short {
+    color: #EC4899 !important;
+    font-weight: 800 !important;
+  }
+  .metrics-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
   }
   .modal-card {
     width: 94vw !important;
@@ -1040,31 +1159,31 @@ body {
     <nav class="nav-tabs" id="navTabs">
       <button class="nav-tab-btn active" data-tab="dashboard" onclick="app.switchTab('dashboard')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
-        经营总览
+        <span class="nav-text-full">经营总览</span><span class="nav-text-short">总览</span>
       </button>
       <button class="nav-tab-btn" data-tab="schedule" onclick="app.switchTab('schedule')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        工位与排期
+        <span class="nav-text-full">工位与排期</span><span class="nav-text-short">排期</span>
       </button>
       <button class="nav-tab-btn" data-tab="orders" onclick="app.switchTab('orders')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        美学工单
+        <span class="nav-text-full">美学工单</span><span class="nav-text-short">工单</span>
       </button>
       <button class="nav-tab-btn" data-tab="members" onclick="app.switchTab('members')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        VIP美学档案
+        <span class="nav-text-full">VIP美学档案</span><span class="nav-text-short">会员</span>
       </button>
       <button class="nav-tab-btn" data-tab="cashier" onclick="app.switchTab('cashier')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        收银与流水
+        <span class="nav-text-full">收银与流水</span><span class="nav-text-short">收银</span>
       </button>
       <button class="nav-tab-btn" data-tab="inventory" onclick="app.switchTab('inventory')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-        耗材胶水安全
+        <span class="nav-text-full">耗材胶水安全</span><span class="nav-text-short">耗材</span>
       </button>
       <button class="nav-tab-btn" data-tab="copilot" onclick="app.switchTab('copilot')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        AI私域助手
+        <span class="nav-text-full">AI私域助手</span><span class="nav-text-short">AI</span>
       </button>
     </nav>
 
@@ -1091,11 +1210,11 @@ body {
   <!-- 主体工作区 -->
   <main class="main-container">
 
-    <!-- ================= 模块 1：经营总览驾驶舱 ================= -->
+    <!-- ================= 模块 1：<span class="nav-text-full">经营总览</span><span class="nav-text-short">总览</span>驾驶舱 ================= -->
     <section id="view-dashboard" class="view-section active">
       <div class="view-header">
         <div class="view-title-group">
-          <h2><span>📊</span> 经营总览驾驶舱</h2>
+          <h2><span>📊</span> <span class="nav-text-full">经营总览</span><span class="nav-text-short">总览</span>驾驶舱</h2>
           <p>实时监控今日客流、在座工位负荷率、日营收指标与到期养护预警</p>
         </div>
         <div style="display: flex; gap: 8px;">
@@ -1233,7 +1352,7 @@ body {
       </div>
     </section>
 
-    <!-- ================= 模块 2：工位与排期调度 ================= -->
+    <!-- ================= 模块 2：<span class="nav-text-full">工位与排期</span><span class="nav-text-short">排期</span>调度 ================= -->
     <section id="view-schedule" class="view-section">
       <div class="view-header">
         <div class="view-title-group">
@@ -1288,7 +1407,7 @@ body {
     <section id="view-orders" class="view-section">
       <div class="view-header">
         <div class="view-title-group">
-          <h2><span>📋</span> 美学工单管理与流转</h2>
+          <h2><span>📋</span> <span class="nav-text-full">美学工单</span><span class="nav-text-short">工单</span>管理与流转</h2>
           <p>全生命周期追踪：预约中 ➔ 已进座 ➔ 服务中（上钟计时） ➔ 完工验收 ➔ 收银结单</p>
         </div>
         <div style="display: flex; gap: 8px;">
@@ -3828,29 +3947,17 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
   <script>
-  (function() {
-    function initMobileNav() {
-      document.querySelectorAll('.nav-tab-btn').forEach(function(item) {
-        item.style.touchAction = 'manipulation';
-        item.style.webkitTapHighlightColor = 'transparent';
-        item.style.cursor = 'pointer';
-
-        // 统一监听 pointerup，彻底消除点击延迟和滚动卡死
-        item.addEventListener('pointerup', function(e) {
-          var targetVal = item.getAttribute('data-tab') || item.dataset.tab;
-          if (targetVal && window.app && typeof window.app.switchTab === 'function') {
-            window.app.switchTab(targetVal);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        }, { passive: true });
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initMobileNav);
-    } else {
-      initMobileNav();
-    }
-  })();
+  document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("click", function(e) {
+      var btn = e.target.closest(".nav-tab-btn");
+      if (btn && btn.dataset.tab) {
+        if (window.app && typeof window.app.switchTab === "function") {
+          window.app.switchTab(btn.dataset.tab);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+    });
+  });
   </script>
   
 </body>
